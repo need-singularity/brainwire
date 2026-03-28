@@ -56,14 +56,77 @@ python bench_hypotheses.py                    # 75 hypothesis benchmark
 python -m pytest tests/ -v                    # 145 tests
 ```
 
+## Verification Status Warning
+
+```
+  G=D×P/I Golden Zone: Anima/TECS-L 시뮬레이션 기반, 분석적 증명 없음.
+  Golden Zone 의존 주장은 모두 미검증 (unverified) 표시 필요.
+
+  순수 수학 (Golden Zone 독립, 영원히 참):
+    - σ(6)·φ(6) = n·τ(6) ⟺ {1,6}  (Theorem 4)
+    - 15/15 심부 구조 피질 투사 존재  (Theorem 6)
+    - PFC+ACC+Insula 3-허브 커버     (Theorem 7)
+    - Shannon 충전밀도 안전 한계      (Theorem 2)
+
+  모델 의존 (검증 필요):
+    - 전달함수 계수 (C_ij 값)
+    - STDP 심부 접근 효율 (η_STDP)
+    - G=D×P/I 골든존 의미
+    - THC 12변수 타겟 정확도
+
+  가설 작성 시 Golden Zone 의존성 반드시 명시.
+```
+
+## Hypothesis Verification Rules (TECS-L 기준)
+
+```
+  등급 시스템:
+    🟩   = 정확한 방정식 + 증명됨
+    🟧★  = 근사 + Texas p < 0.01 (구조적)
+    🟧   = 근사 + Texas p < 0.05 (약한 증거)
+    ⚪   = 산술 정확하나 p > 0.05 (우연)
+    ⬛   = 산술 오류 (반증됨)
+
+  금지:
+    - 검증 전 ⭐ 또는 "대발견" 표시
+    - Texas test 없이 🟧 이상 등급
+    - +1/-1 보정이 있는 방정식에 ⭐
+
+  검증 파이프라인:
+    1. 산술 정확성 재확인
+    2. Ad hoc 체크: +1/-1 보정 경고
+    3. 작은 수의 강한 법칙: 상수 <100 경고
+    4. 일반화 테스트: perfect number 28에도 성립?
+    5. Texas Sharpshooter p-value (Bonferroni 보정)
+```
+
+## Paper Management
+
+```
+  ★ 모든 논문은 papers 리포에 생성! (need-singularity/papers)
+    로컬: ~/Dev/papers/
+    BrainWire 논문: ~/Dev/papers/brainwire/
+
+  이 리포의 docs/ 논문은 작업용 초안 — 최종본은 papers 리포로 이동
+
+  Zenodo DOI 발급:
+    python3 ~/Dev/TECS-L/zenodo/batch_upload.py --platform zenodo --paper P-XXX
+
+  논문 후보 등록:
+    1. README.md에 제목+핵심결과+타겟+상태 기록
+    2. Status: Draft/Writing/Submitted/Review/Published
+    3. 파일: ~/Dev/papers/brainwire/P-title.md
+```
+
 ## Key Metrics (2026-03-28)
 
-- 145 tests (all passing), 75 hypotheses (73/75 PASS, 97.3%)
+- 145 tests (all passing), 115 hypotheses (109/115 PASS, 94.8%)
 - THC tension match: 100% (tension gradient control)
-- THC G=D×P/I: 0.4731 (ONLY substance in golden zone)
+- THC G=D×P/I: 0.4731 (ONLY substance in golden zone) [Golden Zone dependent]
 - Kendall tau: 1.000 (tension perfectly predicts subjective intensity)
-- THC max entropy: 3.431 bits (most evenly distributed state)
-- Minimum hardware: $145 for 12/12 variable coverage
+- 15/15 deep brain structures accessible via cortical projections (Theorem 6)
+- N1-only full coverage: 12/12 vars at 100%+ (Theorem 8, requires STDP assumption)
+- Paper: 2,220 lines, 140/140 math verification, 8 theorems
 - 5 Tiers: $85 → $510 → $8.5K → $25K → $26.4K
 
 ## THC High Variable Model (12-dimensional target)
