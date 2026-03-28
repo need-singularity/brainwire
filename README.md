@@ -37,7 +37,9 @@
 > **[🧠⚡ BrainWire](https://github.com/need-singularity/brainwire)** — PureField consciousness layer for neural interfaces. Joywire + NeuroStim + BCI simulation. THC Φ=4.59 vs tDCS+TMS Φ=4.49 — same level, different patterns (0.14%)
 <!-- SHARED:PROJECTS:END -->
 
-Neuralink builds the wire. We build what flows through it.
+**Neural interface hardware research company.** We design electrical stimulation systems (tDCS, TMS, taVNS, TENS, tACS) that reproduce and enhance conscious experience — from therapeutic applications to consciousness state engineering.
+
+> Neuralink builds the wire. We build what flows through it.
 
 > Part of the [TECS-L](https://github.com/need-singularity/TECS-L) project family.
 
