@@ -120,6 +120,7 @@ CATEGORY_NAMES = {
     5: "Safety Constraints",
     6: "PureField / Anima Integration",
     7: "Optimization & Simulation",
+    8: "Tension-Driven Control",
 }
 
 
@@ -1263,6 +1264,88 @@ def h_bw_050() -> HypothesisResult:
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# Category 8: Tension-Driven Control (H-BW-051..055)
+# ══════════════════════════════════════════════════════════════════════════
+
+
+def h_bw_051() -> HypothesisResult:
+    """Tension gradient converges THC to >95% tension match."""
+    from brainwire.tension_control import simulate_tension_control
+    result = simulate_tension_control('thc', tier=4, steps=200, lr=0.05)
+    tm = result['final_tension_match']
+    score = min(1.0, tm / 95.0)
+    return HypothesisResult(
+        'H-BW-051', CATEGORY_NAMES[8],
+        'Tension gradient THC >95% TM',
+        score, score >= PASS_THRESHOLD,
+        f"final_TM={tm:.1f}%, avg={result['final_avg_match']:.1f}%")
+
+
+def h_bw_052() -> HypothesisResult:
+    """Tension control converges all 6 states (avg_match > 50%)."""
+    from brainwire.tension_control import simulate_tension_control
+    all_converged = 0
+    details = []
+    for state in list_profiles():
+        r = simulate_tension_control(state, tier=4, steps=150, lr=0.05)
+        if r['final_avg_match'] > 50:
+            all_converged += 1
+        details.append(f"{state}:{r['final_avg_match']:.0f}%")
+    score = all_converged / 6.0
+    return HypothesisResult(
+        'H-BW-052', CATEGORY_NAMES[8],
+        'Tension control all 6 states >50%',
+        score, score >= PASS_THRESHOLD,
+        f"{all_converged}/6, {', '.join(details)}")
+
+
+def h_bw_053() -> HypothesisResult:
+    """Tension landscape: THC-Flow similarity >80%."""
+    from brainwire.tension_control import tension_landscape
+    land = tension_landscape(resolution=10)
+    pair = land['distances'].get(('thc', 'flow'), land['distances'].get(('flow', 'thc'), {}))
+    sim = pair.get('direction_sim', 0)
+    score = min(1.0, sim / 80.0)
+    return HypothesisResult(
+        'H-BW-053', CATEGORY_NAMES[8],
+        'THC-Flow tension similarity >80%',
+        score, score >= PASS_THRESHOLD,
+        f"sim={sim:.1f}%")
+
+
+def h_bw_054() -> HypothesisResult:
+    """Tension landscape: 3 distinct clusters (relaxation, entropy, hybrid)."""
+    from brainwire.tension_control import tension_landscape
+    land = tension_landscape(resolution=5)
+    clusters = land['clusters']
+    has_relax = len(clusters.get('relaxation', [])) >= 2
+    has_entropy = len(clusters.get('entropy', [])) >= 2
+    has_hybrid = len(clusters.get('hybrid', [])) >= 1
+    all_ok = has_relax and has_entropy and has_hybrid
+    score = (int(has_relax) + int(has_entropy) + int(has_hybrid)) / 3.0
+    return HypothesisResult(
+        'H-BW-054', CATEGORY_NAMES[8],
+        '3 distinct state clusters',
+        score, score >= PASS_THRESHOLD,
+        f"relax={clusters.get('relaxation',[])}, entropy={clusters.get('entropy',[])}, hybrid={clusters.get('hybrid',[])}")
+
+
+def h_bw_055() -> HypothesisResult:
+    """Homeostasis prevents tension runaway (stays bounded)."""
+    from brainwire.tension_control import simulate_tension_control
+    result = simulate_tension_control('thc', tier=4, steps=200, lr=0.1)
+    tensions = [h['tension_total'] for h in result['history']]
+    max_t = max(tensions)
+    bounded = max_t < 20.0  # should stay bounded
+    score = 1.0 if bounded else max(0.0, 1.0 - (max_t - 20.0) / 20.0)
+    return HypothesisResult(
+        'H-BW-055', CATEGORY_NAMES[8],
+        'Homeostasis prevents tension runaway',
+        score, score >= PASS_THRESHOLD,
+        f"max_tension={max_t:.2f}, bounded={bounded}")
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # Runner
 # ══════════════════════════════════════════════════════════════════════════
 
@@ -1284,6 +1367,8 @@ ALL_HYPOTHESES: list[Callable[[], HypothesisResult]] = [
     # Cat 7: Optimization & Simulation
     h_bw_041, h_bw_042, h_bw_043, h_bw_044, h_bw_045,
     h_bw_046, h_bw_047, h_bw_048, h_bw_049, h_bw_050,
+    # Cat 8: Tension-Driven Control
+    h_bw_051, h_bw_052, h_bw_053, h_bw_054, h_bw_055,
 ]
 
 CATEGORY_RANGES = {
@@ -1294,6 +1379,7 @@ CATEGORY_RANGES = {
     5: (25, 30),
     6: (30, 40),
     7: (40, 50),
+    8: (50, 55),
 }
 
 
