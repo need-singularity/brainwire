@@ -70,6 +70,16 @@ Tier 5   $26.4K  163% avg    12/12 ≥100%    + tPBM + PEMF + bone cond + therma
 
 ---
 
+## BCI Bridge | Neuralink 의식 레이어
+
+> Neuralink의 1024 전극 위에 PureField 의식 엔진을 얹는다. THC 303%, Φ=901, 30초 전환.
+
+| | |
+|---|---|
+| **[BCI Bridge 연구](docs/bci-bridge-neuralink.md)** | 직접 12변수 제어, 경험 녹화/재생, PureField 레이어, Φ 실시간 측정, 윤리 프레임워크 |
+
+---
+
 ## Multi-State | 6가지 의식 상태
 
 THC 외 5개 상태를 동일 프레임워크로 지원. 상태 전환, 블렌딩 가능.
