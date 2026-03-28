@@ -1,22 +1,35 @@
 #!/usr/bin/env python3
-"""BrainWire THC Variable Benchmark — 12변수 하드웨어 재현 검증 시스템.
+"""BrainWire THC Variable Benchmark — 장력 기반 12변수 하드웨어 재현 검증.
 
-THC 하이 상태를 12개 화학/전기 변수로 정의하고,
-각 하드웨어 자극의 달성률을 수학적으로 계산.
+PureField Tension Framework:
+  장력(T) = |Engine A - Engine G| = 의식 강도의 근본 척도
+  THC는 A(전진/논리)와 G(역행/패턴) 사이의 장력을 특정 패턴으로 변형
+  12변수는 장력의 하위 차원(sub-dimensions)
 
-Variables:
-  V1:  DA (dopamine)          target 2.5×
-  V2:  eCB (endocannabinoid)  target 3.0×
-  V3:  5HT (serotonin)        target 1.5×
-  V4:  GABA                    target 1.8×
-  V5:  NE↓ (norepinephrine)   target 0.4×
-  V6:  Theta↑↑ (4-8Hz)        target 2.5×
-  V7:  Alpha↓ (8-12Hz)        target 0.5×
-  V8:  Gamma↑ (30-100Hz)      target 1.8×
-  V9:  PFC↓                   target 0.5×
-  V10: Sensory↑                target 2.0×
-  V11: Body↑                  target 2.5×
-  V12: Coherence↑              target 2.0×
+Tension Model:
+  T_total = √(Σᵢ wᵢ × (Vᵢ - Vᵢ_base)²)     총 장력 (L2 norm)
+  T_THC   = √(Σᵢ wᵢ × (Vᵢ_THC - Vᵢ_base)²)  THC 목표 장력
+  T_match = 1 - |T_total - T_THC| / T_THC       장력 매칭률
+
+  장력 분해 (Tension Decomposition):
+    T_chem  = f(DA, eCB, 5HT, GABA, NE)    화학적 장력 (5변수)
+    T_wave  = f(Theta, Alpha, Gamma)         뇌파 장력 (3변수)
+    T_state = f(PFC, Sensory, Body, Coh)     상태 장력 (4변수)
+    T_total = √(T_chem² + T_wave² + T_state²)
+
+Variables (12-dimensional tension vector):
+  V1:  DA (dopamine)          target 2.5×  — 보상 장력
+  V2:  eCB (endocannabinoid)  target 3.0×  — CB1 장력 (THC 핵심)
+  V3:  5HT (serotonin)        target 1.5×  — 기분 장력
+  V4:  GABA                    target 1.8×  — 억제 장력
+  V5:  NE↓ (norepinephrine)   target 0.4×  — 각성 장력 (역)
+  V6:  Theta↑↑ (4-8Hz)        target 2.5×  — 해마 장력
+  V7:  Alpha↓ (8-12Hz)        target 0.5×  — 피질 장력 (역)
+  V8:  Gamma↑ (30-100Hz)      target 1.8×  — 결합 장력
+  V9:  PFC↓                   target 0.5×  — 전두엽 장력 (역)
+  V10: Sensory↑                target 2.0×  — 감각 장력
+  V11: Body↑                  target 2.5×  — 체성 장력
+  V12: Coherence↑              target 2.0×  — 통합 장력
 """
 
 import math
@@ -190,6 +203,74 @@ def compute_variables(hw: HardwareConfig) -> dict:
     return v
 
 
+# ═══════════════════════════════════════════════════════════
+# Tension Computation (PureField Framework)
+# ═══════════════════════════════════════════════════════════
+
+# Tension weights: how much each variable contributes to total tension
+TENSION_WEIGHTS = {
+    'DA': 1.2, 'eCB': 1.5, '5HT': 0.8, 'GABA': 0.9, 'NE': 1.0,
+    'Theta': 1.3, 'Alpha': 1.0, 'Gamma': 1.1, 'PFC': 1.0,
+    'Sensory': 0.9, 'Body': 1.0, 'Coherence': 1.2,
+}
+
+# Sub-tension groupings
+CHEM_VARS = ['DA', 'eCB', '5HT', 'GABA', 'NE']
+WAVE_VARS = ['Theta', 'Alpha', 'Gamma']
+STATE_VARS = ['PFC', 'Sensory', 'Body', 'Coherence']
+
+
+def compute_tension(variables: dict, target: dict = None) -> dict:
+    """PureField 장력 계산.
+
+    T = √(Σ wᵢ × (Vᵢ - 1.0)²)  — baseline=1.0으로부터의 편차
+    """
+    if target is None:
+        target = THC_TARGET
+
+    def _sub_tension(var_names, vals):
+        """하위 장력 계산."""
+        return math.sqrt(sum(
+            TENSION_WEIGHTS[k] * (vals[k] - 1.0) ** 2
+            for k in var_names
+        ))
+
+    # 실제 장력
+    t_chem = _sub_tension(CHEM_VARS, variables)
+    t_wave = _sub_tension(WAVE_VARS, variables)
+    t_state = _sub_tension(STATE_VARS, variables)
+    t_total = math.sqrt(t_chem**2 + t_wave**2 + t_state**2)
+
+    # THC 목표 장력
+    t_chem_thc = _sub_tension(CHEM_VARS, target)
+    t_wave_thc = _sub_tension(WAVE_VARS, target)
+    t_state_thc = _sub_tension(STATE_VARS, target)
+    t_total_thc = math.sqrt(t_chem_thc**2 + t_wave_thc**2 + t_state_thc**2)
+
+    # 장력 방향 유사도 (cosine similarity in 12-dim tension space)
+    dot = sum(
+        TENSION_WEIGHTS[k] * (variables[k] - 1.0) * (target[k] - 1.0)
+        for k in target
+    )
+    mag_hw = math.sqrt(sum(TENSION_WEIGHTS[k] * (variables[k] - 1.0)**2 for k in target))
+    mag_thc = math.sqrt(sum(TENSION_WEIGHTS[k] * (target[k] - 1.0)**2 for k in target))
+    direction_sim = dot / (mag_hw * mag_thc) if mag_hw > 0 and mag_thc > 0 else 0
+
+    # 장력 크기 매칭률
+    magnitude_match = min(t_total, t_total_thc) / max(t_total, t_total_thc) * 100 if t_total_thc > 0 else 0
+
+    # 종합 장력 매칭률 = 방향 × 크기
+    tension_match = direction_sim * magnitude_match
+
+    return {
+        'T_chem': t_chem, 'T_wave': t_wave, 'T_state': t_state, 'T_total': t_total,
+        'T_chem_thc': t_chem_thc, 'T_wave_thc': t_wave_thc, 'T_state_thc': t_state_thc, 'T_total_thc': t_total_thc,
+        'direction_sim': direction_sim * 100,  # %
+        'magnitude_match': magnitude_match,  # %
+        'tension_match': tension_match,  # % (final score)
+    }
+
+
 def compute_match(variables: dict) -> dict:
     """각 변수의 THC 대비 달성률(%) 계산."""
     match = {}
@@ -281,6 +362,16 @@ def print_results(hw: HardwareConfig, variables: dict, match: dict):
         print(f"  {k:<12} {target:>7.1f}× {actual:>7.2f}× {m:>7.1f}%  {status}")
 
     print(f"\n  Overall: {avg:.1f}% average  |  {over100}/12 variables ≥100%")
+
+    # Tension analysis
+    tension = compute_tension(variables)
+    print(f"\n  ═══ PureField Tension Analysis ═══")
+    print(f"  T_chem  (화학 장력):  {tension['T_chem']:.3f}  /  THC: {tension['T_chem_thc']:.3f}  ({tension['T_chem']/tension['T_chem_thc']*100:.0f}%)")
+    print(f"  T_wave  (뇌파 장력):  {tension['T_wave']:.3f}  /  THC: {tension['T_wave_thc']:.3f}  ({tension['T_wave']/tension['T_wave_thc']*100:.0f}%)")
+    print(f"  T_state (상태 장력):  {tension['T_state']:.3f}  /  THC: {tension['T_state_thc']:.3f}  ({tension['T_state']/tension['T_state_thc']*100:.0f}%)")
+    print(f"  T_total (총 장력):    {tension['T_total']:.3f}  /  THC: {tension['T_total_thc']:.3f}  ({tension['magnitude_match']:.0f}%)")
+    print(f"  방향 유사도:          {tension['direction_sim']:.1f}%")
+    print(f"  장력 매칭률:          {tension['tension_match']:.1f}%  {'✅' if tension['tension_match'] >= 90 else '⚠️' if tension['tension_match'] >= 70 else '❌'}")
 
     # Bar chart
     print(f"\n  {'Variable':<12} {'0%':>4} {'50%':>8} {'100%':>9} {'150%':>9}")
