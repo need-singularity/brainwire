@@ -7,9 +7,6 @@ TIER_CONFIGS = {
             'tDCS_anode_V1_mA': 1.5, 'tDCS_anode_S1_mA': 1.5,
             'taVNS_VNS_mA': 0.4,
             'TENS_low': 1.0, 'TENS_high': 0.8,
-            'entrainment_LED_40Hz': 1.0, 'entrainment_audio_40Hz': 1.0,
-            'entrainment_binaural_6Hz': 1.0, 'entrainment_vibro_40Hz': 1.0,
-            'entrainment_noise': 0.8, 'entrainment_alpha_ent': 0.8,
         },
     },
     2: {
@@ -21,9 +18,6 @@ TIER_CONFIGS = {
             'taVNS_VNS_mA': 0.5,
             'TENS_low': 1.0, 'TENS_high': 0.8,
             'tACS_6Hz_mA': 2.0, 'tACS_10Hz_mA': 2.0, 'tACS_40Hz_mA': 2.0,
-            'entrainment_LED_40Hz': 1.0, 'entrainment_audio_40Hz': 1.0,
-            'entrainment_binaural_6Hz': 1.0, 'entrainment_vibro_40Hz': 1.0,
-            'entrainment_noise': 0.8, 'entrainment_alpha_ent': 1.0,
         },
     },
     3: {
@@ -36,9 +30,6 @@ TIER_CONFIGS = {
             'TENS_low': 1.0, 'TENS_high': 1.0,
             'TMS_theta': 1.0, 'TMS_1Hz': 1.0, 'TMS_10Hz': 1.0, 'TMS_40Hz': 1.0,
             'tACS_6Hz_mA': 2.0, 'tACS_10Hz_mA': 2.0, 'tACS_40Hz_mA': 2.0,
-            'entrainment_LED_40Hz': 1.0, 'entrainment_audio_40Hz': 1.0,
-            'entrainment_binaural_6Hz': 1.0, 'entrainment_vibro_40Hz': 1.0,
-            'entrainment_noise': 1.0, 'entrainment_alpha_ent': 1.0,
         },
     },
     4: {
@@ -51,9 +42,6 @@ TIER_CONFIGS = {
             'TENS_low': 1.0, 'TENS_high': 1.0,
             'TMS_theta': 1.0, 'TMS_1Hz': 1.0, 'TMS_10Hz': 1.0, 'TMS_40Hz': 1.0,
             'tACS_6Hz_mA': 2.0, 'tACS_10Hz_mA': 2.0, 'tACS_40Hz_mA': 2.0,
-            'entrainment_LED_40Hz': 1.0, 'entrainment_audio_40Hz': 1.0,
-            'entrainment_binaural_6Hz': 1.0, 'entrainment_vibro_40Hz': 1.0,
-            'entrainment_noise': 1.0, 'entrainment_alpha_ent': 1.0,
             'tFUS_VTA_intensity': 0.8, 'tFUS_hippo_intensity': 0.8,
             'tFUS_raphe_intensity': 0.8, 'tFUS_LC_intensity': 0.6,
             'tFUS_V1_intensity': 0.7, 'tFUS_40Hz_intensity': 0.6,
@@ -76,9 +64,6 @@ TIER_CONFIGS = {
             'TENS_low': 1.0, 'TENS_high': 1.0,
             'TMS_theta': 1.0, 'TMS_1Hz': 1.0, 'TMS_10Hz': 1.0, 'TMS_40Hz': 1.0,
             'tACS_6Hz_mA': 2.0, 'tACS_10Hz_mA': 2.0, 'tACS_40Hz_mA': 2.0,
-            'entrainment_LED_40Hz': 1.0, 'entrainment_audio_40Hz': 1.0,
-            'entrainment_binaural_6Hz': 1.0, 'entrainment_vibro_40Hz': 1.0,
-            'entrainment_noise': 1.0, 'entrainment_alpha_ent': 1.0,
             'tFUS_VTA_intensity': 0.8, 'tFUS_hippo_intensity': 0.8,
             'tFUS_raphe_intensity': 0.8, 'tFUS_LC_intensity': 0.6,
             'tFUS_V1_intensity': 0.7, 'tFUS_40Hz_intensity': 0.6,
@@ -91,8 +76,6 @@ TIER_CONFIGS = {
             # Tier 5 non-electrical additions
             'tPBM_intensity': 0.8,          # photobiomodulation ($500)
             'tPBM_prefrontal': 0.7,
-            'bone_cond_6Hz': 0.8,           # bone conduction ($30)
-            'bone_cond_intensity': 0.7,
             'tSMS_intensity': 0.6,          # static magnets ($20)
             'PEMF_intensity': 0.7,          # pulsed EM field ($500)
             'caloric_temperature': 0.6,     # caloric vestibular ($10)

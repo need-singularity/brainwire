@@ -37,7 +37,6 @@ _C['5HT'] = {
 # V4: GABA
 _C['GABA'] = {
     ('tDCS', 'anode_mA'): 0.20,
-    ('entrainment', 'alpha_ent'): 0.30,
     ('TMS', 'theta'): 0.25,
     ('tACS', '10Hz_mA'): 0.15,
     ('mTI', 'thalamus_intensity'): 0.40,
@@ -53,7 +52,6 @@ _C['NE'] = {
 # V6: Theta
 _C['Theta'] = {
     ('TMS', 'theta'): 0.80,
-    ('entrainment', 'binaural_6Hz'): 0.40,
     ('tACS', '6Hz_mA'): 0.35,
     ('tFUS', 'hippo_intensity'): 0.70,
 }
@@ -67,9 +65,6 @@ _C['Alpha'] = {
 
 # V8: Gamma
 _C['Gamma'] = {
-    ('entrainment', 'LED_40Hz'): 0.30,
-    ('entrainment', 'audio_40Hz'): 0.25,
-    ('entrainment', 'vibro_40Hz'): 0.20,
     ('tACS', '40Hz_mA'): 0.15,
     ('TMS', '40Hz'): 0.10,
     ('tFUS', '40Hz_intensity'): 0.25,
@@ -85,8 +80,6 @@ _C['PFC'] = {
 # V10: Sensory
 _C['Sensory'] = {
     ('tDCS', 'anode_V1_mA'): 0.15,
-    ('entrainment', 'noise'): 0.40,
-    ('entrainment', 'LED_40Hz'): 0.20,
     ('TENS', 'low'): 0.15,
     ('tACS', '40Hz_mA'): 0.10,
     ('tSCS', 'intensity'): 0.50,
@@ -99,16 +92,13 @@ _C['Body'] = {
     ('TENS', 'low'): 0.80,
     ('TENS', 'high'): 0.30,
     ('tDCS', 'anode_S1_mA'): 0.20,
-    ('entrainment', 'vibro_40Hz'): 0.15,
     ('tSCS', 'intensity'): 0.60,
     ('GVS', 'current_mA'): 0.40,
 }
 
 # V12: Coherence
 _C['Coherence'] = {
-    ('entrainment', 'gamma_avg'): 0.30,   # avg of LED+audio+vibro 40Hz
     ('TMS', '40Hz'): 0.40,
-    ('entrainment', 'sync_avg'): 0.20,    # same as gamma_avg
     ('tACS', '40Hz_mA'): 0.15,
     ('tRNS', 'intensity'): 0.20,
 }
@@ -119,10 +109,6 @@ _C['Coherence'] = {
 _C['DA'][('tPBM', 'intensity')] = 0.35         # NO→DA pathway (Salehpour 2018)
 _C['Gamma'][('tPBM', 'intensity')] = 0.20      # metabolic rate → faster oscillations
 _C['PFC'][('tPBM', 'prefrontal')] = 0.15       # PFC metabolic activation
-
-# Bone conduction entrainment: vibration → cochlear + vestibular
-_C['Theta'][('bone_cond', '6Hz')] = 0.25       # theta entrainment via vestibular
-_C['Body'][('bone_cond', 'intensity')] = 0.20  # somatic vestibular activation
 
 # Static magnetic field (tSMS): cortical suppression
 _C['PFC'][('tSMS', 'intensity')] = 0.20        # PFC suppression (Oliviero 2011)
@@ -166,14 +152,6 @@ def _resolve_param(params: dict[str, float], device: str, param: str) -> float:
     return 0.0
 
 
-def _gamma_avg(params: dict[str, float]) -> float:
-    """Compute average of LED_40Hz, audio_40Hz, vibro_40Hz entrainment params."""
-    led = _resolve_param(params, 'entrainment', 'LED_40Hz')
-    audio = _resolve_param(params, 'entrainment', 'audio_40Hz')
-    vibro = _resolve_param(params, 'entrainment', 'vibro_40Hz')
-    return (led + audio + vibro) / 3.0
-
-
 # ---------------------------------------------------------------------------
 # TransferEngine
 # ---------------------------------------------------------------------------
@@ -193,13 +171,6 @@ class TransferEngine:
             Normal vars: 1.0 + Σ(coeff * param_value).
             Suppressed vars: max(0.01, 1.0 - Σ(coeff * param_value)).
         """
-        # Pre-compute derived aggregate params
-        gamma_avg_val = _gamma_avg(params)
-        derived: dict[str, float] = {
-            'gamma_avg': gamma_avg_val,
-            'sync_avg': gamma_avg_val,
-        }
-
         result: dict[str, float] = {}
 
         for var in VAR_NAMES:
@@ -207,11 +178,7 @@ class TransferEngine:
             total = 0.0
 
             for (device, param), coeff in coeffs.items():
-                # Check derived first (device == 'entrainment', special params)
-                if device == 'entrainment' and param in derived:
-                    value = derived[param]
-                else:
-                    value = _resolve_param(params, device, param)
+                value = _resolve_param(params, device, param)
                 total += coeff * value
 
             if var in SUPPRESSED_VARS:

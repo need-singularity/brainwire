@@ -71,9 +71,6 @@ def test_tier3_thc_matches_existing():
         'TENS_low': 1.0, 'TENS_high': 1.0,
         'TMS_theta': 1.0, 'TMS_1Hz': 1.0, 'TMS_10Hz': 1.0, 'TMS_40Hz': 1.0,
         'tACS_6Hz_mA': 2.0, 'tACS_10Hz_mA': 2.0, 'tACS_40Hz_mA': 2.0,
-        'entrainment_LED_40Hz': 1.0, 'entrainment_audio_40Hz': 1.0,
-        'entrainment_binaural_6Hz': 1.0, 'entrainment_vibro_40Hz': 1.0,
-        'entrainment_noise': 1.0, 'entrainment_alpha_ent': 1.0,
     }
     result = engine.compute(tier3_params)
     assert result['DA'] > 2.0
