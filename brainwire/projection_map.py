@@ -6,7 +6,7 @@ PROJECTIONS = {
         'VTA': 0.08, 'LC': 0.03, 'Raphe': 0.05, 'Hippocampus': 0.05,
         'Thalamus': 0.15, 'Amygdala': 0.10, 'Hypothalamus': 0.08,
         'Basal_Ganglia': 0.12, 'NAc': 0.10, 'PAG': 0.03,
-        'SN': 0.05, 'STN': 0.08,
+        'SN': 0.05, 'STN': 0.08, 'Cerebellum': 0.08,
     },
     'ACC': {
         'VTA': 0.06, 'LC': 0.04, 'Raphe': 0.04, 'Hypothalamus': 0.06,
@@ -18,6 +18,7 @@ PROJECTIONS = {
     },
     'Motor': {
         'Thalamus': 0.20, 'Basal_Ganglia': 0.15, 'SN': 0.08, 'STN': 0.10,
+        'Cerebellum': 0.12,  # Motor→Pons→Cerebellum (2-synapse, corticopontocerebellar)
     },
     'OFC': {'VTA': 0.06, 'NAc': 0.12},
     'Temporal': {'Hippocampus': 0.08, 'Amygdala': 0.15},

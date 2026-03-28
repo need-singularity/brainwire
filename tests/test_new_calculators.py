@@ -11,7 +11,7 @@ def test_f3_highest_j():
 
 def test_f3_12_deep():
     r = compute_j('F3')
-    assert r['n_deep'] == 12
+    assert r['n_deep'] == 13  # 12 original + Cerebellum via corticopontocerebellar
 
 def test_covering_set_small():
     c = minimum_covering_set()

@@ -3,7 +3,7 @@ import math
 
 # 10 candidate cortical locations
 LOCATIONS = {
-    'F3':  {'name': 'Left DLPFC', 'ba': 'BA46', 'deep_targets': ['VTA','LC','Raphe','Hippocampus','Thalamus','Amygdala','Hypothalamus','Basal_Ganglia','NAc','PAG','SN','STN'], 'g_control': {'D': True, 'P': True, 'I': True}},
+    'F3':  {'name': 'Left DLPFC', 'ba': 'BA46', 'deep_targets': ['VTA','LC','Raphe','Hippocampus','Thalamus','Amygdala','Hypothalamus','Basal_Ganglia','NAc','PAG','SN','STN','Cerebellum'], 'g_control': {'D': True, 'P': True, 'I': True}},
     'F4':  {'name': 'Right DLPFC', 'ba': 'BA46', 'deep_targets': ['VTA','LC','Raphe','Hippocampus','Thalamus','Amygdala','Hypothalamus','Basal_Ganglia','NAc','PAG'], 'g_control': {'D': False, 'P': True, 'I': True}},
     'Fz':  {'name': 'Medial PFC', 'ba': 'BA10', 'deep_targets': ['VTA','Raphe','Hypothalamus','NAc','PAG'], 'g_control': {'D': False, 'P': True, 'I': True}},
     'C3':  {'name': 'Left Motor', 'ba': 'BA4', 'deep_targets': ['Thalamus','Basal_Ganglia','SN','STN'], 'g_control': {'D': False, 'P': False, 'I': False}},
