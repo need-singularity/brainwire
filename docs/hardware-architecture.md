@@ -133,7 +133,7 @@
 | tDCS | 1-2mA, 20min max | FDA 가이드라인 준수 |
 | TMS | 6Hz/40Hz burst, duty cycle | rTMS safety table |
 | Binaural | 4-40Hz audio | 무해 |
-| Breathwork | Rate guide via audio | SpO2 모니터링 필수 |
+| taVNS | 25Hz, 0.5mA ear-clip | 심장 부정맥 금기 |
 
 ## 💸 Budget-Friendly Alternatives (쉽고 저렴한 대안)
 
@@ -162,12 +162,11 @@
 | **MyNoise.net** | 무료 | 커스텀 사운드스케이프 |
 | **골전도 이어폰** | ~$30 | 뼈 전도 binaural |
 
-### 호흡/생체 모니터링
+### 생체 모니터링
 | 장비 | 가격 | 용도 |
 |------|------|------|
 | **핑거 펄스옥시미터** | ~$15 | SpO2 + 심박 |
 | **Arduino + MAX30102** | ~$10 | DIY SpO2 (데이터 로깅) |
-| **호흡벨트 (piezo)** | ~$20 | 호흡 주기 측정 |
 
 ### 신경 자극 (저가)
 | 장비 | 가격 | 용도 |
