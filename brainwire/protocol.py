@@ -268,6 +268,110 @@ def export_json(protocol: dict, path: str):
     return path
 
 
+def generate_pk_protocol(tier: int = 3, session_min: int = 30,
+                          concentration: str = 'strong') -> dict:
+    """Generate PK-driven THC protocol — time-varying params following pharmacokinetics.
+
+    Unlike static protocols, this varies EACH device independently
+    to match the natural THC temporal profile:
+    NE(3m) → DA(5m) → Alpha(6m) → Theta(8m) → 5HT(10m) → eCB(15m) → Body(15m)
+    """
+    from brainwire.pharmacokinetics import simulate_thc_pharmacokinetics, generate_hardware_timing
+    from brainwire.engine.transfer import COEFFICIENTS, SUPPRESSED_VARS
+
+    profile = load_profile('thc')
+    pk = simulate_thc_pharmacokinetics(concentration, session_min * 60, dt=30)
+    hw_timing = generate_hardware_timing(pk)
+
+    # Get base params
+    try:
+        from brainwire.optimizer import optimize_for_profile
+        opt = optimize_for_profile('thc', tier, max_iters=20)
+        base_params = opt['params']
+    except Exception:
+        base_params = get_tier_params(tier)
+
+    # Build variable→param mapping (which params affect which vars)
+    var_to_params = {}
+    for var in VAR_NAMES:
+        coeffs = COEFFICIENTS.get(var, {})
+        var_to_params[var] = []
+        for (device, param), coeff in coeffs.items():
+            key = f"{device}_{param}"
+            if key in base_params or param in base_params:
+                var_to_params[var].append(key if key in base_params else param)
+
+    steps = []
+    steps.append(ProtocolStep(
+        time_s=-120, phase='prep',
+        devices={},
+        notes="PK-mode: electrode placement, impedance check, baseline EEG"
+    ))
+
+    for point in hw_timing['hardware_timeline']:
+        t = point['t']
+        fracs = point['fractions']
+
+        # For each param, compute its intensity based on the variables it affects
+        scaled_params = {}
+        for param_key, base_val in base_params.items():
+            # Find which variables this param primarily affects
+            max_frac = 0.0
+            for var, param_list in var_to_params.items():
+                if param_key in param_list:
+                    max_frac = max(max_frac, fracs.get(var, 0.0))
+            if max_frac == 0.0:
+                max_frac = sum(fracs.values()) / 12  # average fraction as fallback
+            scaled_params[param_key] = base_val * min(max_frac, 1.2)
+
+        devices = params_to_devices(scaled_params)
+
+        # Determine dominant variable at this timepoint
+        dominant = max(fracs.items(), key=lambda x: abs(x[1]))
+        phase = 'pk_onset' if t < 300 else 'pk_peak' if t < 1200 else 'pk_decline'
+
+        steps.append(ProtocolStep(
+            time_s=t, phase=phase,
+            devices=devices,
+            notes=f"PK t={t/60:.1f}m dominant={dominant[0]}({dominant[1]:.0%})"
+        ))
+
+    steps.append(ProtocolStep(
+        time_s=session_min * 60 + 60, phase='cooldown',
+        devices={},
+        notes="PK session complete. All OFF. Journal."
+    ))
+
+    safety = generate_safety_checklist('thc', tier, base_params)
+    safety.insert(0, "[ ] PK MODE: params vary over time (not constant)")
+
+    return {
+        'state': 'thc',
+        'tier': tier,
+        'session_min': session_min,
+        'mode': 'pharmacokinetic',
+        'concentration': concentration,
+        'onset_s': 0,
+        'plateau_s': session_min * 60,
+        'offset_s': 0,
+        'steps': steps,
+        'safety': safety,
+        'active_devices': params_to_devices(base_params),
+        'cost': TIER_CONFIGS.get(tier, {}).get('cost', 0),
+        'target_params': base_params,
+        'peak_sequence': sorted(pk['peak_times'].items(), key=lambda x: x[1]),
+    }
+
+
+def print_pk_protocol(protocol: dict):
+    """Print PK protocol with peak sequence."""
+    print_protocol(protocol)
+    if 'peak_sequence' in protocol:
+        print(f"\n  PHARMACOKINETIC PEAK SEQUENCE:")
+        for var, peak_t in protocol['peak_sequence']:
+            print(f"    {peak_t/60:>5.1f}m  {var}")
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description='Protocol Generator')
@@ -276,9 +380,15 @@ def main():
     parser.add_argument('--duration', type=int, default=30, help='Session minutes')
     parser.add_argument('--export', type=str, help='Export JSON path')
     parser.add_argument('--all', action='store_true')
+    parser.add_argument('--pk', action='store_true', help='PK-driven protocol (THC only)')
+    parser.add_argument('--concentration', default='strong',
+                        choices=['micro', 'light', 'medium', 'strong', 'intense'])
     args = parser.parse_args()
 
-    if args.all:
+    if args.pk:
+        p = generate_pk_protocol(args.tier, args.duration, args.concentration)
+        print_pk_protocol(p)
+    elif args.all:
         from brainwire.profiles import list_profiles
         for state in list_profiles():
             p = generate_protocol(state, args.tier, args.duration)
