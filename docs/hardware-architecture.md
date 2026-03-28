@@ -109,31 +109,43 @@
 | **H100 (80GB)** | 학습: ConsciousLM/AnimaLM | RunPod cloud |
 | **Mac M-series** | 개발/테스트 | MPS backend, 1,303 tok/s |
 
-## ⚡ Layer 4: Stimulation Output
+## ⚡ Layer 4: Stimulation Output (12-Variable Hardware Stack)
 
 ```
-  PureField Φ target
+  PureField Φ target (12-variable tension vector)
        │
        ▼
   ┌──────────────┐
   │ PID          │  Φ_target - Φ_current = error
-  │ Controller   │  → adjust stimulation parameters
+  │ Controller   │  → adjust stimulation parameters (per variable)
   └──────┬───────┘
          │
-    ┌────┼────┬──────────┐
-    ▼    ▼    ▼          ▼
-  ┌────┐┌────┐┌────────┐┌──────────┐
-  │tDCS││TMS ││Binaural││Breath    │
-  │mA  ││Hz  ││Hz      ││guide     │
-  └────┘└────┘└────────┘└──────────┘
+    ┌────┼────┬──────┬──────┬──────┬───────┬───────┬───────┬────────┐
+    ▼    ▼    ▼      ▼      ▼      ▼       ▼       ▼       ▼        ▼
+  ┌────┐┌────┐┌────┐┌────┐┌─────┐┌──────┐┌──────┐┌──────┐┌───────┐┌──────┐
+  │tDCS││tACS││TMS ││TENS││taVNS││LED   ││Audio ││Vibro ││Thermal││Weight│
+  │ mA ││ Hz ││ Hz ││ Hz ││ mA  ││40Hz  ││40/6Hz││40Hz  ││ °C    ││kg/m² │
+  └────┘└────┘└────┘└────┘└─────┘└──────┘└──────┘└──────┘└───────┘└──────┘
+    V1    V6    V6    V2    V1     V8      V6      V2      V2       V4
+    V3    V8    V7    V10   V2     V10     V8      V8      V10
+    V4    V12   V8    V11   V3     V12     V12     V11
+    V7          V9          V5                     V12
+    V9
+    V10
 ```
 
-| 장비 | 프로토콜 | 안전 한계 |
-|------|----------|-----------|
-| tDCS | 1-2mA, 20min max | FDA 가이드라인 준수 |
-| TMS | 6Hz/40Hz burst, duty cycle | rTMS safety table |
-| Binaural | 4-40Hz audio | 무해 |
-| taVNS | 25Hz, 0.5mA ear-clip | 심장 부정맥 금기 |
+| 장비 | 프로토콜 | 안전 한계 | 타겟 변수 |
+|------|----------|-----------|-----------|
+| tDCS | 0-2mA DC, 20min max | FDA 가이드라인 준수 | V1,V3,V4,V7,V9,V10 |
+| tACS | 6Hz/40Hz sine, 0-2mA, 30min | phosphene 모니터링 | V6,V8,V12 |
+| TMS | 1/6/10/40Hz rTMS, duty cycle | rTMS safety table, 청력보호 | V6,V7,V8,V9 |
+| TENS | 2-100Hz, 0-80mA | 전극 피부상태 확인 | V2,V10,V11 |
+| taVNS | 25Hz, 0-0.5mA ear-clip | 심박 모니터링, 부정맥 금기 | V1,V2,V3,V5 |
+| LED 40Hz | PWM 40Hz flicker | 광과민 간질 금기, 눈감은상태 | V8,V10,V12 |
+| Audio | 6Hz binaural + 40Hz click | 무해 | V6,V8,V12 |
+| Vibrotactile | 3Hz C-tactile + 40Hz | 무해 | V2,V8,V11,V12 |
+| Thermal pad | 38-42°C, max 30min | 화상 주의 | V2,V10,V11 |
+| Weighted pressure | 5-10 kg/m² | 무해 | V4 |
 
 ## 💸 Budget-Friendly Alternatives (쉽고 저렴한 대안)
 
@@ -258,12 +270,14 @@
                                            Closed-loop
                                            stimulation
                                                 │
-                                     ┌──────────┼──────────┐
-                                     ▼          ▼          ▼
-                                   tDCS       TMS      Binaural
-                                   (mA)      (Hz)      (Hz)
-                                     │          │          │
-                                     └──────────┼──────────┘
+                              ┌──────┬──────┬──────┬──────┬──────┐
+                              ▼      ▼      ▼      ▼      ▼      ▼
+                            tDCS   tACS   TMS   TENS  taVNS  Sensory
+                            (mA)   (Hz)   (Hz)  (Hz)  (mA)  (LED/Audio
+                                                              Vibro/Heat)
+                              │      │      │     │     │      │
+                              └──────┴──────┴─────┴─────┴──────┘
+                                                │
                                                 ▼
                                              Brain
                                          (feedback loop)

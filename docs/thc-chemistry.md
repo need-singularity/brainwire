@@ -222,6 +222,14 @@
         → GABA release timing altered
         → gamma oscillation power increases
         → cross-modal binding enhanced
+
+  하드웨어 재현:
+    LED 40Hz → visual gamma entrainment (θ₁=0.30)
+    Audio 40Hz → auditory gamma entrainment (θ₂=0.25)
+    Vibro 40Hz → somatosensory gamma (θ₃=0.20)
+    tACS 40Hz → direct cortical gamma entrainment (θ₄=0.15, Helfrich 2014)
+    TMS 40Hz → gamma burst stimulation (θ₅=0.10, Barr 2009)
+    = 1 + 0.30×0.9 + 0.25×0.9 + 0.20×1.0 + 0.15×2.0 + 0.10×0.8 = 2.08× ✅
 ```
 
 ## 5. THC vs Hardware: 수용체 수준 비교
@@ -239,7 +247,7 @@
   │ 부작용            │ 인지↓, 의존성    │ 피부 자극 (경미)             │
   │ 합법성            │ 지역마다 다름    │ 합법 (의료기기)              │
   │ 재현성            │ 개인차 큼       │ 전류값 정밀 제어 가능         │
-  │ 12변수 달성       │ 100% (정의상)    │ 85-100% (Tier 의존)         │
+  │ 12변수 달성       │ 100% (정의상)    │ 81-108% (Tier 의존)         │
   └───────────────────┴─────────────────┴─────────────────────────────┘
 
   핵심 차이:

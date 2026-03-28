@@ -34,11 +34,11 @@ C = {
     'NE_VNS': 1.50,
     'Theta_TMS': 0.80, 'Theta_bin': 0.40, 'Theta_tACS': 0.35,
     'Alpha_cathode': 0.20, 'Alpha_TMS1': 0.25,
-    'Gamma_LED': 0.30, 'Gamma_audio': 0.25, 'Gamma_vibro40': 0.20,
+    'Gamma_LED': 0.30, 'Gamma_audio': 0.25, 'Gamma_vibro40': 0.20, 'Gamma_tACS40': 0.15, 'Gamma_TMS40': 0.10,
     'PFC_cathode': 0.20, 'PFC_TMS1': 0.25,
-    'Sens_tDCS': 0.15, 'Sens_noise': 0.40, 'Sens_LED': 0.20,
+    'Sens_tDCS': 0.15, 'Sens_noise': 0.40, 'Sens_LED': 0.20, 'Sens_TENS': 0.15, 'Sens_heat': 0.05,
     'Body_TENS': 0.80, 'Body_heat': 0.30, 'Body_vibro': 0.50,
-    'Coh_gamma': 0.30, 'Coh_TMS40': 0.40, 'Coh_sync': 0.20,
+    'Coh_gamma': 0.30, 'Coh_TMS40': 0.40, 'Coh_sync': 0.20, 'Coh_tACS40': 0.15,
 }
 
 # Hardware cost table
@@ -61,6 +61,7 @@ PARAMS = {
     'TMS_1Hz':    (0, 1.0, 0.1, 'TMS'),
     'TMS_40Hz':   (0, 1.0, 0.1, 'TMS'),
     'tACS_6Hz':   (0, 2.0, 0.1, 'tACS'),
+    'tACS_40Hz':  (0, 2.0, 0.1, 'tACS'),
     'LED_40Hz':   (0, 1.0, 0.1, 'LED_Arduino'),
     'audio_40Hz': (0, 1.0, 0.1, 'audio'),
     'binaural':   (0, 1.0, 0.1, 'audio'),
@@ -88,12 +89,12 @@ def compute(p: dict) -> dict:
     v['NE']    = max(0.01, 1 - C['NE_VNS']*p.get('VNS',0))
     v['Theta'] = 1 + C['Theta_TMS']*p.get('TMS_theta',0) + C['Theta_bin']*p.get('binaural',0) + C['Theta_tACS']*p.get('tACS_6Hz',0)
     v['Alpha'] = max(0.01, 1 - C['Alpha_cathode']*p.get('cathode_Fz',0) - C['Alpha_TMS1']*p.get('TMS_1Hz',0))
-    v['Gamma'] = 1 + C['Gamma_LED']*p.get('LED_40Hz',0) + C['Gamma_audio']*p.get('audio_40Hz',0) + C['Gamma_vibro40']*p.get('vibro_40Hz',0)
+    v['Gamma'] = 1 + C['Gamma_LED']*p.get('LED_40Hz',0) + C['Gamma_audio']*p.get('audio_40Hz',0) + C['Gamma_vibro40']*p.get('vibro_40Hz',0) + C['Gamma_tACS40']*p.get('tACS_40Hz',0) + C['Gamma_TMS40']*p.get('TMS_40Hz',0)
     v['PFC']   = max(0.01, 1 - C['PFC_cathode']*p.get('cathode_F4',0) - C['PFC_TMS1']*p.get('TMS_1Hz',0))
-    v['Sensory'] = 1 + C['Sens_tDCS']*p.get('tDCS_V1',0) + C['Sens_noise']*p.get('noise',0) + C['Sens_LED']*p.get('LED_40Hz',0)
+    v['Sensory'] = 1 + C['Sens_tDCS']*p.get('tDCS_V1',0) + C['Sens_noise']*p.get('noise',0) + C['Sens_LED']*p.get('LED_40Hz',0) + C['Sens_TENS']*p.get('TENS',0) + C['Sens_heat']*p.get('heat',0)
     v['Body']  = 1 + C['Body_TENS']*p.get('TENS',0) + C['Body_heat']*p.get('heat',0) + C['Body_vibro']*p.get('vibro',0)
     g_avg = (p.get('LED_40Hz',0) + p.get('audio_40Hz',0) + p.get('vibro_40Hz',0)) / 3
-    v['Coherence'] = 1 + C['Coh_gamma']*g_avg + C['Coh_TMS40']*p.get('TMS_40Hz',0) + C['Coh_sync']*g_avg
+    v['Coherence'] = 1 + C['Coh_gamma']*g_avg + C['Coh_TMS40']*p.get('TMS_40Hz',0) + C['Coh_sync']*g_avg + C['Coh_tACS40']*p.get('tACS_40Hz',0)
     return v
 
 
@@ -190,14 +191,14 @@ def cmd_tiers(args):
                              TENS=0.8, LED_40Hz=0.8, binaural=0.7, vibro_40Hz=0.6,
                              vibro=0.6, noise=0.3, music=0.6, heat=3.0, weight=5, alpha_ent=0.5),
         'Tier 2 ($525)': dict(tDCS=1.5, cathode_Fz=1.5, cathode_F4=1.5, tDCS_V1=1.5,
-                              VNS=0.4, TENS=0.8, tACS_6Hz=1.8,
+                              VNS=0.4, TENS=0.8, tACS_6Hz=1.8, tACS_40Hz=1.5,
                               LED_40Hz=0.8, audio_40Hz=0.8, binaural=0.7, vibro_40Hz=0.8,
                               vibro=0.6, noise=0.5, music=0.6, heat=3.0, weight=10, alpha_ent=0.7),
-        'Tier 3 ($8.5K)': dict(tDCS=1.5, cathode_Fz=1.5, cathode_F4=1.5, tDCS_V1=1.5,
-                               VNS=0.4, TENS=0.8, TMS_theta=0.8, TMS_1Hz=0.8, TMS_40Hz=0.8,
-                               tACS_6Hz=1.8,
-                               LED_40Hz=0.8, audio_40Hz=0.8, binaural=0.7, vibro_40Hz=0.8,
-                               vibro=0.6, noise=0.5, music=0.6, heat=3.0, weight=10, alpha_ent=0.7),
+        'Tier 3 ($8.5K)': dict(tDCS=2.0, cathode_Fz=1.5, cathode_F4=1.5, tDCS_V1=2.0,
+                               VNS=0.4, TENS=1.0, TMS_theta=0.8, TMS_1Hz=0.8, TMS_40Hz=0.8,
+                               tACS_6Hz=1.8, tACS_40Hz=2.0,
+                               LED_40Hz=0.9, audio_40Hz=0.9, binaural=0.7, vibro_40Hz=1.0,
+                               vibro=0.7, noise=0.7, music=0.6, heat=3.0, weight=10, alpha_ent=0.7),
     }
     for name, p in tiers.items():
         print_result(p, name)
@@ -262,11 +263,11 @@ def cmd_inverse(args):
         'NE':    [('VNS', C['NE_VNS'])],
         'Theta': [('TMS_theta', C['Theta_TMS']), ('binaural', C['Theta_bin']), ('tACS_6Hz', C['Theta_tACS'])],
         'Alpha': [('cathode_Fz', C['Alpha_cathode']), ('TMS_1Hz', C['Alpha_TMS1'])],
-        'Gamma': [('LED_40Hz', C['Gamma_LED']), ('audio_40Hz', C['Gamma_audio']), ('vibro_40Hz', C['Gamma_vibro40'])],
+        'Gamma': [('LED_40Hz', C['Gamma_LED']), ('audio_40Hz', C['Gamma_audio']), ('vibro_40Hz', C['Gamma_vibro40']), ('tACS_40Hz', C['Gamma_tACS40']), ('TMS_40Hz', C['Gamma_TMS40'])],
         'PFC':   [('cathode_F4', C['PFC_cathode']), ('TMS_1Hz', C['PFC_TMS1'])],
-        'Sensory':[('tDCS_V1', C['Sens_tDCS']), ('noise', C['Sens_noise']), ('LED_40Hz', C['Sens_LED'])],
+        'Sensory':[('tDCS_V1', C['Sens_tDCS']), ('noise', C['Sens_noise']), ('LED_40Hz', C['Sens_LED']), ('TENS', C['Sens_TENS']), ('heat', C['Sens_heat'])],
         'Body':  [('TENS', C['Body_TENS']), ('heat', C['Body_heat']), ('vibro', C['Body_vibro'])],
-        'Coherence': [('LED_40Hz', C['Coh_gamma']), ('TMS_40Hz', C['Coh_TMS40']), ('vibro_40Hz', C['Coh_sync'])],
+        'Coherence': [('LED_40Hz', C['Coh_gamma']), ('TMS_40Hz', C['Coh_TMS40']), ('vibro_40Hz', C['Coh_sync']), ('tACS_40Hz', C['Coh_tACS40'])],
     }
 
     params = VAR_PARAMS.get(var, [])
@@ -340,14 +341,14 @@ def cmd_gap(args):
                         TENS=0.8, LED_40Hz=0.8, binaural=0.7, vibro_40Hz=0.6,
                         vibro=0.6, noise=0.3, music=0.6, heat=3.0, weight=5, alpha_ent=0.5),
         'Tier 2': dict(tDCS=1.5, cathode_Fz=1.5, cathode_F4=1.5, tDCS_V1=1.5,
-                        VNS=0.4, TENS=0.8, tACS_6Hz=1.8,
+                        VNS=0.4, TENS=0.8, tACS_6Hz=1.8, tACS_40Hz=1.5,
                         LED_40Hz=0.8, audio_40Hz=0.8, binaural=0.7, vibro_40Hz=0.8,
                         vibro=0.6, noise=0.5, music=0.6, heat=3.0, weight=10, alpha_ent=0.7),
-        'Tier 3': dict(tDCS=1.5, cathode_Fz=1.5, cathode_F4=1.5, tDCS_V1=1.5,
-                        VNS=0.4, TENS=0.8, TMS_theta=0.8, TMS_1Hz=0.8, TMS_40Hz=0.8,
-                        tACS_6Hz=1.8,
-                        LED_40Hz=0.8, audio_40Hz=0.8, binaural=0.7, vibro_40Hz=0.8,
-                        vibro=0.6, noise=0.5, music=0.6, heat=3.0, weight=10, alpha_ent=0.7),
+        'Tier 3': dict(tDCS=2.0, cathode_Fz=1.5, cathode_F4=1.5, tDCS_V1=2.0,
+                        VNS=0.4, TENS=1.0, TMS_theta=0.8, TMS_1Hz=0.8, TMS_40Hz=0.8,
+                        tACS_6Hz=1.8, tACS_40Hz=2.0,
+                        LED_40Hz=0.9, audio_40Hz=0.9, binaural=0.7, vibro_40Hz=1.0,
+                        vibro=0.7, noise=0.7, music=0.6, heat=3.0, weight=10, alpha_ent=0.7),
     }
 
     for tier_name, p in tiers.items():
@@ -394,7 +395,7 @@ def cmd_optimize(args):
                                           music=0.6, heat=3.0, binaural=0.7, alpha_ent=0.5, weight=5)),
         ('+taVNS', 100, dict(VNS=0.4)),
         ('+가중담요', 40, dict(weight=10)),
-        ('+tACS', 80, dict(tACS_6Hz=1.8)),
+        ('+tACS', 80, dict(tACS_6Hz=1.8, tACS_40Hz=1.5)),
         ('+tDCS_V1', 0, dict(tDCS_V1=1.5)),
         ('+audio_40Hz', 0, dict(audio_40Hz=0.8)),
         ('+noise↑', 0, dict(noise=0.5)),
