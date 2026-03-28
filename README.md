@@ -77,6 +77,7 @@ Tier 5   $26.4K  163% avg    12/12 ≥100%    + tPBM + PEMF + bone cond + therma
 | | |
 |---|---|
 | **[BCI Bridge 연구](docs/bci-bridge-neuralink.md)** | 직접 12변수 제어, 경험 녹화/재생, PureField 레이어, Φ 실시간 측정, 윤리 프레임워크 |
+| **[Neuralink N1 기술 분석](docs/neuralink-technical-analysis.md)** | N1 스펙, 깊이 한계(피질만), 하이브리드 아키텍처, 안전 계산, 파트너십 전략 |
 
 ---
 
