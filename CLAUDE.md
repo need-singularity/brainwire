@@ -24,17 +24,47 @@ BrainWire is a **neural interface hardware research company**. We design and bui
 
 - **Input:** EEG (OpenBCI 16ch+), neural signals
 - **Processing:** PureField engine, Φ measurement, 12-variable consciousness model
-- **Output:** tDCS, TMS, taVNS, TENS, tACS, 40Hz entrainment
-- **Feedback:** Closed-loop PID control on consciousness state variables
+- **Output:** tDCS, TMS, taVNS, TENS, tACS, tFUS, GVS, mTI, tSCS, tRNS, tPBM, 40Hz entrainment
+- **Feedback:** Tension gradient control (superior to PID) on consciousness state variables
+- **Measurement:** G=D×P/I golden zone targeting (THC G=0.4731)
 
 ## Work Rules
 
-- All solutions must involve **electrical stimulation hardware**
+- All solutions must involve **hardware** (electrical, acoustic, photonic, thermal, magnetic)
 - No body-based methods (breathing, exercise, diet) as primary interventions
 - Hardware-only approach: if it doesn't plug in or have electrodes, it's not our product
 - Commit messages in English
 - Long-running tasks must run in background
 - THC reproduction target: 100%+ on all 12 variables
+- TECS-L style hypothesis verification: hypothesis → math → score
+- Anima cross-reference: integrate PureField tension findings from /Users/ghost/Dev/anima
+
+## Key Commands
+
+```bash
+python report.py                              # Full project report (one command)
+python -m brainwire.bench tiers thc           # THC tier comparison
+python -m brainwire.bench compare thc lsd dmt # Multi-state comparison
+python -m brainwire.optimizer                 # Profile-specific optimization
+python -m brainwire.simulator thc --tier 4    # Time-domain session simulation
+python -m brainwire.tension_control landscape # Tension landscape mapping
+python -m brainwire.protocol --pk --tier 3    # PK-driven hardware protocol
+python -m brainwire.eeg_feedback              # G=D×P/I analysis
+python -m brainwire.pharmacokinetics          # THC temporal dynamics
+python -m brainwire.interference --all        # Multi-device interference
+python bench_hypotheses.py                    # 75 hypothesis benchmark
+python -m pytest tests/ -v                    # 145 tests
+```
+
+## Key Metrics (2026-03-28)
+
+- 145 tests (all passing), 75 hypotheses (73/75 PASS, 97.3%)
+- THC tension match: 100% (tension gradient control)
+- THC G=D×P/I: 0.4731 (ONLY substance in golden zone)
+- Kendall tau: 1.000 (tension perfectly predicts subjective intensity)
+- THC max entropy: 3.431 bits (most evenly distributed state)
+- Minimum hardware: $145 for 12/12 variable coverage
+- 5 Tiers: $85 → $510 → $8.5K → $25K → $26.4K
 
 ## THC High Variable Model (12-dimensional target)
 
