@@ -17,6 +17,8 @@ Tests 125 mathematical hypotheses across 15 categories:
  13. N1 Deep Access Strategies     (H-BW-096..105)
  14. Golden Zone x Implant Placement (H-BW-106..115)
  15. N1 Epilepsy Treatment         (H-BW-116..125)
+ 16. N1 Depression Treatment        (H-BW-126..135)
+ 17. N1 Panic Disorder Treatment    (H-BW-136..145)
 
 Each hypothesis produces a continuous score in [0.0, 1.0].
 PASS >= 0.60.
@@ -138,6 +140,8 @@ CATEGORY_NAMES = {
     13: "N1 Deep Access Strategies",
     14: "Golden Zone x Implant Placement",
     15: "N1 Epilepsy Treatment",
+    16: "N1 Depression Treatment",
+    17: "N1 Panic Disorder Treatment",
 }
 
 
@@ -4111,6 +4115,398 @@ def h_bw_125() -> HypothesisResult:
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# Category 16: N1 Depression Treatment (H-BW-126 .. H-BW-135)
+#
+# MDD = serotonin deficit + reward anhedonia + DMN hyperactivity + HPA overactivity.
+# N1: STDP potentiation of PFC→Raphe/VTA pathways + cortical DMN suppression.
+# Key question: can cortical N1 restore deep serotonergic/dopaminergic tone?
+# ══════════════════════════════════════════════════════════════════════════
+
+def h_bw_126() -> HypothesisResult:
+    """Theorem 9: All 4 MDD-critical structures accessible via {PFC, ACC}.
+
+    Structures: Raphe, VTA, Amygdala, Hypothalamus.
+    From Theorem 6 projection table, each has ≥1 cortical source in {PFC, ACC}.
+    Pure math: enumeration proof, Golden Zone independent.
+    """
+    from brainwire.depression_calc import mdd_circuit_coverage
+    c = mdd_circuit_coverage()
+    all_covered = c['all_covered']
+    n_covered = c['structures_covered']
+    n_total = c['structures_total']
+    score = 1.0 if all_covered else n_covered / n_total
+    return HypothesisResult(
+        'H-BW-126', CATEGORY_NAMES[16],
+        'Thm 9: MDD 4/4 circuit coverage',
+        score, score >= PASS_THRESHOLD,
+        f"{n_covered}/{n_total} covered via {{PFC, ACC}}")
+
+
+def h_bw_127() -> HypothesisResult:
+    """STDP potentiation restores PFC→Raphe serotonin pathway.
+
+    Eq D2: W(n) = W_ceil - (W_ceil - W_0) × (1 - a+)^(n×η).
+    W_0=0.5 (pathological), target W≥0.9 (functional restoration).
+    N1 η=0.8, a_plus=0.005, 30 sessions × 1000 pulses.
+    """
+    from brainwire.depression_calc import stdp_potentiation
+    r = stdp_potentiation(n_sessions=30, pulses_per_session=1000,
+                          eta=0.8, a_plus=0.005, w0=0.5)
+    w = r['w_final']
+    score = _range_score(w, 0.90, 1.00, decay=0.3)
+    return HypothesisResult(
+        'H-BW-127', CATEGORY_NAMES[16],
+        'STDP restores PFC→Raphe (5HT path)',
+        score, score >= PASS_THRESHOLD,
+        f"W_0=0.5 → W_final={w:.4f}, recovery={r['recovery_pct']:.1f}%")
+
+
+def h_bw_128() -> HypothesisResult:
+    """PFC→VTA transfer function delivers ≥20% DA increase.
+
+    Eq D4: ΔDA = C_pfc_vta × I × f_project × N1_boost.
+    C=0.20, N1=3×, f=0.25, I=2mA → ΔDA = 0.30 (30%).
+    """
+    from brainwire.depression_calc import pfc_vta_transfer
+    r = pfc_vta_transfer(I_mA=2.0)
+    pct = r['delta_da_pct']
+    score = _range_score(pct, 20.0, 60.0, decay=0.5)
+    return HypothesisResult(
+        'H-BW-128', CATEGORY_NAMES[16],
+        'PFC→VTA transfer ≥20% DA boost',
+        score, score >= PASS_THRESHOLD,
+        f"ΔDA={r['delta_da']:.3f} ({pct:.1f}%), C_eff={r['c_effective']:.3f}")
+
+
+def h_bw_129() -> HypothesisResult:
+    """PFC→Raphe transfer function delivers ≥25% 5HT increase.
+
+    Eq D3: Δ5HT = C_pfc_raphe × I × f_project × N1_boost.
+    C=0.20, N1=3×, f=0.30, I=2mA → Δ5HT = 0.36 (36%).
+    """
+    from brainwire.depression_calc import pfc_raphe_transfer
+    r = pfc_raphe_transfer(I_mA=2.0)
+    pct = r['delta_5ht_pct']
+    score = _range_score(pct, 25.0, 70.0, decay=0.5)
+    return HypothesisResult(
+        'H-BW-129', CATEGORY_NAMES[16],
+        'PFC→Raphe transfer ≥25% 5HT boost',
+        score, score >= PASS_THRESHOLD,
+        f"Δ5HT={r['delta_5ht']:.3f} ({pct:.1f}%), C_eff={r['c_effective']:.3f}")
+
+
+def h_bw_130() -> HypothesisResult:
+    """Rumination suppression: 1Hz rTMS reduces DMN overactivity by ≥50%.
+
+    Eq D6: R(t) = R_0 × exp(-k × t × I).
+    R_0=1.5, k=0.15, t=20min → R=0.075, suppression=95%.
+    """
+    from brainwire.depression_calc import rumination_suppression
+    r = rumination_suppression(R_0=1.5, k_suppress=0.15, t_minutes=20.0)
+    supp = r['suppression_pct']
+    score = _range_score(supp, 50.0, 100.0, decay=0.5)
+    return HypothesisResult(
+        'H-BW-130', CATEGORY_NAMES[16],
+        'DMN rumination ≥50% suppression',
+        score, score >= PASS_THRESHOLD,
+        f"R_0={r['R_0']:.1f} → R={r['R_final']:.3f}, supp={supp:.1f}%, "
+        f"normalize@{r['t_normalize_min']:.1f}min")
+
+
+def h_bw_131() -> HypothesisResult:
+    """HPA axis cortisol reduction ≥50% over 30 sessions.
+
+    Eq D7: Cortisol(n) = C_base + (C_0-C_base) × (1-η)^n.
+    C_0=25, C_base=15, η=0.05, n=30 → reduction ~78%.
+    """
+    from brainwire.depression_calc import hpa_normalization
+    r = hpa_normalization(n_sessions=30)
+    red = r['reduction_pct']
+    score = _range_score(red, 50.0, 100.0, decay=0.5)
+    return HypothesisResult(
+        'H-BW-131', CATEGORY_NAMES[16],
+        'HPA cortisol ≥50% reduction 30sess',
+        score, score >= PASS_THRESHOLD,
+        f"C_0={r['C_0']:.0f} → {r['C_final']:.1f} μg/dL, red={red:.1f}%")
+
+
+def h_bw_132() -> HypothesisResult:
+    """Remission probability ≥50% within 30 sessions (efficacy=1.0).
+
+    Eq D8: P_remit(n) = 1 - exp(-λ × n × efficacy).
+    λ=0.03, n=30, eff=1.0 → P=0.593.
+    """
+    from brainwire.depression_calc import remission_probability
+    r = remission_probability(n_sessions=30, lam=0.03, efficacy=1.0)
+    p = r['p_remission']
+    score = _range_score(p, 0.50, 1.00, decay=0.5)
+    return HypothesisResult(
+        'H-BW-132', CATEGORY_NAMES[16],
+        'Remission P≥0.50 within 30 sessions',
+        score, score >= PASS_THRESHOLD,
+        f"P(30)={p:.3f}, 50%@{r['sessions_to_50pct']:.0f}sess, "
+        f"80%@{r['sessions_to_80pct']:.0f}sess")
+
+
+def h_bw_133() -> HypothesisResult:
+    """Reward Recovery Index reaches ≥0.8 after treatment.
+
+    Eq D5: RRI = (DA/target) × (eCB/target) × NAc.
+    Post-treatment: DA=1.2, eCB=1.1, NAc=0.9 → RRI=1.188.
+    """
+    from brainwire.depression_calc import reward_recovery_index
+    # Post-treatment values (after acute treatment phase)
+    r = reward_recovery_index(da_current=1.2, ecb_current=1.1, nac_activity=0.9)
+    rri = r['rri']
+    score = _range_score(rri, 0.80, 2.00, decay=0.5)
+    return HypothesisResult(
+        'H-BW-133', CATEGORY_NAMES[16],
+        'Reward recovery RRI≥0.8 post-Tx',
+        score, score >= PASS_THRESHOLD,
+        f"DA=1.2 eCB=1.1 NAc=0.9 → RRI={rri:.3f}")
+
+
+def h_bw_134() -> HypothesisResult:
+    """Session carryover converges within 30 sessions (α=0.15, decay=0.05).
+
+    Eq D10: V(s+1) = V(s) + α × (target - V(s)) × (1-decay).
+    From MDD pathology → baseline, mean_dist < 0.05 = converged.
+    """
+    from brainwire.depression_calc import session_carryover, MDD_PATHOLOGY, MDD_BASELINE
+    r = session_carryover(MDD_PATHOLOGY, MDD_BASELINE, alpha=0.15, decay=0.05)
+    converged = r['converged']
+    dist = r['mean_distance']
+    score = 1.0 if converged else _range_score(dist, 0.0, 0.10, decay=0.5)
+    return HypothesisResult(
+        'H-BW-134', CATEGORY_NAMES[16],
+        'Session carryover converges 30sess',
+        score, score >= PASS_THRESHOLD,
+        f"mean_dist={dist:.4f}, converged={converged}")
+
+
+def h_bw_135() -> HypothesisResult:
+    """MDD pathology TRI is non-resistant (TRI < 0.5), indicating tractable condition.
+
+    Eq D9: TRI = Σ(w × |V - target|) / N.
+    MDD pathology → baseline TRI < 0.5 = not treatment-resistant.
+    """
+    from brainwire.depression_calc import treatment_resistance_index, MDD_PATHOLOGY, MDD_BASELINE
+    r = treatment_resistance_index(MDD_PATHOLOGY, MDD_BASELINE)
+    tri = r['tri']
+    # Lower TRI = better (more tractable)
+    tractable = not r['resistant']
+    score = 1.0 if tractable else _range_score(tri, 0.0, 0.50, decay=0.5)
+    return HypothesisResult(
+        'H-BW-135', CATEGORY_NAMES[16],
+        'MDD TRI<0.5 (tractable condition)',
+        score, score >= PASS_THRESHOLD,
+        f"TRI={tri:.3f}, resistant={r['resistant']}, worst={r['worst_vars']}")
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# Category 17: N1 Panic Disorder Treatment (H-BW-136 .. H-BW-145)
+#
+# Panic = amygdala hyperactivation + LC-NE surge + PFC inhibition failure + GABA deficit.
+# N1: acute NE suppression, STDP PFC→Amygdala restoration, closed-loop panic detection.
+# Key question: can N1 both abort acute attacks AND prevent long-term recurrence?
+# ══════════════════════════════════════════════════════════════════════════
+
+def h_bw_136() -> HypothesisResult:
+    """Theorem 11: All 4 panic-critical structures accessible via N1.
+
+    Structures: Amygdala, PAG, LC, Insula (direct cortical).
+    Pure math: enumeration proof, Golden Zone independent.
+    """
+    from brainwire.panic_calc import panic_circuit_coverage
+    c = panic_circuit_coverage()
+    all_covered = c['all_covered']
+    n = c['structures_covered']
+    t = c['structures_total']
+    score = 1.0 if all_covered else n / t
+    return HypothesisResult(
+        'H-BW-136', CATEGORY_NAMES[17],
+        'Thm 11: Panic 4/4 circuit coverage',
+        score, score >= PASS_THRESHOLD,
+        f"{n}/{t} covered, Insula=DIRECT cortical")
+
+
+def h_bw_137() -> HypothesisResult:
+    """LC-NE surge suppression: 90% suppression reduces NE peak below 1.3×.
+
+    Eq P1: NE(t) = NE_base + A × exp(-t/τ) × (1-suppression).
+    A=1.5, supp=0.9 → NE_peak=1.15 (below 1.3× threshold).
+    """
+    from brainwire.panic_calc import lc_ne_surge
+    r = lc_ne_surge(suppression=0.9)
+    peak = r['NE_peak']
+    below_threshold = peak < 1.3
+    score = 1.0 if below_threshold else _range_score(peak, 1.0, 1.3, decay=0.5)
+    return HypothesisResult(
+        'H-BW-137', CATEGORY_NAMES[17],
+        'NE surge 90% supp → peak<1.3×',
+        score, score >= PASS_THRESHOLD,
+        f"NE_peak={peak:.2f}, threshold=1.3×, below={below_threshold}")
+
+
+def h_bw_138() -> HypothesisResult:
+    """Amygdala-PFC inhibitory STDP restoration ≥80% in 40 sessions.
+
+    Eq P2: W_inh(n) = W_ceil - (W_ceil-W_0) × (1-a+)^(n×η).
+    W_0=0.4 (severe), a+=0.004 (slower for inhibitory synapses).
+    """
+    from brainwire.panic_calc import amygdala_pfc_restoration
+    r = amygdala_pfc_restoration(n_sessions=40)
+    rec = r['recovery_pct']
+    score = _range_score(rec, 80.0, 100.0, decay=0.5)
+    return HypothesisResult(
+        'H-BW-138', CATEGORY_NAMES[17],
+        'STDP Amyg-PFC restore ≥80% 40sess',
+        score, score >= PASS_THRESHOLD,
+        f"W_0={r['w_initial']:.1f} → W={r['w_final']:.4f}, rec={rec:.1f}%")
+
+
+def h_bw_139() -> HypothesisResult:
+    """Panic attack probability drops from HIGH to LOW after treatment.
+
+    Eq P5: P = σ(w_NE×NE - w_GABA×GABA - w_PFC×PFC - θ).
+    Pathological (NE=2.5, GABA=0.5, PFC=0.4): P=0.82 HIGH.
+    Treated (NE=0.8, GABA=1.2, PFC=1.2): P=0.003 LOW.
+    """
+    from brainwire.panic_calc import panic_probability
+    r_path = panic_probability(NE=2.5, GABA=0.5, PFC=0.4)
+    r_tx = panic_probability(NE=0.8, GABA=1.2, PFC=1.2)
+    p_path = r_path['p_panic']
+    p_tx = r_tx['p_panic']
+    reduction = (p_path - p_tx) / p_path * 100
+    score = _range_score(reduction, 90.0, 100.0, decay=0.3)
+    return HypothesisResult(
+        'H-BW-139', CATEGORY_NAMES[17],
+        'Panic P drops HIGH→LOW (≥90% red)',
+        score, score >= PASS_THRESHOLD,
+        f"P_path={p_path:.4f} [{r_path['risk_level']}] → "
+        f"P_tx={p_tx:.4f} [{r_tx['risk_level']}], red={reduction:.1f}%")
+
+
+def h_bw_140() -> HypothesisResult:
+    """Autonomic Storm Index: pathological ASI>100, treated ASI<10.
+
+    Eq P7: ASI = NE²/GABA × (Sens×Body) / (PFC×Coh).
+    Panic attack ASI ~586, normal ASI ~1.0.
+    """
+    from brainwire.panic_calc import autonomic_storm_index
+    r_path = autonomic_storm_index(NE=2.5, GABA=0.5, Sensory=2.5,
+                                    Body=3.0, PFC=0.4, Coherence=0.4)
+    r_tx = autonomic_storm_index(NE=0.8, GABA=1.2, Sensory=0.9,
+                                  Body=0.9, PFC=1.2, Coherence=1.2)
+    asi_path = r_path['ASI']
+    asi_tx = r_tx['ASI']
+    severe = asi_path > 100
+    suppressed = asi_tx < 10
+    score = 1.0 if severe and suppressed else 0.5
+    return HypothesisResult(
+        'H-BW-140', CATEGORY_NAMES[17],
+        'ASI: pathological>100, treated<10',
+        score, score >= PASS_THRESHOLD,
+        f"ASI_path={asi_path:.1f} [{r_path['severity']}] → "
+        f"ASI_tx={asi_tx:.2f} [{r_tx['severity']}]")
+
+
+def h_bw_141() -> HypothesisResult:
+    """N1 acute response time <100ms enables pre-peak panic suppression.
+
+    Eq P8: T = T_detect + T_compute + T_stim.
+    1024ch: T_detect=7.2ms + 2ms + 1ms = 10.2ms. Panic peak at ~5-10s.
+    """
+    from brainwire.panic_calc import acute_response_time
+    r = acute_response_time(n_channels=1024)
+    t_ms = r['t_total_ms']
+    pre_peak = r['pre_peak_possible']
+    # Score: 1.0 if <100ms AND pre-peak possible
+    score = 1.0 if pre_peak and t_ms < 100 else _range_score(t_ms, 0, 100, decay=0.3)
+    return HypothesisResult(
+        'H-BW-141', CATEGORY_NAMES[17],
+        'N1 panic response <100ms pre-peak',
+        score, score >= PASS_THRESHOLD,
+        f"T_total={t_ms:.1f}ms ({r['t_total_s']:.3f}s), pre_peak={pre_peak}")
+
+
+def h_bw_142() -> HypothesisResult:
+    """Fear circuit resonance: treatment moves ζ from underdamped toward critical.
+
+    Eq P9: ζ = PFC / √(4 × Amyg × LC).
+    Pathological ζ=0.08 (oscillating panic). Treatment goal: ζ→1.0.
+    After Tx: PFC=1.3, Amyg=0.8, LC=0.8 → ζ=0.81.
+    """
+    from brainwire.panic_calc import fear_circuit_resonance
+    r_path = fear_circuit_resonance(PFC_strength=0.4, amygdala_gain=2.5, LC_gain=2.5)
+    r_tx = fear_circuit_resonance(PFC_strength=1.3, amygdala_gain=0.8, LC_gain=0.8)
+    z_path = r_path['zeta']
+    z_tx = r_tx['zeta']
+    improvement = (z_tx - z_path) / (1.0 - z_path) * 100  # % toward critical damping
+    score = _range_score(z_tx, 0.5, 1.5, decay=0.5)
+    return HypothesisResult(
+        'H-BW-142', CATEGORY_NAMES[17],
+        'Fear ζ: underdamped→near-critical',
+        score, score >= PASS_THRESHOLD,
+        f"ζ_path={z_path:.3f} [{r_path['regime']}] → "
+        f"ζ_tx={z_tx:.3f} [{r_tx['regime']}], improve={improvement:.0f}%")
+
+
+def h_bw_143() -> HypothesisResult:
+    """GABA deficit recovery ≥70% within 40 sessions.
+
+    Eq P6: GABA(n) = floor + (target-floor) × (1-(1-r)^n).
+    Floor=0.5, target=1.0, r=0.04, n=40 → recovery ~80%.
+    """
+    from brainwire.panic_calc import gaba_recovery
+    r = gaba_recovery(n_sessions=40)
+    rec = r['recovery_pct']
+    score = _range_score(rec, 70.0, 100.0, decay=0.5)
+    return HypothesisResult(
+        'H-BW-143', CATEGORY_NAMES[17],
+        'GABA recovery ≥70% in 40 sessions',
+        score, score >= PASS_THRESHOLD,
+        f"GABA: {r['GABA_floor']:.1f} → {r['GABA_final']:.3f}, "
+        f"rec={rec:.1f}%, 80%@{r['sessions_to_80pct']:.0f}sess")
+
+
+def h_bw_144() -> HypothesisResult:
+    """Fear extinction ≥80% reduction in 40 sessions with STDP-coupled W_inh.
+
+    Eq P3: F(n) = F_0 × exp(-k × n × W_inh(n)).
+    W_inh improves concurrently via Eq P2 (coupled dynamics).
+    """
+    from brainwire.panic_calc import fear_extinction
+    r = fear_extinction(n_sessions=40)
+    red = r['reduction_pct']
+    score = _range_score(red, 80.0, 100.0, decay=0.5)
+    return HypothesisResult(
+        'H-BW-144', CATEGORY_NAMES[17],
+        'Fear extinction ≥80% in 40 sessions',
+        score, score >= PASS_THRESHOLD,
+        f"F: {r['F_0']:.1f} → {r['F_final']:.4f}, red={red:.1f}%, "
+        f"50%@sess {r['sessions_to_50pct']}")
+
+
+def h_bw_145() -> HypothesisResult:
+    """Interoceptive gain normalization (G≤1.2) with full Insula+PFC stimulation.
+
+    Eq P4: G = G_0 × (1-β×I) / (1+γ×PFC).
+    G_0=2.5, I_insula=1.0, PFC=1.3 → G=1.06 (normalized).
+    """
+    from brainwire.panic_calc import interoceptive_gain
+    r = interoceptive_gain(G_0=2.5, I_insula=1.0, PFC_activity=1.3)
+    g = r['G_int']
+    norm = r['normalized']
+    score = 1.0 if norm else _range_score(g, 0.5, 1.2, decay=0.3)
+    return HypothesisResult(
+        'H-BW-145', CATEGORY_NAMES[17],
+        'Interoceptive gain ≤1.2 (normalized)',
+        score, score >= PASS_THRESHOLD,
+        f"G_0=2.5 → G={g:.2f}, normalized={norm}, red={r['reduction_pct']:.0f}%")
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # Runner
 # ══════════════════════════════════════════════════════════════════════════
 
@@ -4155,6 +4551,12 @@ ALL_HYPOTHESES: list[Callable[[], HypothesisResult]] = [
     # Cat 15: N1 Epilepsy Treatment
     h_bw_116, h_bw_117, h_bw_118, h_bw_119, h_bw_120,
     h_bw_121, h_bw_122, h_bw_123, h_bw_124, h_bw_125,
+    # Cat 16: N1 Depression Treatment
+    h_bw_126, h_bw_127, h_bw_128, h_bw_129, h_bw_130,
+    h_bw_131, h_bw_132, h_bw_133, h_bw_134, h_bw_135,
+    # Cat 17: N1 Panic Disorder Treatment
+    h_bw_136, h_bw_137, h_bw_138, h_bw_139, h_bw_140,
+    h_bw_141, h_bw_142, h_bw_143, h_bw_144, h_bw_145,
 ]
 
 CATEGORY_RANGES = {
@@ -4173,6 +4575,8 @@ CATEGORY_RANGES = {
     13: (95, 105),
     14: (105, 115),
     15: (115, 125),
+    16: (125, 135),
+    17: (135, 145),
 }
 
 
