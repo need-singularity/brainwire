@@ -103,7 +103,7 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description='BrainWire Profile Optimizer')
     parser.add_argument('--state', default=None, help='Optimize specific state')
-    parser.add_argument('--tier', type=int, default=4, choices=[1, 2, 3, 4])
+    parser.add_argument('--tier', type=int, default=4, choices=[1, 2, 3, 4, 5])
     parser.add_argument('--iters', type=int, default=100)
     args = parser.parse_args()
 

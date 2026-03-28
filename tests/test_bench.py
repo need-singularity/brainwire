@@ -22,8 +22,8 @@ def test_compare_states():
 
 def test_tier_comparison_thc():
     results = run_tier_comparison('thc')
-    assert len(results) == 4
-    assert results[3]['avg_match'] >= results[0]['avg_match']
+    assert len(results) >= 4
+    assert results[-1]['avg_match'] >= results[0]['avg_match']
 
 def test_benchmark_includes_tension():
     result = run_benchmark('thc', tier=3)

@@ -113,6 +113,36 @@ _C['Coherence'] = {
     ('tRNS', 'intensity'): 0.20,
 }
 
+# ── Non-electrical modalities (Tier 5: multi-modal) ──────────────────────
+
+# tPBM (Photobiomodulation, 810nm NIR): cytochrome c oxidase → ATP → NO → CBF
+_C['DA'][('tPBM', 'intensity')] = 0.35         # NO→DA pathway (Salehpour 2018)
+_C['Gamma'][('tPBM', 'intensity')] = 0.20      # metabolic rate → faster oscillations
+_C['PFC'][('tPBM', 'prefrontal')] = 0.15       # PFC metabolic activation
+
+# Bone conduction entrainment: vibration → cochlear + vestibular
+_C['Theta'][('bone_cond', '6Hz')] = 0.25       # theta entrainment via vestibular
+_C['Body'][('bone_cond', 'intensity')] = 0.20  # somatic vestibular activation
+
+# Static magnetic field (tSMS): cortical suppression
+_C['PFC'][('tSMS', 'intensity')] = 0.20        # PFC suppression (Oliviero 2011)
+_C['Alpha'][('tSMS', 'intensity')] = 0.10      # alpha suppression under static field
+
+# PEMF (Pulsed Electromagnetic Field): Ca signaling → GABA
+_C['GABA'][('PEMF', 'intensity')] = 0.25       # calcium → GABAergic (Martiny 2010)
+_C['Coherence'][('PEMF', 'intensity')] = 0.15  # whole-brain coherence modulation
+
+# Caloric vestibular stimulation: warm water → vestibular → DA
+_C['DA'][('caloric', 'temperature')] = 0.20    # vestibular-DA pathway
+_C['Body'][('caloric', 'temperature')] = 0.30  # body schema via vestibular
+
+# Peltier thermal: temperature → ion channel kinetics
+_C['GABA'][('thermal', 'cooling')] = 0.20      # cooling → slowed kinetics → GABA-like
+_C['Alpha'][('thermal', 'cooling')] = 0.15     # cooling → alpha suppression
+
+# Iontophoresis: precursor delivery (5-HTP → 5HT)
+_C['5HT'][('ionto', 'intensity')] = 0.40       # direct precursor delivery
+
 COEFFICIENTS = _C
 SUPPRESSED_VARS = {'NE', 'Alpha', 'PFC'}
 

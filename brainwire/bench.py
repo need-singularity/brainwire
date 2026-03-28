@@ -72,7 +72,7 @@ def main():
     sub = parser.add_subparsers(dest='command')
     p_bench = sub.add_parser('bench')
     p_bench.add_argument('state')
-    p_bench.add_argument('--tier', type=int, default=3, choices=[1, 2, 3, 4])
+    p_bench.add_argument('--tier', type=int, default=3, choices=[1, 2, 3, 4, 5])
     p_compare = sub.add_parser('compare')
     p_compare.add_argument('states', nargs='+')
     p_compare.add_argument('--tier', type=int, default=3)
