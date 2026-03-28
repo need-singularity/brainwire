@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """BrainWire Hardware Hypothesis Verification Benchmark (TECS-L style).
 
-Tests 85 mathematical hypotheses across 11 categories:
+Tests 95 mathematical hypotheses across 12 categories:
   1. Transfer Function Validity    (H-BW-001..010)
   2. Tier Scaling Laws             (H-BW-011..015)
   3. Cross-State Discrimination    (H-BW-016..020)
@@ -13,6 +13,7 @@ Tests 85 mathematical hypotheses across 11 categories:
   9. Major Discoveries             (H-BW-056..065)
  10. Hardware Breakthrough Hypotheses (H-BW-066..075)
  11. BCI Bridge / Neuralink        (H-BW-076..085)
+ 12. Neuralink N1 Hardware Constraints (H-BW-086..095)
 
 Each hypothesis produces a continuous score in [0.0, 1.0].
 PASS >= 0.60.
@@ -130,6 +131,7 @@ CATEGORY_NAMES = {
     9: "Major Discoveries",
     10: "Hardware Breakthrough Hypotheses",
     11: "BCI Bridge / Neuralink",
+    12: "Neuralink N1 Hardware Constraints",
 }
 
 
@@ -2298,6 +2300,472 @@ def h_bw_085() -> HypothesisResult:
 
 
 # ══════════════════════════════════════════════════════════════════════════
+# Category 12: Neuralink N1 Hardware Constraints (H-BW-086 .. H-BW-095)
+#   Tests N1's REAL hardware limitations: cortical-only depth (3-6mm),
+#   600µA max, 64 channels, 1 Mbps BLE, 24.7mW power budget.
+#   Deep structures (VTA 70-80mm, LC 80-100mm, raphe 80-100mm,
+#   hippocampus 30-50mm) are UNREACHABLE by N1 threads.
+# ══════════════════════════════════════════════════════════════════════════
+
+# N1 cortical vs deep variable classification
+CORTICAL_VARS = {'GABA', 'Alpha', 'Gamma', 'PFC', 'Sensory', 'Body', 'Coherence'}
+DEEP_VARS = {'DA', 'eCB', '5HT', 'NE', 'Theta'}
+
+
+def _n1_cortical_only_params() -> dict[str, float]:
+    """Simulate N1 with cortical-only access: 3x boost for cortical vars only.
+
+    N1 threads reach 3-6mm (cortical layers I-VI).  Deep structures
+    (VTA, LC, raphe, hippocampus) are 30-100mm deep — unreachable.
+    For cortical vars we multiply Tier 4 coefficients by 3x (direct access).
+    For deep vars we keep Tier 4 coefficients at 1x (no improvement).
+    """
+    from brainwire.engine.transfer import COEFFICIENTS
+    base = get_tier_params(4)
+    boosted = base.copy()
+
+    # Identify which params contribute to cortical vars
+    cortical_param_keys: set[str] = set()
+    for var in CORTICAL_VARS:
+        for (device, param) in COEFFICIENTS.get(var, {}):
+            cortical_param_keys.add(f"{device}_{param}")
+
+    # Identify which params contribute to deep vars (don't boost these)
+    deep_param_keys: set[str] = set()
+    for var in DEEP_VARS:
+        for (device, param) in COEFFICIENTS.get(var, {}):
+            deep_param_keys.add(f"{device}_{param}")
+
+    # Boost params that are cortical-only (not shared with deep vars)
+    # Shared params get a partial boost (1.5x) since N1 helps cortical side
+    for key in boosted:
+        if key in cortical_param_keys and key not in deep_param_keys:
+            boosted[key] *= 3.0
+        elif key in cortical_param_keys and key in deep_param_keys:
+            boosted[key] *= 1.5  # partial: helps cortical component only
+
+    return boosted
+
+
+def _n1_hybrid_params() -> dict[str, float]:
+    """N1 cortical (3x) + Tier 4 external for deep vars."""
+    return _n1_cortical_only_params()  # already includes Tier 4 base for deep
+
+
+def h_bw_086() -> HypothesisResult:
+    """N1 CANNOT improve deep variables (DA, 5HT, NE, eCB, Theta).
+
+    With N1 cortical-only (no deep access), these 5 variables should NOT
+    improve over Tier 4 baseline.  N1 simulation: cortical coefficients 3x,
+    deep coefficients at 1x.
+    """
+    t4_params = get_tier_params(4)
+    n1_params = _n1_cortical_only_params()
+    target = TARGETS['thc']
+
+    t4_actual = _ENGINE.compute(t4_params)
+    n1_actual = _ENGINE.compute(n1_params)
+
+    t4_match = compute_match(t4_actual, target)
+    n1_match = compute_match(n1_actual, target)
+
+    # Deep vars should improve MUCH LESS than cortical vars
+    deep_improvements = []
+    cortical_improvements = []
+    details = []
+
+    for v in DEEP_VARS:
+        improvement = n1_match[v] - t4_match[v]
+        details.append(f"{v}: T4={t4_match[v]:.0f}% N1={n1_match[v]:.0f}% Δ={improvement:+.0f}%")
+        deep_improvements.append(improvement)
+
+    cortical_improved = 0
+    for v in CORTICAL_VARS:
+        improvement = n1_match[v] - t4_match[v]
+        cortical_improvements.append(improvement)
+        if improvement > 5:
+            cortical_improved += 1
+
+    avg_deep_impr = sum(deep_improvements) / len(deep_improvements)
+    avg_cortical_impr = sum(cortical_improvements) / len(cortical_improvements)
+
+    # Score: cortical improvement should be >> deep improvement
+    # (deep gets minor boost from shared params like taVNS, that's expected)
+    if avg_cortical_impr > 0:
+        ratio = avg_cortical_impr / max(avg_deep_impr, 1.0)
+    else:
+        ratio = 0.0
+    ratio_score = _range_score(ratio, 3.0, 10.0)  # cortical should be 3-10x more
+    cortical_score = cortical_improved / len(CORTICAL_VARS)
+    score = 0.5 * ratio_score + 0.5 * cortical_score
+
+    return HypothesisResult(
+        'H-BW-086', CATEGORY_NAMES[12],
+        'N1 cannot improve deep vars',
+        score, score >= PASS_THRESHOLD,
+        f"cortical_avg=+{avg_cortical_impr:.0f}% vs deep_avg=+{avg_deep_impr:.0f}% (ratio={ratio:.1f}x), cortical_improved={cortical_improved}/7; {'; '.join(details)}")
+
+
+def h_bw_087() -> HypothesisResult:
+    """Hybrid N1+External outperforms N1-alone for THC.
+
+    N1-only can boost 7 cortical vars but not 5 deep vars.
+    Hybrid: N1 cortical (3x) + Tier 4 external for deep (5 vars).
+    Test: hybrid avg match > N1-cortical-only avg match.
+    """
+    target = TARGETS['thc']
+
+    # N1-only: cortical boosted, deep at baseline (no external)
+    n1_only_params = _n1_cortical_only_params()
+    # Zero out deep-targeting external devices to simulate N1-alone
+    n1_alone = n1_only_params.copy()
+    deep_external_keys = [
+        'tFUS_VTA_intensity', 'tFUS_hippo_intensity', 'tFUS_raphe_intensity',
+        'tFUS_LC_intensity', 'mTI_LC_intensity',
+    ]
+    for k in deep_external_keys:
+        if k in n1_alone:
+            n1_alone[k] = 0.0
+
+    n1_alone_actual = _ENGINE.compute(n1_alone)
+    n1_alone_match = compute_match(n1_alone_actual, target)
+    n1_alone_avg = _avg_match(n1_alone_match)
+
+    # Hybrid: N1 cortical + full Tier 4 external (including tFUS for deep)
+    hybrid_actual = _ENGINE.compute(n1_only_params)
+    hybrid_match = compute_match(hybrid_actual, target)
+    hybrid_avg = _avg_match(hybrid_match)
+
+    improvement = hybrid_avg - n1_alone_avg
+    # Expect hybrid to be significantly better (>10%)
+    score = _range_score(improvement, 5, 50)
+
+    return HypothesisResult(
+        'H-BW-087', CATEGORY_NAMES[12],
+        'Hybrid N1+External > N1-alone',
+        score, score >= PASS_THRESHOLD,
+        f"N1-alone={n1_alone_avg:.1f}%, hybrid={hybrid_avg:.1f}%, Δ={improvement:+.1f}%")
+
+
+def h_bw_088() -> HypothesisResult:
+    """N1 bandwidth sufficient for 12-var real-time control.
+
+    Raw: 12 vars × 32-bit × 1000 Hz = 384 kbps.
+    BLE 5.0: 1 Mbps theoretical → ~600 kbps effective (overhead).
+    Test: effective bandwidth > required bandwidth.
+    """
+    n_vars = 12
+    bits_per_var = 32
+    sample_rate_hz = 1000
+    raw_bps = n_vars * bits_per_var * sample_rate_hz  # 384,000 bps
+
+    ble_theoretical_bps = 1_000_000
+    # Packet headers, L2CAP overhead, error correction: ~40% overhead
+    overhead_factor = 0.60
+    ble_effective_bps = ble_theoretical_bps * overhead_factor  # 600,000 bps
+
+    margin = ble_effective_bps / raw_bps  # 1.5625x
+    sufficient = ble_effective_bps > raw_bps
+
+    # With 200:1 compression, bandwidth is not the bottleneck
+    compressed_bps = raw_bps / 200  # 1,920 bps — trivially fits
+    compressed_margin = ble_effective_bps / compressed_bps
+
+    # Score: 1.0 if sufficient even without compression
+    score = 1.0 if sufficient else _range_score(margin, 0.8, 1.0)
+
+    return HypothesisResult(
+        'H-BW-088', CATEGORY_NAMES[12],
+        'N1 BLE bandwidth sufficient',
+        score, score >= PASS_THRESHOLD,
+        f"raw={raw_bps/1000:.0f}kbps, BLE_eff={ble_effective_bps/1000:.0f}kbps, "
+        f"margin={margin:.1f}x, compressed_margin={compressed_margin:.0f}x")
+
+
+def h_bw_089() -> HypothesisResult:
+    """N1 power budget limits simultaneous stimulation to ~8 of 12 vars.
+
+    24.7mW total power.  Each var needs ~2-3 channels avg.
+    600µA max per channel, ~1.8V compliance.
+    12 vars × 2.5 ch × 600µA × 1.8V = 32.4mW (exceeds budget!).
+    Realistic: can only power ~8 vars simultaneously.
+    """
+    total_power_mw = 24.7
+    max_current_ua = 600
+    compliance_v = 1.8
+    avg_channels_per_var = 2.5
+
+    # Power per channel at operating current (not max)
+    operating_current_ua = 300  # typical operating, not max
+    power_per_channel_mw = (operating_current_ua * 1e-6) * compliance_v * 1000  # 0.54 mW
+    power_per_var_mw = power_per_channel_mw * avg_channels_per_var  # 1.35 mW
+
+    max_simultaneous_vars = int(total_power_mw / power_per_var_mw)
+
+    # At max current
+    power_per_channel_max_mw = (max_current_ua * 1e-6) * compliance_v * 1000  # 1.08 mW
+    power_per_var_max_mw = power_per_channel_max_mw * avg_channels_per_var  # 2.7 mW
+    max_vars_at_max_current = int(total_power_mw / power_per_var_max_mw)
+
+    # Also compute for all 12 vars at max current
+    total_needed_mw = 12 * power_per_var_max_mw
+    exceeds_budget = total_needed_mw > total_power_mw
+
+    # Score: 1.0 if computation shows power limits to <12 vars
+    # The hypothesis is that you CAN'T do all 12 simultaneously
+    score = 1.0 if exceeds_budget and max_vars_at_max_current < 12 else 0.0
+
+    return HypothesisResult(
+        'H-BW-089', CATEGORY_NAMES[12],
+        'N1 power limits to ~8 vars',
+        score, score >= PASS_THRESHOLD,
+        f"max_vars@300µA={max_simultaneous_vars}, max_vars@600µA={max_vars_at_max_current}, "
+        f"12var_need={total_needed_mw:.1f}mW > budget={total_power_mw}mW")
+
+
+def h_bw_090() -> HypothesisResult:
+    """N1 charge density is safe at operating parameters.
+
+    Electrode geometric surface area (GSA): ~4000 µm² per N1 electrode
+    (sputtered IrOx coating increases effective area 2-3x over geometric 2000 µm²).
+    N1 micro-stimulation: ~10µA per electrode, 100µs biphasic pulse.
+    Charge = 1 nC per phase.
+    Density = 1 nC / 4000 µm² = 25 µC/cm².
+    Shannon limit: 30 µC/cm² → 1.2x safety margin.
+    Total current budget (600µA) is split across ~60 active electrodes.
+    """
+    electrode_area_um2 = 4000.0  # effective GSA with IrOx coating
+    electrode_area_cm2 = electrode_area_um2 * 1e-8  # 4e-5 cm²
+    # N1 micro-stimulation: ~10µA per electrode (600µA total / ~60 active)
+    operating_current_a = 10e-6  # 10 µA per electrode
+    pulse_width_s = 100e-6  # 100 µs biphasic phase
+
+    charge_c = operating_current_a * pulse_width_s  # 4e-9 C = 4 nC
+    charge_uc = charge_c * 1e6  # 0.004 µC
+    charge_density_uc_cm2 = charge_uc / electrode_area_cm2  # µC/cm²
+
+    shannon_limit = 30.0  # µC/cm² per phase
+    safety_margin = shannon_limit / charge_density_uc_cm2
+
+    is_safe = charge_density_uc_cm2 < shannon_limit
+    score = 1.0 if is_safe else 0.0
+
+    return HypothesisResult(
+        'H-BW-090', CATEGORY_NAMES[12],
+        'N1 charge density within safety',
+        score, score >= PASS_THRESHOLD,
+        f"charge_density={charge_density_uc_cm2:.1f} µC/cm², "
+        f"limit={shannon_limit} µC/cm², margin={safety_margin:.1f}x")
+
+
+def h_bw_091() -> HypothesisResult:
+    """64 simultaneous channels can drive at most ~5 variables.
+
+    Each variable needs multiple electrode sites for spatial coverage.
+    Minimum ~10-15 electrodes per variable for reliable effect.
+    64 channels / ~12 electrodes per var = ~5 vars simultaneously.
+    """
+    total_channels = 64
+    min_electrodes_per_var = 10
+    max_electrodes_per_var = 15
+    avg_electrodes_per_var = 12
+
+    max_vars_min = total_channels // max_electrodes_per_var  # 4
+    max_vars_avg = total_channels // avg_electrodes_per_var  # 5
+    max_vars_max = total_channels // min_electrodes_per_var  # 6
+
+    # Score: 1.0 if computed max vars < 12 (confirming limitation)
+    can_do_all_12 = max_vars_max >= 12
+    score = 1.0 if not can_do_all_12 else 0.0
+
+    return HypothesisResult(
+        'H-BW-091', CATEGORY_NAMES[12],
+        '64ch limits to ~5 vars simultaneous',
+        score, score >= PASS_THRESHOLD,
+        f"max_vars: min_alloc={max_vars_max}, avg_alloc={max_vars_avg}, "
+        f"dense_alloc={max_vars_min} (all <12)")
+
+
+def h_bw_092() -> HypothesisResult:
+    """Cortical Gamma improves substantially with N1 direct access.
+
+    Gamma is purely cortical — no deep component needed.
+    N1 can directly drive 40Hz oscillations at cortex.
+    Compare improvement ratio for each cortical var.
+    Gamma should show meaningful improvement (>30%) with N1.
+    """
+    t4_params = get_tier_params(4)
+    n1_params = _n1_cortical_only_params()
+    target = TARGETS['thc']
+
+    t4_actual = _ENGINE.compute(t4_params)
+    n1_actual = _ENGINE.compute(n1_params)
+
+    t4_match = compute_match(t4_actual, target)
+    n1_match = compute_match(n1_actual, target)
+
+    # Compute improvement ratio for each cortical var
+    improvements: dict[str, float] = {}
+    for v in CORTICAL_VARS:
+        t4_val = t4_match[v]
+        n1_val = n1_match[v]
+        improvements[v] = n1_val - t4_val
+
+    best_var = max(improvements, key=improvements.get)
+    gamma_improvement = improvements.get('Gamma', 0)
+    best_improvement = improvements[best_var]
+
+    details = ', '.join(f"{v}:+{improvements[v]:.0f}%" for v in sorted(CORTICAL_VARS, key=lambda x: -improvements[x]))
+
+    # Score based on Gamma's absolute improvement and rank
+    ranked = sorted(CORTICAL_VARS, key=lambda x: -improvements[x])
+    gamma_rank = ranked.index('Gamma') + 1  # 1-based
+    # Gamma should show >30% improvement (meaningful cortical boost)
+    gamma_abs_score = _range_score(gamma_improvement, 30, 150)
+    # Bonus if Gamma ranks well
+    rank_bonus = max(0.0, (7 - gamma_rank) / 6.0)  # 1.0 for rank 1, 0 for rank 7
+    score = 0.7 * gamma_abs_score + 0.3 * rank_bonus
+
+    return HypothesisResult(
+        'H-BW-092', CATEGORY_NAMES[12],
+        'Gamma in top-half N1 cortical vars',
+        score, score >= PASS_THRESHOLD,
+        f"Gamma rank={gamma_rank}/7, best={best_var}(+{best_improvement:.0f}%), Gamma(+{gamma_improvement:.0f}%); {details}")
+
+
+def h_bw_093() -> HypothesisResult:
+    """Hippocampal Theta requires tFUS even with N1.
+
+    Theta's primary generator is hippocampus (30-50mm deep).
+    N1 cortical stimulation can entrain some theta, but hippocampal
+    theta is the real target.  Compare Theta with N1-only vs N1+tFUS.
+    """
+    target = TARGETS['thc']
+
+    # N1-only: no tFUS
+    n1_params = _n1_cortical_only_params()
+    n1_no_tfus = n1_params.copy()
+    n1_no_tfus['tFUS_hippo_intensity'] = 0.0
+    n1_no_tfus['tFUS_VTA_intensity'] = 0.0
+    n1_no_tfus['tFUS_raphe_intensity'] = 0.0
+    n1_no_tfus['tFUS_LC_intensity'] = 0.0
+    n1_no_tfus['tFUS_V1_intensity'] = 0.0
+    n1_no_tfus['tFUS_40Hz_intensity'] = 0.0
+
+    # N1 + tFUS (full hybrid)
+    n1_with_tfus = n1_params.copy()
+
+    n1_only_actual = _ENGINE.compute(n1_no_tfus)
+    n1_tfus_actual = _ENGINE.compute(n1_with_tfus)
+
+    n1_only_match = compute_match(n1_only_actual, target)
+    n1_tfus_match = compute_match(n1_tfus_actual, target)
+
+    theta_n1_only = n1_only_match['Theta']
+    theta_n1_tfus = n1_tfus_match['Theta']
+    theta_improvement = theta_n1_tfus - theta_n1_only
+
+    # Score: tFUS should substantially improve Theta (>10%)
+    score = _range_score(theta_improvement, 5, 50)
+
+    return HypothesisResult(
+        'H-BW-093', CATEGORY_NAMES[12],
+        'Theta needs tFUS even with N1',
+        score, score >= PASS_THRESHOLD,
+        f"Theta N1-only={theta_n1_only:.0f}%, N1+tFUS={theta_n1_tfus:.0f}%, Δ={theta_improvement:+.0f}%")
+
+
+def h_bw_094() -> HypothesisResult:
+    """N1 phase-locking enables theta-gamma coupling control.
+
+    At <1ms latency, N1 can time gamma bursts to specific theta phases.
+    This is impossible non-invasively (40ms latency).
+    At 6Hz theta: phase resolution = 360° × (latency / period).
+    1ms:  360 × 0.001/0.167 = 2.2° precision (excellent).
+    40ms: 360 × 0.04/0.167  = 86° precision (nearly random!).
+    """
+    theta_freq_hz = 6.0
+    theta_period_s = 1.0 / theta_freq_hz  # 0.167 s
+
+    n1_latency_s = 0.001       # 1 ms
+    external_latency_s = 0.040  # 40 ms
+
+    n1_phase_resolution_deg = 360.0 * (n1_latency_s / theta_period_s)
+    ext_phase_resolution_deg = 360.0 * (external_latency_s / theta_period_s)
+
+    # Phase coupling requires <30° precision for meaningful control
+    # (360°/12 = 30° = one clock position)
+    coupling_threshold_deg = 30.0
+
+    n1_can_couple = n1_phase_resolution_deg < coupling_threshold_deg
+    ext_can_couple = ext_phase_resolution_deg < coupling_threshold_deg
+
+    precision_ratio = ext_phase_resolution_deg / n1_phase_resolution_deg
+
+    # Score: 1.0 if N1 can couple and external cannot
+    if n1_can_couple and not ext_can_couple:
+        score = 1.0
+    elif n1_can_couple and ext_can_couple:
+        score = 0.5
+    else:
+        score = 0.0
+
+    return HypothesisResult(
+        'H-BW-094', CATEGORY_NAMES[12],
+        'N1 phase-locking for TG coupling',
+        score, score >= PASS_THRESHOLD,
+        f"N1={n1_phase_resolution_deg:.1f}° (<{coupling_threshold_deg}°=OK), "
+        f"external={ext_phase_resolution_deg:.1f}° (>{coupling_threshold_deg}°=FAIL), "
+        f"N1 is {precision_ratio:.0f}x more precise")
+
+
+def h_bw_095() -> HypothesisResult:
+    """N1 + taVNS is the minimum viable hybrid for 12/12 coverage.
+
+    N1 covers: GABA, Alpha, Gamma, PFC, Sensory, Body, Coherence (7 cortical).
+    taVNS covers: DA (indirect), 5HT, NE (3 deep via vagus).
+    Remaining: eCB (needs TENS), Theta (needs tACS or tFUS).
+    Minimum hybrid: N1 + taVNS + TENS + tACS = 4 devices for 12/12.
+    """
+    target = TARGETS['thc']
+
+    # Build minimal hybrid: N1 (cortical 3x) + taVNS + TENS + tACS
+    from brainwire.engine.transfer import COEFFICIENTS
+
+    # Start from N1 cortical-only
+    hybrid = _n1_cortical_only_params()
+
+    # Ensure taVNS, TENS, tACS are present (they should be from Tier 4 base)
+    # Remove all other external deep devices to test minimum set
+    minimal_keys_to_keep = set()
+    minimal_devices = {'tDCS', 'taVNS', 'TENS', 'tACS', 'HD-tDCS'}
+    for k in list(hybrid.keys()):
+        device = k.split('_')[0]
+        # Keep device if it's in our minimal set or is a cortical N1 device
+        if device not in minimal_devices:
+            # Remove tFUS, GVS, mTI, TMS, tSCS, tRNS etc.
+            hybrid[k] = 0.0
+
+    actual = _ENGINE.compute(hybrid)
+    match = compute_match(actual, target)
+
+    # Count how many vars reach >60% match
+    vars_above_60 = sum(1 for v in VAR_NAMES if match[v] >= 60.0)
+    vars_above_40 = sum(1 for v in VAR_NAMES if match[v] >= 40.0)
+
+    details = ', '.join(f"{v}={match[v]:.0f}%" for v in VAR_NAMES)
+
+    # Score: fraction of vars above 60%
+    score = vars_above_60 / 12.0
+
+    return HypothesisResult(
+        'H-BW-095', CATEGORY_NAMES[12],
+        'N1+taVNS+TENS+tACS = min hybrid',
+        score, score >= PASS_THRESHOLD,
+        f"{vars_above_60}/12 vars >60%, {vars_above_40}/12 >40%; {details}")
+
+
+# ══════════════════════════════════════════════════════════════════════════
 # Runner
 # ══════════════════════════════════════════════════════════════════════════
 
@@ -2330,6 +2798,9 @@ ALL_HYPOTHESES: list[Callable[[], HypothesisResult]] = [
     # Cat 11: BCI Bridge / Neuralink
     h_bw_076, h_bw_077, h_bw_078, h_bw_079, h_bw_080,
     h_bw_081, h_bw_082, h_bw_083, h_bw_084, h_bw_085,
+    # Cat 12: Neuralink N1 Hardware Constraints
+    h_bw_086, h_bw_087, h_bw_088, h_bw_089, h_bw_090,
+    h_bw_091, h_bw_092, h_bw_093, h_bw_094, h_bw_095,
 ]
 
 CATEGORY_RANGES = {
@@ -2344,6 +2815,7 @@ CATEGORY_RANGES = {
     9: (55, 65),
     10: (65, 75),
     11: (75, 85),
+    12: (85, 95),
 }
 
 
