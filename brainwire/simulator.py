@@ -142,6 +142,59 @@ def print_session_report(result: dict):
             print(f"  {d['t']:>5.0f}s {d['envelope']:>4.2f} {d['avg_match']:>5.1f}% {d['tension_match']:>5.1f}% {d['direction_sim']:>5.1f}%")
 
 
+def simulate_concentration_levels(tier: int = 3, duration_s: float = 600, dt: float = 1.0) -> list[dict]:
+    """Simulate all 5 THC concentration levels."""
+    levels = {
+        'micro': 0.25,    # 1% THC equivalent
+        'light': 0.50,    # 5% THC
+        'medium': 0.75,   # 15% THC
+        'strong': 1.00,   # 25% THC (standard)
+        'intense': 1.15,  # 30% THC (dabbing)
+    }
+    results = []
+    for name, scale in levels.items():
+        profile = load_profile('thc')
+        # Create scaled target
+        scaled_target = profile.scale(scale)
+        engine = TransferEngine()
+        base_params = get_tier_params(tier)
+
+        # Optimize for this specific concentration
+        try:
+            from brainwire.optimizer import optimize_for_profile
+            opt = optimize_for_profile('thc', tier, max_iters=20)
+            base_params = opt['params']
+            # Scale down optimized params proportionally
+            base_params = {k: v * scale for k, v in base_params.items()}
+        except Exception:
+            base_params = {k: v * scale for k, v in base_params.items()}
+
+        variables = engine.compute(base_params)
+        match = compute_match(variables, scaled_target)
+        tension = compute_tension(variables, target=scaled_target)
+        avg_match = sum(max(0, v) for v in match.values()) / 12
+
+        results.append({
+            'level': name, 'scale': scale,
+            'variables': variables, 'target': scaled_target,
+            'match': match, 'avg_match': avg_match,
+            'tension_match': tension['tension_match'],
+        })
+    return results
+
+
+def print_concentration_report(results: list[dict]):
+    print(f"\n{'='*70}")
+    print(f"  THC Concentration Level Comparison")
+    print(f"{'='*70}")
+    print(f"\n  {'Level':<10} {'Scale':>6} {'Avg%':>7} {'TM%':>7} {'DA':>6} {'eCB':>6} {'Theta':>7}")
+    print(f"  {'-'*10} {'-'*6} {'-'*7} {'-'*7} {'-'*6} {'-'*6} {'-'*7}")
+    for r in results:
+        print(f"  {r['level']:<10} {r['scale']:>5.2f}x {r['avg_match']:>6.1f}% "
+              f"{r['tension_match']:>6.1f}% {r['variables']['DA']:>5.2f}x "
+              f"{r['variables']['eCB']:>5.2f}x {r['variables']['Theta']:>6.2f}x")
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(description='BrainWire Session Simulator')
@@ -152,9 +205,14 @@ def main():
     parser.add_argument('--no-pid', action='store_true')
     parser.add_argument('--no-breathing', action='store_true')
     parser.add_argument('--all', action='store_true')
+    parser.add_argument('--concentration', action='store_true',
+                        help='Simulate all 5 THC concentration levels')
     args = parser.parse_args()
 
-    if args.all:
+    if args.concentration:
+        results = simulate_concentration_levels(args.tier, args.duration, args.dt)
+        print_concentration_report(results)
+    elif args.all:
         from brainwire.profiles import list_profiles
         for state in list_profiles():
             result = simulate_session(state, args.tier, args.duration, args.dt,
