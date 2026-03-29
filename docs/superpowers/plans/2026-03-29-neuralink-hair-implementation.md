@@ -14,6 +14,18 @@
 
 ---
 
+## Progress (2026-03-29)
+
+| Task | Part | Range | Status | Notes |
+|------|------|-------|--------|-------|
+| 1 | A: Microelectrode | H-HAIR-181~240 (60) | ✅ Done | 1163줄, 커밋 f439e23 |
+| 2 | B: Neuroendocrine | H-HAIR-241~300 (60) | ⏳ Pending | |
+| 3 | C: Closed-Loop | H-HAIR-301~360 (60) | ⏳ Pending | |
+| 4 | D: Product Design | H-HAIR-361~400 (40) | ⏳ Pending | |
+| 5 | E: Mathematics | H-HAIR-401~440 (40) | ⏳ Pending | |
+
+---
+
 ## File Structure
 
 ```
