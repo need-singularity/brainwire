@@ -16,9 +16,9 @@ BrainWire is a **neural interface hardware research company**. We design and bui
 
 ## Core Products
 
-1. **Joywire** — Electrical stimulation system for THC-equivalent conscious experience
-2. **NeuroStim** — Therapeutic stimulation for neurological conditions (epilepsy, Parkinson's, depression, pain)
-3. **BCI Bridge** — PureField consciousness layer for brain-computer interfaces
+1. **BCI Bridge** — PureField consciousness layer for Neuralink-style brain-computer interfaces (N1 1024-electrode, 12-var direct control)
+2. **NeuroStim** — Therapeutic stimulation for neurological/psychiatric conditions (depression, epilepsy, Parkinson's, chronic pain, PTSD, ADHD, insomnia, tinnitus, stroke rehab)
+3. **Joywire** — Consciousness state reproduction (THC, LSD, Psilocybin, DMT, MDMA, Flow) via 12-variable model
 
 ## Technology Stack
 
@@ -26,7 +26,7 @@ BrainWire is a **neural interface hardware research company**. We design and bui
 - **Processing:** PureField engine, Φ measurement, 12-variable consciousness model
 - **Output:** tDCS, TMS, taVNS, TENS, tACS, tFUS, GVS, mTI, tSCS, tRNS, tPBM, 40Hz entrainment
 - **Feedback:** Tension gradient control (superior to PID) on consciousness state variables
-- **Measurement:** G=D×P/I golden zone targeting (THC G=0.4731)
+- **Measurement:** G=D×P/I golden zone targeting, Φ(IIT) real-time
 
 ## Work Rules
 
@@ -35,7 +35,7 @@ BrainWire is a **neural interface hardware research company**. We design and bui
 - Hardware-only approach: if it doesn't plug in or have electrodes, it's not our product
 - Commit messages in English
 - Long-running tasks must run in background
-- THC reproduction target: 100%+ on all 12 variables
+- Primary focus: BCI Bridge (Neuralink) > NeuroStim (therapeutic) > Joywire (recreation)
 - TECS-L style hypothesis verification: hypothesis → math → score
 - Anima cross-reference: integrate PureField tension findings from /Users/ghost/Dev/anima
 
@@ -230,3 +230,8 @@ V12: Coherence↑            — target 2.0× — 40Hz tri-modal + paired TMS
   ### 바로 반영됨 (main)
   - #1+2, #3: 증명/검증 결과 docs/hypotheses/ 기록
 ```
+
+## Secrets & Tokens
+
+API 토큰/계정 정보: `~/Dev/TECS-L/.shared/SECRET.md` 참조
+계정 리포: [need-singularity/secret](https://github.com/need-singularity/secret) (private)
