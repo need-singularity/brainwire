@@ -10,3 +10,4 @@ build/
 calc
 # TECS-L .shared symlink
 .shared
+tecsrs
