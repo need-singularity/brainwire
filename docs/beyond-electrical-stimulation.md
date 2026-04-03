@@ -212,7 +212,7 @@
 - Evidence: **Strong** for the delivery route — Lochhead 2012 (nose-to-brain pathway review), Born 2002 (intranasal insulin reaches CSF), Kosfeld 2005 (intranasal oxytocin → trust behavior)
 - Hardware component: precision nebulizer or vibrating mesh atomizer for optimal particle size (10-50 micron for olfactory deposition)
 - Cost: $50-200 (medical nebulizer + formulation)
-- 12-Var Impact: Depends on molecule delivered. Oxytocin → social/empathy (relevant to MDMA profile). Orexin → wakefulness. Insulin → neuroprotection.
+- 12-Var Impact: Depends on molecule delivered. Oxytocin → social/empathy (relevant to State M profile). Orexin → wakefulness. Insulin → neuroprotection.
 - Notes: Not purely electrical, but the delivery device is hardware. Synergizes powerfully with stimulation — deliver precursor molecules intranasally, then drive their uptake/activation electrically.
 
 ### 6c. Sonophoresis (Ultrasound-Enhanced Delivery)

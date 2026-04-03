@@ -450,7 +450,7 @@ The partial derivatives of G with respect to its components are:
     dG/dP = D / I       (linear in P)
     dG/dI = -D*P / I^2  (inverse square in I)
 
-At the THC operating point (D = 0.302, P = 0.783, I = 0.500):
+At the State A operating point (D = 0.302, P = 0.783, I = 0.500):
 
     dG/dD = 0.783 / 0.500 = 1.566
     dG/dP = 0.302 / 0.500 = 0.604
@@ -460,18 +460,18 @@ The sensitivity ratio |(dG/dI) / (dG/dD)| = 0.604 and |(dG/dI) / (dG/dP)| = 1.56
 
 **Conclusion:** I (frontal alpha suppression) is the highest-leverage intervention for INCREASING G (moving toward golden zone), because Delta_G / Delta_I scales as 1/I^2 while Delta_G / Delta_D scales linearly. A small reduction in I produces a disproportionately large increase in G.
 
-For states with I > 1.0 (LSD, DMT, MDMA), reducing I by 50% quadruples the G contribution from the I term. This explains why all non-THC psychedelic states in Table 10 have G = 0: their extreme I values (1.2--2.0) suppress G through the inverse-square denominator, regardless of P values. The primary N1 intervention for these states is therefore frontal alpha suppression (reducing I) combined with asymmetry creation (increasing D from zero).
+For states with I > 1.0 (State L, State D, State M), reducing I by 50% quadruples the G contribution from the I term. This explains why all non-State A psychedelic states in Table 10 have G = 0: their extreme I values (1.2--2.0) suppress G through the inverse-square denominator, regardless of P values. The primary N1 intervention for these states is therefore frontal alpha suppression (reducing I) combined with asymmetry creation (increasing D from zero).
 
 **Table 10.** G values across six reference consciousness states.
 
 | State | D | P | I | G | In Golden Zone |
 |---|---|---|---|---|---|
-| THC | 0.302 | 0.783 | 0.500 | 0.473 | Yes |
+| State A | 0.302 | 0.783 | 0.500 | 0.473 | Yes |
 | Flow | 0.180 | 0.571 | 0.700 | 0.147 | No (I too high) |
-| LSD | 0.000 | 0.893 | 1.500 | 0.000 | No (D = 0) |
-| DMT | 0.000 | 0.972 | 2.000 | 0.000 | No (D = 0, I extreme) |
-| MDMA | 0.000 | 0.625 | 1.800 | 0.000 | No (D = 0, I too high) |
-| Psilocybin | 0.000 | 0.833 | 1.200 | 0.000 | No (D = 0) |
+| State L | 0.000 | 0.893 | 1.500 | 0.000 | No (D = 0) |
+| State D | 0.000 | 0.972 | 2.000 | 0.000 | No (D = 0, I extreme) |
+| State M | 0.000 | 0.625 | 1.800 | 0.000 | No (D = 0, I too high) |
+| State P | 0.000 | 0.833 | 1.200 | 0.000 | No (D = 0) |
 
 ### 2.5 Implant Placement Optimization
 
@@ -964,20 +964,20 @@ At k_suppress = 0.4 and k_alpha_global = 0.2:
 
 The golden zone (G in [0.2123, 0.5000]) is fully accessible, with substantial headroom in both directions, allowing fine-grained G targeting.
 
-**Moving non-THC states into the golden zone.** All six reference consciousness states can be brought into the golden zone through left DLPFC N1 intervention. The required interventions are summarized in Table 18.
+**Moving non-State A states into the golden zone.** All six reference consciousness states can be brought into the golden zone through left DLPFC N1 intervention. The required interventions are summarized in Table 18.
 
 **Table 18.** N1 interventions to achieve golden zone across all reference states.
 
 | State | Baseline G | Intervention | Post-Intervention G | Power Level |
 |---|---|---|---|---|
-| THC | 0.473 | None required | 0.473 | --- |
+| State A | 0.473 | None required | 0.473 | --- |
 | Flow | 0.147 | Suppress frontal alpha (I: 0.700 to 0.400) | 0.257 | Moderate |
-| LSD | 0.000 | Create D = 0.300, suppress I to 0.800 | 0.335 | High |
-| DMT | 0.000 | Create D = 0.300, suppress I to 0.600 | 0.486 | Very high |
-| MDMA | 0.000 | Create D = 0.300, suppress I to 0.700 | 0.268 | High |
-| Psilocybin | 0.000 | Create D = 0.300, suppress I to 0.600 | 0.416 | Moderate-high |
+| State L | 0.000 | Create D = 0.300, suppress I to 0.800 | 0.335 | High |
+| State D | 0.000 | Create D = 0.300, suppress I to 0.600 | 0.486 | Very high |
+| State M | 0.000 | Create D = 0.300, suppress I to 0.700 | 0.268 | High |
+| State P | 0.000 | Create D = 0.300, suppress I to 0.600 | 0.416 | Moderate-high |
 
-The intervention is structurally identical across all non-THC states: create hemispheric asymmetry (D > 0) and suppress frontal inhibition (I < 1.0). The required stimulation magnitudes differ by state, but the target electrode configuration is the same.
+The intervention is structurally identical across all non-State A states: create hemispheric asymmetry (D > 0) and suppress frontal inhibition (I < 1.0). The required stimulation magnitudes differ by state, but the target electrode configuration is the same.
 
 ### 3.7 Convergence of Deep Access and G Optimality
 
@@ -1021,7 +1021,7 @@ Of 115 hypotheses tested, 109 pass (94.8%) with a mean score of 0.93.
 
 (a) **H-016 (Scaling law: non-monotonic DA response).** Score: 0.35. At high stimulation intensities (> 80% maximum), the DA response curve becomes non-monotonic, with DA release decreasing above a threshold. This likely reflects depolarization block in VTA dopaminergic neurons, a well-documented phenomenon [Grace & Bunney, 1986]. The transfer function model (Equations 1--2), which assumes monotonic response, fails to capture this behavior. **Implication:** Stimulation intensity for DA modulation should be limited to < 80% maximum.
 
-(b) **H-027 (Cross-state: LSD vs. Psilocybin discrimination).** Score: 0.40. The model fails to reliably distinguish LSD and psilocybin states based on the 12-variable vector alone, as both produce D = 0 and similar P values. Discrimination requires additional variables not included in the current model (e.g., 5-HT2A receptor occupancy, visual cortex activation patterns). **Implication:** The 12-variable model may need expansion for fine-grained state discrimination.
+(b) **H-027 (Cross-state: State L vs. State P discrimination).** Score: 0.40. The model fails to reliably distinguish State L and State P states based on the 12-variable vector alone, as both produce D = 0 and similar P values. Discrimination requires additional variables not included in the current model (e.g., 5-HT2A receptor occupancy, visual cortex activation patterns). **Implication:** The 12-variable model may need expansion for fine-grained state discrimination.
 
 (c) **H-105 (Redundancy: projection pathway failure).** Score: 0.00. Complete loss of Pathway 1 causes catastrophic degradation of DA and eCB modulation, as described in Section 3.3. **Implication:** Projection pathways are a single point of failure. Redundancy strategies are essential.
 
@@ -1951,16 +1951,16 @@ These coefficients represent the estimated modulation of subcortical neurotransm
 
 | ID | Hypothesis | Criterion | Score |
 |---|---|---|---|
-| H-021 | THC vs. baseline distinguishable | d' > 2.0 on 12-variable vector | 0.99 |
+| H-021 | State A vs. baseline distinguishable | d' > 2.0 on 12-variable vector | 0.99 |
 | H-022 | Flow vs. baseline distinguishable | d' > 2.0 | 0.97 |
-| H-023 | LSD vs. baseline distinguishable | d' > 2.0 | 0.98 |
-| H-024 | DMT vs. baseline distinguishable | d' > 2.0 | 0.99 |
-| H-025 | MDMA vs. baseline distinguishable | d' > 2.0 | 0.96 |
-| H-026 | Psilocybin vs. baseline distinguishable | d' > 2.0 | 0.95 |
-| H-027 | LSD vs. Psilocybin distinguishable | d' > 1.5 | 0.40 |
-| H-028 | THC vs. Flow distinguishable | d' > 1.5 | 0.94 |
-| H-029 | DMT vs. LSD distinguishable | d' > 1.5 | 0.88 |
-| H-030 | MDMA vs. Psilocybin distinguishable | d' > 1.5 | 0.85 |
+| H-023 | State L vs. baseline distinguishable | d' > 2.0 | 0.98 |
+| H-024 | State D vs. baseline distinguishable | d' > 2.0 | 0.99 |
+| H-025 | State M vs. baseline distinguishable | d' > 2.0 | 0.96 |
+| H-026 | State P vs. baseline distinguishable | d' > 2.0 | 0.95 |
+| H-027 | State L vs. State P distinguishable | d' > 1.5 | 0.40 |
+| H-028 | State A vs. Flow distinguishable | d' > 1.5 | 0.94 |
+| H-029 | State D vs. State L distinguishable | d' > 1.5 | 0.88 |
+| H-030 | State M vs. State P distinguishable | d' > 1.5 | 0.85 |
 
 **Category 4: Controller Stability (H-031 to H-038)**
 

@@ -31,7 +31,7 @@ This document explores three levels of the tension hypothesis, evaluates evidenc
 Tension measures how far the current brain state (12-variable vector) is from a target state. The optimization loop uses this scalar distance to decide which stimulation parameters to adjust.
 
 - **Implementation**: `T = Σ(current_i - target_i)²` across 12 consciousness variables
-- **Result**: 98.3% tension match on THC reproduction target
+- **Result**: 98.3% tension match on State A reproduction target
 - **Status**: Operational. This is the foundation of the BrainWire control system.
 
 ### Level 2: Tension as Control Signal — PROVEN
@@ -39,7 +39,7 @@ Tension measures how far the current brain state (12-variable vector) is from a 
 Rather than running 12 independent PID controllers (one per variable), we use the tension gradient `∇T` to drive stimulation parameters holistically. The gradient tells each stimulation channel which direction to move and by how much, treating the 12-variable space as a single optimization landscape.
 
 - **Advantage over PID**: Captures cross-variable interactions. Adjusting dopamine (V1) changes GABA (V4) and theta power (V6) simultaneously. Gradient descent on tension handles these couplings naturally.
-- **Result**: 100% convergence on THC target via tension gradient descent
+- **Result**: 100% convergence on target state via tension gradient descent
 - **Status**: Operational. Superior to independent variable control.
 
 ### Level 3: Tension as Physical Force — HYPOTHESIS, UNPROVEN
@@ -87,15 +87,15 @@ Critical findings:
 
 1. DMN and TPN are intrinsically anti-correlated (Fox et al., 2005). When one activates, the other suppresses.
 2. Greater anti-correlation predicts higher cognitive performance (Kelly et al., 2008).
-3. THC disrupts DMN coherence (Bossong et al., 2013), directly altering the "tension" between networks.
-4. Psychedelics massively increase DMN-TPN entropy and reduce the anti-correlation structure (Carhart-Harris et al., 2014), consistent with a collapse of normal tension dynamics.
+3. State A disrupts DMN coherence (Bossong et al., 2013), directly altering the "tension" between networks.
+4. Psychedelic states massively increase DMN-TPN entropy and reduce the anti-correlation structure (Carhart-Harris et al., 2014), consistent with a collapse of normal tension dynamics.
 5. The anti-correlation can be quantified: `T_brain = |DMN_activity - TPN_activity|²`, which has the same form as PureField tension.
 
 If DMN-TPN anti-correlation IS the biological instantiation of PureField tension, then manipulating this anti-correlation (via dual-site stimulation) would be directly manipulating the tension that underlies conscious state transitions.
 
 **References**:
 - Fox, M. D. et al. (2005). The human brain is intrinsically organized into dynamic, anticorrelated functional networks. *PNAS*, 102(27), 9673-9678.
-- Carhart-Harris, R. L. et al. (2014). The entropic brain: a theory of conscious states informed by neuroimaging research with psychedelic drugs. *Frontiers in Human Neuroscience*, 8, 20.
+- Carhart-Harris, R. L. et al. (2014). The entropic brain: a theory of conscious states informed by neuroimaging research with psychedelic compounds. *Frontiers in Human Neuroscience*, 8, 20.
 
 ### 3.4 EEG Markers as Tension Proxies
 
@@ -170,7 +170,7 @@ If Level 3 is correct, the following five predictions must hold. Failure of any 
 
 **Protocol**: TMS at 6 Hz targeting PCC (DMN hub) + 10 Hz targeting DLPFC (TPN hub), applied simultaneously.
 
-**Measurement**: PCI before and after stimulation. Also measure all 12 THC variables to control for variable-specific effects.
+**Measurement**: PCI before and after stimulation. Also measure all 12 consciousness variables to control for variable-specific effects.
 
 **Expected if Level 3 is true**: PCI increase > 20%, even if individual variables (DA, 5HT, etc.) do not change significantly. The tension increase itself drives consciousness complexity up.
 
@@ -198,7 +198,7 @@ If Level 3 is correct, the following five predictions must hold. Failure of any 
 
 ### Prediction 4: Golden zone G=0.4731 corresponds to maximum DMN-TPN tension
 
-**Protocol**: During a THC reproduction session, simultaneously record:
+**Protocol**: During a Joywire session, simultaneously record:
 - G value (computed from D, P, I measurements via EEG)
 - DMN-TPN functional connectivity (anti-correlation coefficient from dense EEG source localization)
 
@@ -212,9 +212,9 @@ If Level 3 is correct, the following five predictions must hold. Failure of any 
 
 **Protocol**: Simulate four consciousness states using BrainWire hardware:
 1. Flow state (moderate tension)
-2. THC equivalent (high tension)
-3. LSD equivalent (very high tension)
-4. DMT equivalent (extreme tension)
+2. State A equivalent (high tension)
+3. State L equivalent (very high tension)
+4. State D equivalent (extreme tension)
 
 Measure PCI during each state.
 
@@ -235,7 +235,7 @@ These experiments map to the following additions in `docs/experiment-protocol.md
 | 2A | DMN-TPN measurement during stimulation | Dual-site TMS + dense EEG | 2x TMS coils, 64ch EEG |
 | 2B | Prediction error mapping | Oddball MMN + targeted tDCS | 16ch EEG, tDCS |
 | 2C | Stochastic resonance comparison | tRNS vs tDCS at matched energy | tRNS device, tDCS, 16ch EEG |
-| 2D | G + DMN-TPN simultaneous recording | Source-localized EEG during THC session | 64ch EEG, full Joywire stack |
+| 2D | G + DMN-TPN simultaneous recording | Source-localized EEG during Joywire session | 64ch EEG, full Joywire stack |
 | 2E | Cross-state PCI ranking | TMS-EEG during 4 simulated states | TMS, 64ch EEG, full Joywire stack |
 
 Phase 2A is the critical experiment. If dual-site TMS increases PCI independent of variable-specific changes, the Level 3 hypothesis gains strong support and justifies the more resource-intensive Phase 2D and 2E experiments.
@@ -267,7 +267,7 @@ This is the most consequential hypothesis in the BrainWire project. It determine
 ## References
 
 - Casali, A. G. et al. (2013). A theoretically based index of consciousness independent of sensory processing and behavior. *Science Translational Medicine*, 5(198), 198ra105.
-- Carhart-Harris, R. L. et al. (2014). The entropic brain: a theory of conscious states informed by neuroimaging research with psychedelic drugs. *Frontiers in Human Neuroscience*, 8, 20.
+- Carhart-Harris, R. L. et al. (2014). The entropic brain: a theory of conscious states informed by neuroimaging research with psychedelic compounds. *Frontiers in Human Neuroscience*, 8, 20.
 - Fox, M. D. et al. (2005). The human brain is intrinsically organized into dynamic, anticorrelated functional networks. *PNAS*, 102(27), 9673-9678.
 - Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*, 11(2), 127-138.
 - Kelly, A. M. C. et al. (2008). Competition between functional brain networks mediates behavioral variability. *NeuroImage*, 39(1), 527-537.

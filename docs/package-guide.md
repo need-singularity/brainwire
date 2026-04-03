@@ -20,11 +20,11 @@ brainwire/
 ├── profiles/                # 의식 상태 프로파일 (YAML)
 │   ├── base.py              # StateProfile, Envelope, SafetyOverrides, PidHint
 │   ├── __init__.py          # load_profile(), list_profiles()
-│   ├── thc.yaml             # THC 25%
-│   ├── lsd.yaml             # LSD 100ug
-│   ├── psilocybin.yaml      # Psilocybin 25mg
-│   ├── dmt.yaml             # DMT 30mg (breakthrough)
-│   ├── mdma.yaml            # MDMA 125mg
+│   ├── thc.yaml             # State profile A
+│   ├── lsd.yaml             # State profile L
+│   ├── psilocybin.yaml      # State profile P
+│   ├── dmt.yaml             # State profile D
+│   ├── mdma.yaml            # State profile M
 │   └── flow.yaml            # Flow State (endogenous)
 │
 ├── hardware/                # 하드웨어 추상화
@@ -62,11 +62,11 @@ python -m brainwire.bench all                       # 전체 매트릭스
 ### 시뮬레이터 (`brainwire.simulator`)
 
 ```bash
-python -m brainwire.simulator thc --tier 4 --duration 600
+python -m brainwire.simulator flow --tier 4 --duration 600
 python -m brainwire.simulator --all --tier 4
-python -m brainwire.simulator thc --concentration   # THC 농도별
-python -m brainwire.simulator thc --no-pid          # 오픈루프
-python -m brainwire.simulator thc --no-breathing    # 호흡 리듬 없이
+python -m brainwire.simulator flow --concentration  # 농도별
+python -m brainwire.simulator flow --no-pid         # 오픈루프
+python -m brainwire.simulator flow --no-breathing   # 호흡 리듬 없이
 ```
 
 ### 최적화 (`brainwire.optimizer`)
@@ -100,7 +100,7 @@ python bench_hypotheses.py                          # 50 가설 검증
 ### 레거시 (v1)
 
 ```bash
-python bench_thc_vars.py                            # THC-only 벤치마크
+python bench_thc_vars.py                            # Joywire 벤치마크
 python bench_thc_vars.py --levels                   # 농도별
 python calc.py sensitivity                          # 민감도 분석
 python calc.py gap                                  # 미달 분석

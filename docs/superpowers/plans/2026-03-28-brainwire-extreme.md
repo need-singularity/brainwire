@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Extend BrainWire from THC-only to a universal consciousness state engine with Tier 4 hardware, closed-loop PID control, and 6 substance profiles (THC, LSD, psilocybin, DMT, MDMA, Flow).
+**Goal:** Extend BrainWire from single-state to a universal consciousness state engine with Tier 4 hardware, closed-loop PID control, and 6 consciousness state profiles.
 
 **Architecture:** Refactor `bench_thc_vars.py` into a modular package `brainwire/` with: (1) state profiles as YAML-loaded 12-variable target vectors, (2) a universal transfer function engine supporting Tier 1-4 hardware with hot-plug HAL, (3) a PID controller simulator, (4) a state interpolation engine for blending/transitions. Extend `calc.py` to support multi-state operations.
 

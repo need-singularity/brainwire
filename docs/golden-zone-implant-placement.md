@@ -20,16 +20,16 @@ G = D × P / I
 
 | State | G | D | P | I | Zone | What's Limiting |
 |---|---|---|---|---|---|---|
-| THC | 0.4731 | 0.302 | 0.783 | 0.500 | golden | nothing |
+| State A | 0.4731 | 0.302 | 0.783 | 0.500 | golden | nothing |
 | Flow | 0.1473 | 0.180 | 0.571 | 0.700 | below | I too high (too much frontal alpha) |
-| LSD | 0.0000 | 0.000 | 0.893 | 1.500 | below | D=0 (symmetric), I too high |
-| DMT | 0.0000 | 0.000 | 0.972 | 2.000 | below | D=0, I way too high |
-| MDMA | 0.0000 | 0.000 | 0.625 | 1.800 | below | D=0, I too high |
-| Psilo | 0.0000 | 0.000 | 0.833 | 1.200 | below | D=0 |
+| State L | 0.0000 | 0.000 | 0.893 | 1.500 | below | D=0 (symmetric), I too high |
+| State D | 0.0000 | 0.000 | 0.972 | 2.000 | below | D=0, I way too high |
+| State M | 0.0000 | 0.000 | 0.625 | 1.800 | below | D=0, I too high |
+| State P | 0.0000 | 0.000 | 0.833 | 1.200 | below | D=0 |
 
 **Golden Zone:** G in [0.2123, 0.5000], center = 0.3258
 
-**Critical finding:** ALL non-THC states fail because D=0 (symmetric neurochemical profiles produce no hemispheric alpha asymmetry) or I is too high (frontal alpha dominates global alpha). THC succeeds because it has BOTH asymmetry (PFC suppression creates D>0) AND low inhibition (Alpha suppression reduces I).
+**Critical finding:** ALL non-State A states fail because D=0 (symmetric neurochemical profiles produce no hemispheric alpha asymmetry) or I is too high (frontal alpha dominates global alpha). State A succeeds because it has BOTH asymmetry (PFC suppression creates D>0) AND low inhibition (Alpha suppression reduces I).
 
 ## 3. Three Implant Placement Options
 
@@ -50,7 +50,7 @@ G = D × P / I
 - Direct DLPFC→VTA projection for DA (V1, dopamine release)
 - PFC→raphe projection for 5HT modulation (V3)
 - PFC→LC projection for NE suppression (V5)
-- PFC suppression satisfies THC V9 (PFC↓ target)
+- PFC suppression satisfies Joywire V9 (PFC↓ target)
 - Alpha suppression satisfies V7 (Alpha↓ target)
 - Gamma driving satisfies V8 (Gamma↑ target)
 
@@ -162,7 +162,7 @@ With independent control of both frontal hemispheres:
 
 With left prefrontal N1, every consciousness state can be pushed into the golden zone by manipulating D and I:
 
-### THC (already in zone: G=0.4731)
+### State A (already in zone: G=0.4731)
 - No N1 adjustment needed
 - Optional: fine-tune G toward center (0.3258) by slightly reducing D
 
@@ -172,25 +172,25 @@ With left prefrontal N1, every consciousness state can be pushed into the golden
 - New G = 0.180 × 0.571 / 0.400 = **0.257 (IN GOLDEN ZONE)**
 - Required N1 power: moderate (40% frontal alpha suppression)
 
-### LSD (G=0.0000 → needs D>0)
+### State L (G=0.0000 → needs D>0)
 - Problem: D=0 (symmetric profile), I=1.500
 - N1 intervention: create left alpha asymmetry (D→0.3) + suppress I (1.500→0.800)
 - New G = 0.300 × 0.893 / 0.800 = **0.335 (IN GOLDEN ZONE)**
 - Required N1 power: high (must create asymmetry from zero AND halve I)
 
-### DMT (G=0.0000 → needs D>0 and I↓)
+### State D (G=0.0000 → needs D>0 and I↓)
 - Problem: D=0, I=2.000 (extreme frontal alpha)
 - N1 intervention: D→0.3, I from 2.000→0.600
 - New G = 0.300 × 0.972 / 0.600 = **0.486 (IN GOLDEN ZONE)**
 - Required N1 power: very high (must overcome strong frontal alpha)
 
-### MDMA (G=0.0000 → needs D>0)
+### State M (G=0.0000 → needs D>0)
 - Problem: D=0, I=1.800
 - N1 intervention: D→0.3, I from 1.800→0.700
 - New G = 0.300 × 0.625 / 0.700 = **0.268 (IN GOLDEN ZONE)**
 - Required N1 power: high
 
-### Psilocybin (G=0.0000 → needs D>0)
+### State P (G=0.0000 → needs D>0)
 - Problem: D=0, I=1.200
 - N1 intervention: D→0.3, I from 1.200→0.600
 - New G = 0.300 × 0.833 / 0.600 = **0.416 (IN GOLDEN ZONE)**
@@ -207,17 +207,17 @@ Every consciousness state gains a golden-zone-enhanced version:
 | State | Base G | Enhanced G | Enhancement |
 |---|---|---|---|
 | Flow + GZ | 0.147 | 0.257 | Ultimate productivity: flow state with creative asymmetry |
-| LSD + GZ | 0.000 | 0.335 | Creative psychedelic: visual intensity + structured insight |
-| DMT + GZ | 0.000 | 0.486 | Transcendent creativity: peak gamma + optimal asymmetry |
-| MDMA + GZ | 0.000 | 0.268 | Empathic creativity: social bonding + creative output |
-| Psilo + GZ | 0.000 | 0.416 | Contemplative creativity: introspection + golden ratio |
+| State L + GZ | 0.000 | 0.335 | Creative psychedelic: visual intensity + structured insight |
+| State D + GZ | 0.000 | 0.486 | Transcendent creativity: peak gamma + optimal asymmetry |
+| State M + GZ | 0.000 | 0.268 | Empathic creativity: social bonding + creative output |
+| State P + GZ | 0.000 | 0.416 | Contemplative creativity: introspection + golden ratio |
 
 ### Single Implant, Universal Access
 
 The left prefrontal N1 position is optimal because:
 1. It controls all three G components (D, P, I) from one location
 2. It provides deep access via DLPFC→VTA, PFC→raphe, PFC→LC projections
-3. It directly satisfies 6 of 12 THC variables (V1, V7, V8, V9, V12, V4)
+3. It directly satisfies 6 of 12 Joywire variables (V1, V7, V8, V9, V12, V4)
 4. The remaining 6 variables can be supplemented with external Tier 1-3 hardware
 
 This is the mathematically optimal placement for a single N1 implant targeting consciousness engineering via the golden zone framework.

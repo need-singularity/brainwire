@@ -6,7 +6,7 @@ BrainWire Extreme is a 3-axis simultaneous expansion of the BrainWire neural sti
 
 1. **Performance Maximization** — Tier 4 hardware stack pushing 150%+ average across all 12 variables
 2. **Closed-Loop PID Control** — Real-time EEG→decode→stimulate feedback loop <100ms latency
-3. **Multi-State Consciousness Engine** — Universal controller supporting THC, LSD, psilocybin, DMT, MDMA, Flow state profiles
+3. **Multi-State Consciousness Engine** — Universal controller supporting 6 consciousness state profiles
 
 All three axes share a single Universal Consciousness Controller (UCC) architecture.
 
@@ -534,10 +534,7 @@ Pattern classification:
 - Safety engine integration
 
 ### Phase 4: Multi-State Validation
-- THC profile validation (baseline, already at 117%)
-- LSD profile validation against literature
-- DMT profile with safety-first approach
-- MDMA profile with serotonin monitoring
+- All state profiles validated against literature baselines
 - Flow state profile validation
 - State transition and blending tests
 
@@ -545,7 +542,7 @@ Pattern classification:
 
 ## 6. Success Criteria
 
-- Tier 4 THC: 150%+ average across all 12 variables
+- Tier 4 primary state: 150%+ average across all 12 variables
 - Closed-loop latency: <100ms end-to-end (target 40ms)
 - PID settling time: <30s for any variable step change
 - All 6 state profiles validated against literature baselines

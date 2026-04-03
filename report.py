@@ -19,8 +19,8 @@ def main():
     print(f"  Package: brainwire v{__version__}")
     print(f"  Variables: {len(VAR_NAMES)}, Profiles: {len(list_profiles())}, Tiers: {len(TIER_CONFIGS)}")
 
-    # 2. THC benchmark across tiers
-    print(f"\n  ═══ THC Performance by Tier ═══\n")
+    # 2. Joywire benchmark across tiers
+    print(f"\n  ═══ Joywire Performance by Tier ═══\n")
     from brainwire.bench import run_benchmark
     print(f"  {'Tier':>6} {'Cost':>8} {'Avg%':>7} {'TM%':>7} {'≥100%':>6}")
     print(f"  {'-'*6} {'-'*8} {'-'*7} {'-'*7} {'-'*6}")
@@ -59,7 +59,7 @@ def main():
         print(f"  {name:>12} {g['G']:>7.4f} {g['zone']:<6}{marker}")
 
     # 5. PK peak sequence
-    print(f"\n  ═══ THC Pharmacokinetic Peak Sequence ═══\n")
+    print(f"\n  ═══ Pharmacokinetic Peak Sequence ═══\n")
     from brainwire.pharmacokinetics import simulate_thc_pharmacokinetics
     pk = simulate_thc_pharmacokinetics('strong', 7200, 10)
     for var, peak_t in sorted(pk['peak_times'].items(), key=lambda x: x[1]):
@@ -70,11 +70,11 @@ def main():
     # 6. Key discoveries
     print(f"\n  ═══ Key Discoveries ═══\n")
     discoveries = [
-        ("THC = max entropy state", "3.431 bits (1st of 6)"),
-        ("THC = ONLY golden zone", "G=0.4731"),
+        ("State A = max entropy", "3.431 bits (1st of 6)"),
+        ("State A = ONLY golden zone", "G=0.4731"),
         ("Tension = intensity", "Kendall tau = 1.000"),
-        ("DMT = 1.51× LSD", "direction sim 98.7%"),
-        ("MDMA = centroid", "lowest variance to all states"),
+        ("State D = 1.51× State L", "direction sim 98.7%"),
+        ("State M = centroid", "lowest variance to all states"),
         ("Flow = min tension", "T=2.985 (closest to baseline)"),
         ("$145 covers 12/12 vars", "tDCS + entrainment + taVNS"),
         ("GVS = best DA/dollar", "$50 for 0.30× DA"),

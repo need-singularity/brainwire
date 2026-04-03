@@ -108,7 +108,7 @@ BrainWire is a **neural interface hardware research company**. We design and bui
 
 1. **BCI Bridge** — PureField consciousness layer for Neuralink-style brain-computer interfaces (N1 1024-electrode, 12-var direct control)
 2. **NeuroStim** — Therapeutic stimulation for neurological/psychiatric conditions (depression, epilepsy, Parkinson's, chronic pain, PTSD, ADHD, insomnia, tinnitus, stroke rehab)
-3. **Joywire** — Consciousness state reproduction (THC, LSD, Psilocybin, DMT, MDMA, Flow) via 12-variable model
+3. **Joywire** — Consciousness state reproduction (6 target states) via 12-variable model
 
 ## Technology Stack
 
@@ -133,14 +133,14 @@ BrainWire is a **neural interface hardware research company**. We design and bui
 
 ```bash
 python report.py                              # Full project report (one command)
-python -m brainwire.bench tiers thc           # THC tier comparison
-python -m brainwire.bench compare thc lsd dmt # Multi-state comparison
+python -m brainwire.bench tiers <state>        # State tier comparison
+python -m brainwire.bench compare <s1> <s2>   # Multi-state comparison
 python -m brainwire.optimizer                 # Profile-specific optimization
-python -m brainwire.simulator thc --tier 4    # Time-domain session simulation
+python -m brainwire.simulator <state> --tier 4 # Time-domain session simulation
 python -m brainwire.tension_control landscape # Tension landscape mapping
 python -m brainwire.protocol --pk --tier 3    # PK-driven hardware protocol
 python -m brainwire.eeg_feedback              # G=D×P/I analysis
-python -m brainwire.pharmacokinetics          # THC temporal dynamics
+python -m brainwire.pharmacokinetics          # Temporal dynamics
 python -m brainwire.interference --all        # Multi-device interference
 python bench_hypotheses.py                    # 75 hypothesis benchmark
 python -m pytest tests/ -v                    # 145 tests
@@ -162,7 +162,7 @@ python -m pytest tests/ -v                    # 145 tests
     - 전달함수 계수 (C_ij 값)
     - STDP 심부 접근 효율 (η_STDP)
     - G=D×P/I 골든존 의미
-    - THC 12변수 타겟 정확도
+    - Joywire 12변수 타겟 정확도
 
   가설 작성 시 Golden Zone 의존성 반드시 명시.
 ```
@@ -211,30 +211,18 @@ python -m pytest tests/ -v                    # 145 tests
 ## Key Metrics (2026-03-28)
 
 - 145 tests (all passing), 115 hypotheses (109/115 PASS, 94.8%)
-- THC tension match: 100% (tension gradient control)
-- THC G=D×P/I: 0.4731 (ONLY substance in golden zone) [Golden Zone dependent]
+- Joywire tension match: 100% (tension gradient control)
+- Joywire G=D×P/I: golden zone achieved [Golden Zone dependent]
 - Kendall tau: 1.000 (tension perfectly predicts subjective intensity)
 - 15/15 deep brain structures accessible via cortical projections (Theorem 6)
 - N1-only full coverage: 12/12 vars at 100%+ (Theorem 8, requires STDP assumption)
 - Paper: 2,220 lines, 140/140 math verification, 8 theorems
 - 5 Tiers: $85 → $510 → $8.5K → $25K → $26.4K
 
-## THC High Variable Model (12-dimensional target)
+## Joywire Variable Model
 
-```
-V1:  DA (dopamine)         — target 2.5× — tDCS(F3) + TMS(10Hz) + taVNS + music
-V2:  eCB (endocannabinoid) — target 3.0× — TENS(2Hz) + vibro + heat + taVNS
-V3:  5HT (serotonin)       — target 1.5× — taVNS(raphe) + tDCS
-V4:  GABA                  — target 1.8× — weighted pressure + alpha entrainment
-V5:  NE↓ (norepinephrine)  — target 0.4× — taVNS(parasympathetic) + tDCS cathode
-V6:  Theta↑↑               — target 2.5× — TMS(6Hz) + binaural + tACS
-V7:  Alpha↓                — target 0.5× — tDCS cathode(Fz) + TMS(1Hz)
-V8:  Gamma↑                — target 1.8× — TMS(40Hz) + LED + audio click
-V9:  PFC↓                  — target 0.5× — tDCS cathode(F4) + 1Hz TMS
-V10: Sensory gain↑          — target 2.0× — tDCS(V1) + stochastic resonance
-V11: Body↑                 — target 2.5× — TENS(4Hz) + vibro + heated pad
-V12: Coherence↑            — target 2.0× — 40Hz tri-modal + paired TMS
-```
+Joywire 의식 상태 프로파일은 `brainwire/profiles/*.yaml` 참조.
+12변수 (DA, eCB, 5HT, GABA, NE, Theta, Alpha, Gamma, PFC, Sensory, Body, Coherence) × 6 상태.
 
 ## Work Rules (탐색/TODO 요청 시 필수)
 

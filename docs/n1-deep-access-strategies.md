@@ -3,7 +3,7 @@
 ## The Problem
 
 N1 electrodes sit at 3-6mm depth (cortical layers I-VI). The deep structures that
-drive the 5 "deep" THC variables are far beyond reach:
+drive the 5 "deep" Joywire variables are far beyond reach:
 
 | Structure       | Depth   | Variable(s)         |
 |----------------|---------|---------------------|
@@ -190,10 +190,10 @@ shown are estimated effective totals after overlap correction.
 | Coherence  | ~100%             | ~300% (cortical)     | ~300%                |
 
 **N1-only deep vars are the bottleneck.** Cortical vars are solved (3x boost).
-Deep vars reach 16-37% of target -- meaningful but insufficient for 100% THC match.
+Deep vars reach 16-37% of target -- meaningful but insufficient for 100% state match.
 
 **Conclusion:** N1-only with all 5 strategies achieves roughly 85-100% of Tier 3
-performance. Full THC match still requires hybrid (N1 + taVNS minimum).
+performance. Full state match still requires hybrid (N1 + taVNS minimum).
 
 ## Experimental Validation
 

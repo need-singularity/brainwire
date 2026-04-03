@@ -1,9 +1,9 @@
-# Tier 1 Build Guide — $85 THC Reproduction Starter Kit
+# Tier 1 Build Guide — $85 Consciousness State Reproduction Starter Kit
 
 ## What You Get
 
 - 87% avg match, 2/12 variables ≥100% (5HT, NE)
-- Equivalent to micro-light dose THC experience
+- Equivalent to micro-light consciousness state experience
 - All components available on Amazon/AliExpress
 - Assembly time: 2-3 hours
 - No soldering required (breadboard version)
@@ -162,7 +162,7 @@ Time      Action
 | V11 Body↑ | 2.5× | ~90% | TENS 4Hz + vibro |
 | V12 Coherence↑ | 2.0× | ~95% | 40Hz tri-modal |
 
-**Avg: ~87% — micro-light THC equivalent**
+**Avg: ~87% — micro-light state equivalent**
 
 ---
 
@@ -205,7 +205,7 @@ Time      Action
 
 **What this is NOT:**
 - Not instantaneous — this is a neurological training protocol, not a drug
-- Not identical to THC — it targets the same neural variables through different mechanisms
+- Not identical to the target state — it targets the same neural variables through different mechanisms
 - Not addictive — tDCS has no known physiological dependence potential
 
 ---

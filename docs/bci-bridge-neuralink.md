@@ -61,9 +61,9 @@ App-level concept: schedule consciousness states throughout the day.
 | Time | State | Profile | Notes |
 |---|---|---|---|
 | Morning | Flow State | `flow` | Work focus, DA+NE optimal |
-| Lunch | THC Light | `thc` @ 60% | Relaxation, social eating |
+| Lunch | Relaxation | `relax` @ 60% | Relaxation, social eating |
 | Afternoon | Flow State | `flow` | Creative work session |
-| Evening | THC Medium | `thc` @ 100% | Social, entertainment |
+| Evening | Relaxation+ | `relax` @ 100% | Social, entertainment |
 | Night | Sleep Optimization | new `sleep` profile | Delta entrainment, melatonin pathway |
 
 **Transition time:** current 5min onset -> Neuralink 30 seconds (direct access to all targets)
@@ -77,7 +77,7 @@ Revolutionary concept: record one person's brain state, replay in another.
 
 ### Protocol
 
-1. **Record:** Subject A uses THC (real drug) with Neuralink recording 1024 channels
+1. **Record:** Subject A enters target consciousness state with Neuralink recording 1024 channels
 2. **Extract:** Decode 12-variable temporal profile (pharmacokinetic curve) from neural data
 3. **Convert:** Apply inverse transfer function to generate stimulation pattern
 4. **Replay:** Apply pattern to Subject B's Neuralink -> "play back" the experience

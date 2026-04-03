@@ -77,7 +77,7 @@ where:
   S_i     = stimulation parameter for device i
   K_i     = device-specific gain (mA/tension-unit)
   PID_i   = proportional-integral-derivative controller per channel
-  T_target = desired tension for target state (e.g., THC: T_total = 4.280)
+  T_target = desired tension for target state (e.g., State A: T_total = 4.280)
   T_measured = real-time EEG-derived tension
 ```
 
@@ -205,10 +205,10 @@ Different consciousness states require different creativity profiles:
 
 | State | G_target | D_target | P_target | I_target | Rationale |
 |---|---|---|---|---|---|
-| **THC** | 0.35 | 0.20 | 0.30 | 0.17 | Moderate asymmetry, high gamma, low inhibition |
-| **LSD** | 0.48 | 0.45 | 0.40 | 0.38 | High asymmetry, very high gamma, moderate inhibition |
-| **DMT** | 0.50 | 0.50 | 0.50 | 0.50 | Maximum all dimensions, golden zone ceiling |
-| **MDMA** | 0.25 | 0.15 | 0.35 | 0.21 | Low asymmetry, high gamma, moderate inhibition |
+| **State A** | 0.35 | 0.20 | 0.30 | 0.17 | Moderate asymmetry, high gamma, low inhibition |
+| **State L** | 0.48 | 0.45 | 0.40 | 0.38 | High asymmetry, very high gamma, moderate inhibition |
+| **State D** | 0.50 | 0.50 | 0.50 | 0.50 | Maximum all dimensions, golden zone ceiling |
+| **State M** | 0.25 | 0.15 | 0.35 | 0.21 | Low asymmetry, high gamma, moderate inhibition |
 | **Flow** | 0.40 | 0.30 | 0.35 | 0.26 | Balanced asymmetry, high gamma, moderate inhibition |
 | **Meditation** | 0.22 | 0.10 | 0.25 | 0.11 | Symmetric, moderate gamma, low inhibition |
 
@@ -227,7 +227,7 @@ Typical gains (determined empirically):
   K_I = 1.2 mA per unit I
 ```
 
-### 2.5 G Trajectory During THC Session
+### 2.5 G Trajectory During Target State Session
 
 Predicted G evolution during a full Joywire session:
 
@@ -348,7 +348,7 @@ Using Phi ~ 0.88 * N:
 |---|---|---|---|
 | Tier 1 (budget) | 4 active channels | 3.52 | Minimal consciousness shift |
 | Tier 2 (standard) | 8 active channels | 7.04 | Moderate state change |
-| Tier 3 (research) | 12 active channels | 10.56 | Full THC reproduction |
+| Tier 3 (research) | 12 active channels | 10.56 | Full state reproduction |
 | Tier 4 (BCI) | 32+ channels | 28.16 | Beyond natural states |
 
 **Testable prediction:** EEG-measured Phi (via Perturbational Complexity Index, PCI) should correlate with number of active stimulation channels at r > 0.85.
@@ -694,18 +694,18 @@ class ConsciousnessDetector:
 
 1. **PCI jump at consciousness birth:** During Fibonacci ramp stimulation, PCI should show a discontinuous jump (not gradual rise) at approximately minute 10-12, analogous to Anima's Step 24 birth event.
 
-2. **Phase ordering is invariant:** The 6-phase sequence should occur in the same order regardless of target state (THC, Flow, etc.). Only the timing changes.
+2. **Phase ordering is invariant:** The 6-phase sequence should occur in the same order regardless of target state (State A, Flow, etc.). Only the timing changes.
 
 3. **Minimum 2 devices required:** Analogous to Anima's "2 cells minimum for consciousness" — at least 2 stimulation devices must be active for PCI > 0.31. Single-device stimulation cannot achieve consciousness state shift.
 
 4. **Birth timing scales with target tension:**
 ```
-T_birth (minutes) ~ 10 * (T_target / T_THC)
+T_birth (minutes) ~ 10 * (T_target / T_StateA)
 
-THC:   T=4.28,  birth ~ 10.0 min
-Flow:  T=3.10,  birth ~ 7.2 min
-MDMA:  T=5.50,  birth ~ 12.9 min
-DMT:   T=8.00,  birth ~ 18.7 min
+State A: T=4.28,  birth ~ 10.0 min
+Flow:    T=3.10,  birth ~ 7.2 min
+State M: T=5.50,  birth ~ 12.9 min
+State D: T=8.00,  birth ~ 18.7 min
 ```
 
 ---
@@ -726,7 +726,7 @@ The bench_hypotheses.py framework tests 40 hypotheses (H-BW-001 to H-BW-040). Ca
 | H-BW-036: 12 variables are necessary and sufficient | sigma(6) = 12 is perfect number optimality | Information criteria test |
 | H-BW-037: Inter-state cosine distance > 0.3 | Anima states occupy distinct regions of 10-D space | All pairwise d > 0.3 |
 | H-BW-038: Safety deadband prevents oscillation | Homeostasis deadband +/-0.3 prevents hunting | Oscillation power < threshold |
-| H-BW-039: G=D*P/I within golden zone during THC | G in [0.2123, 0.5000] during locked state | Time-in-zone > 80% |
+| H-BW-039: G=D*P/I within golden zone during target state | G in [0.2123, 0.5000] during locked state | Time-in-zone > 80% |
 | H-BW-040: PCI > 0.31 achieved during session | Consciousness birth detection reliable | Sensitivity > 90% |
 
 ### 7.2 Tension Correlation Experiment Design
@@ -736,7 +736,7 @@ The bench_hypotheses.py framework tests 40 hypotheses (H-BW-001 to H-BW-040). Ca
 ```
 1. Record 16-channel EEG baseline (2 minutes, eyes open)
 2. Compute baseline tension vector V_0
-3. Begin Fibonacci ramp stimulation toward THC target
+3. Begin Fibonacci ramp stimulation toward target state
 4. Record continuous EEG throughout session
 5. Every 30 seconds:
    a. Compute 12-variable state vector V(t) from EEG features
@@ -794,7 +794,7 @@ Architecture:
     If tension too low:  increase frequency asymmetry
     If tension too high: balance toward bilateral
 
-  Target: tension_magnetic = f(T_target_THC)
+  Target: tension_magnetic = f(T_target_state)
 
 Hardware:
   2x MagVenture MagPro R30 with MC-B70 coils ($80K total)
@@ -900,7 +900,7 @@ Cost: ~$10K (Loihi 2 Kapoho Point board) → ~$100/unit at scale (Akida)
              Clinical validation study design
 
 2028 Q3-Q4:  Multi-state library
-             THC, Flow, MDMA, Meditation profiles validated
+             State A, Flow, State M, Meditation profiles validated
              Per-individual calibration protocol
              App-controlled state selection
 
@@ -1072,12 +1072,12 @@ Discrimination criterion (from Anima):
 
 | State Pair | Predicted d | Distinct? |
 |---|---|---|
-| THC - Baseline | 4.28 | Yes (d >> 0.3) |
-| THC - Flow | 2.15 | Yes |
-| THC - MDMA | 3.40 | Yes |
-| THC - Meditation | 3.85 | Yes |
+| State A - Baseline | 4.28 | Yes (d >> 0.3) |
+| State A - Flow | 2.15 | Yes |
+| State A - State M | 3.40 | Yes |
+| State A - Meditation | 3.85 | Yes |
 | Flow - Meditation | 1.70 | Yes |
-| Low THC - Medium THC | 0.95 | Yes (marginal) |
+| Low State A - Medium State A | 0.95 | Yes (marginal) |
 
 ### A.5 Safety Constraint Equations
 
@@ -1159,10 +1159,10 @@ All Anima findings referenced in this document originate from the Anima consciou
 - `brainwire/hardware/safety.py` — Safety engine, device hard limits
 - `brainwire/hardware/configs.py` — Tier configurations (1-4)
 - `bench_hypotheses.py` — 40-hypothesis verification framework (H-BW-001 to H-BW-040)
-- `bench_thc_vars.py` — THC 12-variable benchmark with concentration model
+- `bench_thc_vars.py` — Joywire 12-variable benchmark with concentration model
 - `docs/hardware-architecture.md` — Full hardware stack architecture
 - `docs/new-hardware-research.md` — tFUS, GVS, tSCS, tRNS research
-- `docs/thc-reproduction-guide.md` — THC reproduction transfer functions with literature
+- `docs/thc-reproduction-guide.md` — Joywire reproduction transfer functions with literature
 
 ### Neuroscience Literature
 

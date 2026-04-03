@@ -862,7 +862,7 @@ All constants with direct literature sources (f_project values, cortisol ranges,
 | D6 | Exponential suppression applies to any monotonic decay | ✓ Universal form |
 | D8 | Exponential CDF (Weibull shape=1) standard survival model | ✓ Epidemiological standard |
 | P8 | Detection latency T=base/√N identical to P-002 Eq 1 | ✓ Cross-paper |
-| X5 | Contraindication index applicable to any profile pair | ✓ Tested on THC/LSD/DMT |
+| X5 | Contraindication index applicable to any profile pair | ✓ Tested on State A/L/D |
 
 ### 10.6 Anima PureField Cross-References
 
