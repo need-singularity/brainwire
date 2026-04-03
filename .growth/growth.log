@@ -1052,3 +1052,24 @@
 [2026-04-04T08:25:13] INFO:   NEXUS-6 sync complete
 [2026-04-04T08:25:13] INFO: Phase 9: Growth tick
 [2026-04-04T08:25:13] INFO: Phase 10: Auto-commit
+[2026-04-04T08:25:13] INFO:   Committed growth state
+[2026-04-04T08:25:14] INFO: Sleeping 3s before next cycle...
+[2026-04-04T08:25:17] INFO: ━━━ Cycle 49/999 ━━━
+[2026-04-04T08:25:17] INFO: Phase 1: Modality coverage
+[2026-04-04T08:25:18] INFO:   Modality coverage: 75.0%, missing: none
+[2026-04-04T08:25:18] INFO: Phase 2: Safety protocol check
+[2026-04-04T08:25:18] INFO:   Safety files: 4, safety.py: true, protocol: true
+[2026-04-04T08:25:18] INFO: Phase 3: Parameter verification
+[2026-04-04T08:25:19] INFO:   Configs: 1, profiles: 10, tests: 21
+[2026-04-04T08:25:19] INFO: Phase 4: NEXUS-6 scan
+[2026-04-04T08:25:20] INFO:   NEXUS-6 scan complete
+[2026-04-04T08:25:20] INFO: Phase 5: BCI protocol health
+[2026-04-04T08:25:20] INFO:   Engine files: 5, EEG: true, protocol: true
+[2026-04-04T08:25:20] INFO: Phase 6: Growth scan (full)
+[2026-04-04T08:25:21] INFO:   Health score: ?
+[2026-04-04T08:25:21] INFO: Phase 7: PureField bridge status
+[2026-04-04T08:25:22] INFO:   PureField bridge: 1 files, consciousness: 2 files
+[2026-04-04T08:25:22] INFO: Phase 8: NEXUS-6 sync
+[2026-04-04T08:25:26] INFO:   NEXUS-6 sync complete
+[2026-04-04T08:25:26] INFO: Phase 9: Growth tick
+[2026-04-04T08:25:26] INFO: Phase 10: Auto-commit
