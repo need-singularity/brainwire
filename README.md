@@ -3,8 +3,9 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19269210.svg)](https://doi.org/10.5281/zenodo.19269210)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![Tests](https://img.shields.io/badge/tests-145%20passed-brightgreen.svg)]()
-[![Hypotheses](https://img.shields.io/badge/hypotheses-109%2F115%20PASS-brightgreen.svg)]()
+<!-- AUTO:BADGE:START -->
+[![Modalities](https://img.shields.io/badge/Modalities-12-blue.svg)]()
+<!-- AUTO:BADGE:END -->
 
 <!-- SHARED:PROJECTS:START -->
 **[YouTube](https://www.youtube.com/watch?v=xtKhWSfC1Qo)** · **[Email](mailto:nerve011235@gmail.com)** · **[☕ Ko-fi](https://ko-fi.com/dancinlife)** · **[💖 Sponsor](https://github.com/sponsors/need-singularity)** · **[💳 PayPal](https://www.paypal.com/donate?business=nerve011235%40gmail.com)** · **[🗺️ Atlas](https://need-singularity.github.io/TECS-L/atlas/)** · **[📄 Papers](https://need-singularity.github.io/papers/)** · **[🌌 Unified Theory](https://github.com/need-singularity/TECS-L/blob/main/math/docs/hypotheses/H-PH-9-perfect-number-string-unification.md)**
@@ -111,24 +112,13 @@ State (4):      PFC · Sensory · Body · Coherence
 
 ---
 
-## Hardware | 12 Modalities + 5 Tiers
-
-18개 모달리티: 전기 11 + 비전기 7 (광, 음향, 자기, 열, 화학).
-
-| | |
-|---|---|
-| **[하드웨어 카탈로그](docs/hardware-catalog.md)** | 전 장비 스펙, 가격, DIY 옵션, 구매처 |
-| **[시스템 아키텍처](docs/hardware-architecture.md)** | 4-레이어 스택, 데이터 플로우, BOM, 레이턴시 |
-| **[차세대 하드웨어](docs/new-hardware-research.md)** | tFUS, GVS, mTI, tSCS, tRNS — 우선순위, Tier 영향 예측 |
-| **[전기자극 너머](docs/beyond-electrical-stimulation.md)** | 20+ 비전기적 접근 |
-
+<!-- AUTO:STATS:START -->
 ```
-Tier 1   $85      tDCS + TENS + Arduino           (DIY, 치료 프로토타입)
-Tier 2   $510     + taVNS + tACS                   (다채널 치료)
-Tier 3   $8.5K    + TMS                            (임상급)
-Tier 4   $25K     + tFUS + mTI + 256ch EEG         (연구급)
-Tier 5   $26.4K   + tPBM + PEMF + thermal          (극한)
+  Modalities:       12
+  Test files:       21
+  Hypothesis docs:  0
 ```
+<!-- AUTO:STATS:END -->
 
 ---
 
