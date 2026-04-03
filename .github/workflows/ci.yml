@@ -3,11 +3,13 @@
 # Troubleshooting:
 #   - HW-dependent tests skipped: test_eeg_feedback.py, test_hardware.py
 #     plus -k "not eeg and not brainflow and not serial"
-#   - .shared/ is a symlink to ../TECS-L/.shared/ — CI checks it out manually
 #   - py_compile verifies syntax without importing (no deps needed)
 #   - CDO validate_cdo.py: exit 1 only on broken JSON, warnings are OK
 #
-# Date: 2026-04-03
+# 2026-04-03: pip install -e ".[dev]" 실패
+#   원인: setuptools flat-layout가 joywire, brainwire, calculator 3개 패키지 발견
+#   해결: editable install 대신 직접 의존성 설치 (pytest pyyaml numpy scipy)
+#   규칙: pyproject.toml에 [tool.setuptools.packages.find] include 추가 전까지 유지
 
 name: CI
 
@@ -48,12 +50,16 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
+      # [중요] pip install -e . 실패: flat-layout에서 multiple packages 감지
+      # pyproject.toml에 packages.find.include 설정 전까지 직접 설치
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install -e ".[dev]"
+          pip install pytest pyyaml numpy scipy
 
       - name: Run tests
+        env:
+          PYTHONPATH: .
         run: |
           pytest tests/ -v \
             --ignore=tests/test_eeg_feedback.py \
