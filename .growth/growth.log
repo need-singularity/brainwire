@@ -858,3 +858,8 @@
 [2026-04-04T08:24:14] INFO:   NEXUS-6 sync complete
 [2026-04-04T08:24:14] INFO: Phase 9: Growth tick
 [2026-04-04T08:24:14] INFO: Phase 10: Auto-commit
+[2026-04-04T08:24:14] INFO:   Committed growth state
+[2026-04-04T08:24:15] INFO: Sleeping 3s before next cycle...
+[2026-04-04T08:24:15] INFO:   NEXUS-6 sync complete
+[2026-04-04T08:24:15] INFO: Phase 9: Growth tick
+[2026-04-04T08:24:15] INFO: Phase 10: Auto-commit
