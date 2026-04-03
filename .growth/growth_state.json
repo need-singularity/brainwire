@@ -4,11 +4,11 @@
     "description": "BrainWire growth automation state",
     "created": "2026-04-04T00:00:00Z"
   },
-  "last_scan": "2026-04-03T23:20:32.027796+00:00",
+  "last_scan": "2026-04-03T23:20:39.207446+00:00",
   "last_health": 41,
-  "scan_count": 7,
-  "cycle_count": 1,
-  "last_cycle": "2026-04-03T23:20:24Z",
+  "scan_count": 9,
+  "cycle_count": 2,
+  "last_cycle": "2026-04-03T23:20:33Z",
   "phase_history": [
     {
       "ts": "2026-04-03T23:18:53.639525+00:00",
@@ -23,6 +23,11 @@
     {
       "ts": "2026-04-03T23:20:33.729840+00:00",
       "cycle": 1,
+      "health": 41
+    },
+    {
+      "ts": "2026-04-03T23:20:40.724498+00:00",
+      "cycle": 2,
       "health": 41
     }
   ],
