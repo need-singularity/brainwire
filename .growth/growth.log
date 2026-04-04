@@ -1319,3 +1319,26 @@
 [10:30:51] INFO:  Phase 10: Auto-commit
 [10:30:51] OK:    Committed: growth(brainwire): cycle 20260404-1030 health update
 [10:30:51] INFO:  Sleeping 1800s before next cycle...
+[11:00:51] INFO:  --- Cycle 2/999 ---
+[11:00:53] INFO:  Phase 1: Modality coverage
+[11:00:54] INFO:    Modality coverage: 75.0%, missing: none
+[11:00:54] INFO:  Phase 2: Safety protocol check
+[11:00:54] INFO:    Safety files: 4, safety.py: true, protocol: true
+[11:00:54] INFO:  Phase 3: Parameter verification
+[11:00:54] INFO:    Configs: 1, profiles: 10, tests: 21
+[11:00:54] INFO:  Phase 4: NEXUS-6 scan
+[11:00:55] INFO:    NEXUS-6 scan complete
+[11:00:55] INFO:  Phase 5: BCI protocol health
+[11:00:55] INFO:    Engine files: 5, EEG: true, protocol: true
+[11:00:55] INFO:  Phase 6: Growth scan (full)
+[11:00:56] INFO:    Health score: ?
+[11:00:56] INFO:  Phase 7: PureField bridge status
+[11:00:56] INFO:    PureField bridge: 1 files, consciousness: 2 files
+[11:00:56] INFO:  Phase 8: NEXUS-6 sync
+[11:00:58] INFO:    NEXUS-6 sync complete
+[11:00:59] INFO:  === Common phases for brainwire (cycle 2, res=THROTTLE) ===
+[11:00:59] WARN:    Resource pressure (THROTTLE) — convergence only
+[11:00:59] INFO:    [수렴 2/5] 튜닝 (Tuning/Proceed)
+[11:01:16] INFO:    [Common] Growth bus sync
+[11:01:16] INFO:  Phase 9: Growth tick
+[11:01:16] INFO:  Phase 10: Auto-commit
