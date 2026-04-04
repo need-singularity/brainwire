@@ -11,3 +11,7 @@ calc
 # TECS-L .shared symlink
 .shared
 tecsrs
+
+.claude/settings.local.json
+.claude/worktrees/
+.claude/projects/
