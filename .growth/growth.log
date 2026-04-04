@@ -18,3 +18,13 @@
 [23:12:11] [brainwire] === brainwire Growth Loop ===
 [23:12:11] [brainwire]     cycles=--max-cycles interval=999s domain=neuroscience
 [23:12:11] [brainwire] === brainwire Growth 완료 (0 cycles) ===
+[23:27:15] [brainwire] Lock 획득: brainwire (PID 1631)
+[23:27:15] [brainwire] === brainwire Growth Loop ===
+[23:27:15] [brainwire]     cycles=1 interval=0s domain=neuroscience
+[23:27:15] [brainwire] ━━━ Cycle 1/1 ━━━
+[23:27:15] [brainwire] WARN: 과부하 — 60초 대기
+[23:28:15] [brainwire] === brainwire Growth 완료 (1 cycles) ===
+[23:42:12] [brainwire] Lock 획득: brainwire (PID 33277)
+[23:42:12] [brainwire] === brainwire Growth Loop ===
+[23:42:12] [brainwire]     cycles=--max-cycles interval=999s domain=neuroscience
+[23:42:12] [brainwire] === brainwire Growth 완료 (0 cycles) ===
