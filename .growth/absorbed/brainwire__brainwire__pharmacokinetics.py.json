@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/brainwire/pharmacokinetics.py",
+  "original_path": "brainwire/brainwire/pharmacokinetics.py",
+  "value_grade": "critical",
+  "n6_score": 41.66666666666667,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.494323",
+  "content_preview": "\"\"\"THC Pharmacokinetic Time Model.\n\nModels the temporal dynamics of each 12-variable during actual THC experience.\nDifferent variables have different onset rates, peak times, and decay curves.\n\nBased on:\n- THC plasma kinetics: Tmax=8min (smoked), elimination t1/2=1.5h\n- CB1 receptor occupancy: Hill equation with time-varying concentration\n- Downstream cascade delays: DA fast (seconds), eCB slow (minutes), brainwave intermediate\n\"\"\"\nimport math\nfrom brainwire.variables import VAR_NAMES\nfrom brain"
+}

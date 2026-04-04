@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/TECS-L/docs/hypotheses/H-CX-227-13hz-observer-mode.md",
+  "original_path": "TECS-L/docs/hypotheses/H-CX-227-13hz-observer-mode.md",
+  "value_grade": "high",
+  "n6_score": 14.285714285714285,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:35.749638",
+  "content_preview": "# H-CX-227: 13Hz Boundary Frequency → Forced Observation Mode Switch\n\n> α→β boundary = 13Hz = σ(6)+1 = observation start(H-CX-218).\n> 13Hz tACS stimulation amplifies observational capacity/metacognition.\n> Equipment: tACS(transcranial alternating current stimulation) device."
+}

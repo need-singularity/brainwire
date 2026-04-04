@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/TECS-L/eeg/README.md",
+  "original_path": "TECS-L/eeg/README.md",
+  "value_grade": "critical",
+  "n6_score": 33.33333333333333,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:35.950746",
+  "content_preview": "# EEG Experiment Environment — TECS-L G=D×P/I Verification\n\n## Hardware\n\n| Item | Model | Status |\n|------|-------|--------|\n| Biosensing Board | Cyton+Daisy 16ch | Ordered (OpenBCI All-in-One R&D Bundle) |\n| Headset | UltraCortex Mark IV (Medium, Pro-Assembled, 16ch) | Ordered |\n| Reference Electrode | Earclip Electrode (0.3m) | Ordered |\n| Dry Electrodes | EEG Comb Electrodes (30 pack) | Bundle included |\n| Wet Electrodes | Gold Cup Electrodes x2 | Bundle included |\n| Conductive Paste | Ten20 "
+}

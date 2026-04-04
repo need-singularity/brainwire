@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/docs/major-discoveries.md",
+  "original_path": "brainwire/docs/major-discoveries.md",
+  "value_grade": "critical",
+  "n6_score": 25.0,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.499000",
+  "content_preview": "# BrainWire Major Discoveries\n\nTen potential major findings from the 12-variable consciousness state model.\nEach is implemented as a testable hypothesis in `bench_hypotheses.py` (H-BW-056 through H-BW-065).\n\n---\n\n## Discovery 1: State A = Maximum Entropy Consciousness State\n\n- **What:** State A has the highest Shannon entropy (3.431 bits) of deviation from baseline across all 12 variables, compared to all other consciousness states.\n- **Why it matters:** State A does not predominantly affect one"
+}

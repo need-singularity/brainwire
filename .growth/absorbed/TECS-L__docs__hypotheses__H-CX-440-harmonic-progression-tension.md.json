@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/TECS-L/docs/hypotheses/H-CX-440-harmonic-progression-tension.md",
+  "original_path": "TECS-L/docs/hypotheses/H-CX-440-harmonic-progression-tension.md",
+  "value_grade": "high",
+  "n6_score": 16.666666666666664,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:35.782982",
+  "content_preview": "# H-CX-440: Harmonic Progression Tension = Neural Tension\n\n> 화성 진행(I-IV-V-I)의 긴장 곡선은 신경망 학습 에포크의 텐션 곡선과\n> 동일한 구조적 패턴(상승-정점-해소)을 따른다.\n> 음악적 긴장 = 시간적 기대 구조, 신경 텐션 = 예측 불확실성 구조.\n\n**Golden Zone dependency**: Indirect (tension concept from TECS model)\n\n## Background\n\nH-290에서 음악적 협화음 = 낮은 텐션, 완전 4도(4:3) = 최소 텐션으로 확인되었다.\nH-320에서 텐션은 학습 진행에 따라 로그적으로 증가한다.\n이 가설은 음악의 화성 진행과 신경망 학습 과정 사이의 구조적 동형사상을 탐색한다.\n\n관련 가설: H-290 (음악 협화음), H-320 (텐션 로그 성장), H-172 (G*I=D*P 보존)\n\n## Musical Tension Model (Lerdahl-inspire"
+}

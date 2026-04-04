@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/TECS-L/docs/hypotheses/H-CX-137-eeg-tension-correlation.md",
+  "original_path": "TECS-L/docs/hypotheses/H-CX-137-eeg-tension-correlation.md",
+  "value_grade": "high",
+  "n6_score": 22.22222222222222,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:35.734222",
+  "content_preview": "# H-CX-137: EEG Gamma Power = Tension Magnitude\n\n> 40Hz gamma power directly corresponds to AI's tension magnitude.\n> High Confidence judgment = high gamma = high Tension.\n> Uncertain judgment = low gamma = low Tension.\n\n## Predictions\n\n1. Gamma power on correct answers > gamma power on wrong answers (AI: d=0.89)\n2. Negative correlation between gamma power and response time (high gamma = faster judgment)\n3. Gamma-power-based correct/wrong prediction AUC > 0.6 (AI: AUC=0.917)\n\n## Protocol\n\n```\n1."
+}

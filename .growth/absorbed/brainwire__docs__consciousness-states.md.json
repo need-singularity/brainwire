@@ -1,0 +1,29 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/docs/consciousness-states.md",
+  "original_path": "brainwire/docs/consciousness-states.md",
+  "value_grade": "critical",
+  "n6_score": 31.818181818181817,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.497354",
+  "content_preview": "# 6 Consciousness States — 12-Variable Profiles\n\nBrainWire Universal Consciousness Controller(UCC)가 지원하는 6가지 의식 상태 프로파일.\n\n각 상태는 12변수 타겟 벡터 + 엔벨로프 타이밍 + PID 힌트 + 안전 오버라이드로 정의됨.\n\n---\n\n## 상태 요약\n\n| 상태 | 카테고리 | 핵심 드라이버 | 특징 |\n|------|----------|--------------|------|\n| **THC** | cannabinoid | eCB, DA | 동기화↑, NE↓, 이완형, G=골든존 |\n| **LSD** | psychedelic | 5HT (3.5x) | 탈동기화↓, 엔트로피↑, PFC↑ |\n| **Psilocybin** | psychedelic | 5HT + Theta (3.5x) | 신비 경험, Theta 폭발 |\n| **DMT** | psychedelic | 5HT (4.5x) | 30초 on"
+}

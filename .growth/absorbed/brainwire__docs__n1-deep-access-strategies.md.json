@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/docs/n1-deep-access-strategies.md",
+  "original_path": "brainwire/docs/n1-deep-access-strategies.md",
+  "value_grade": "critical",
+  "n6_score": 27.77777777777778,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.499461",
+  "content_preview": "# N1 Deep Access Strategies — Reaching Deep Brain Through Cortical Electrodes\n\n## The Problem\n\nN1 electrodes sit at 3-6mm depth (cortical layers I-VI). The deep structures that\ndrive the 5 \"deep\" Joywire variables are far beyond reach:\n\n| Structure       | Depth   | Variable(s)         |\n|----------------|---------|---------------------|\n| VTA            | ~70mm   | DA (dopamine)       |\n| Locus coeruleus| ~80mm   | NE (norepinephrine) |\n| Dorsal raphe   | ~80mm   | 5HT (serotonin)     |\n| Hippo"
+}

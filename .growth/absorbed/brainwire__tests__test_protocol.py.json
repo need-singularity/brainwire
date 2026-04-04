@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/tests/test_protocol.py",
+  "original_path": "brainwire/tests/test_protocol.py",
+  "value_grade": "critical",
+  "n6_score": 41.66666666666667,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.505206",
+  "content_preview": "import pytest\nimport json\nimport tempfile\nfrom brainwire.protocol import generate_protocol, params_to_devices, export_json\n\ndef test_generate_thc_protocol():\n    p = generate_protocol('thc', tier=3, session_min=30)\n    assert p['state'] == 'thc'\n    assert p['tier'] == 3\n    assert len(p['steps']) > 0\n    assert len(p['safety']) > 5\n\ndef test_protocol_has_all_phases():\n    p = generate_protocol('thc', tier=3, session_min=20)\n    phases = set(s.phase for s in p['steps'])\n    assert 'prep' in phas"
+}

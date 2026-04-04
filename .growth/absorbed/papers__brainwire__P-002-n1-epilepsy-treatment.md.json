@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/papers/brainwire/P-002-n1-epilepsy-treatment.md",
+  "original_path": "papers/brainwire/P-002-n1-epilepsy-treatment.md",
+  "value_grade": "high",
+  "n6_score": 21.428571428571427,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.887202",
+  "content_preview": "# Cortical-Only Seizure Control: A Computational Framework for Epilepsy Treatment via N1 Brain-Computer Interface\n\n**Authors:** BrainWire Research Group (Park, Min Woo)\n\n**Date:** March 2026\n\n**Status:** Draft v1.0\n\n---\n\n## Abstract\n\nEpilepsy affects approximately 50 million people worldwide, with 30% of cases resistant to pharmacological treatment. Current responsive neurostimulation systems --- most notably the NeuroPace RNS --- employ 4 electrode contacts with approximately 160 ms detection l"
+}

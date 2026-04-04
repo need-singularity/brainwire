@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/contact/email_neuralink_brainwire.md",
+  "original_path": "email_neuralink_brainwire.md",
+  "value_grade": "high",
+  "n6_score": 16.666666666666664,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:32.625120",
+  "content_preview": "## Subject\n\nCortical electrodes can reach ALL 15 deep brain structures — computational proof with 8 theorems (DOI: 10.5281/zenodo.19279028)\n\n## Body\n\nDear Neuralink Team,\n\nI'm Min Woo Park, an independent researcher working on consciousness engineering via brain stimulation hardware (BrainWire project).\n\nI've published a computational paper proving that cortical-only electrodes (like N1) can modulate ALL 15 major subcortical structures through indirect pathways — without physically reaching them"
+}

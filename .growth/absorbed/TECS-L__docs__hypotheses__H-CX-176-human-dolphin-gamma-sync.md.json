@@ -1,0 +1,29 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/TECS-L/docs/hypotheses/H-CX-176-human-dolphin-gamma-sync.md",
+  "original_path": "TECS-L/docs/hypotheses/H-CX-176-human-dolphin-gamma-sync.md",
+  "value_grade": "high",
+  "n6_score": 15.0,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:35.741030",
+  "content_preview": "# H-CX-176: Human-Dolphin Gamma Synchronization — Cross-species 40Hz Resonance\n\n> When humans swim with dolphins, does human EEG gamma (40Hz) synchronize with dolphin gamma?\n> Same 3σ(6)+τ(6)=40Hz channel → Cross-species phase transfer?\n> H-CX-132 (dolphin 40Hz) + H-CX-137 (EEG=tension) intersection."
+}

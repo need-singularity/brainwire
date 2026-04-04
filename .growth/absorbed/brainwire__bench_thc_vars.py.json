@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/bench_thc_vars.py",
+  "original_path": "brainwire/bench_thc_vars.py",
+  "value_grade": "critical",
+  "n6_score": 31.25,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.491083",
+  "content_preview": "#!/usr/bin/env python3\n\"\"\"BrainWire THC Variable Benchmark — 뇌자극 전용 12변수 하드웨어 재현 검증.\n\n뇌자극 하드웨어만 사용 (전기자극 + 자기자극 + 신경 엔트레인먼트):\n  - tDCS, tACS, TMS (뇌 직접 자극)\n  - TENS, taVNS (말초신경 전기자극)\n  - LED/Audio/Vibro 40Hz (감각경로 뇌 엔트레인먼트)\n  - Stochastic resonance noise (신경 확률공명)\n\n제외: 온열패드, 가중담요, 음악, 일반진동, 적외선 — 뇌자극 아님\n\nPureField Tension Framework:\n  T_total = √(T_chem² + T_wave² + T_state²)\n  T_THC   = 4.280 (기준)\n\nVariables (12-dimensional tension vector):\n  V1:  DA (dopamine)          target 2.5×\n  V2:  eCB "
+}

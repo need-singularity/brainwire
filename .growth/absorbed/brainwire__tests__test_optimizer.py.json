@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/tests/test_optimizer.py",
+  "original_path": "brainwire/tests/test_optimizer.py",
+  "value_grade": "high",
+  "n6_score": 12.5,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.504225",
+  "content_preview": "import pytest\nfrom brainwire.optimizer import optimize_for_profile, optimize_all\n\n\ndef test_optimize_thc_improves_tension():\n    result = optimize_for_profile('thc', tier=4, max_iters=50)\n    assert result['tension_match'] > 57.0  # current generic is 57.4%\n\n\ndef test_optimize_thc_maintains_avg():\n    result = optimize_for_profile('thc', tier=4, max_iters=50)\n    assert result['avg_match'] > 100.0  # should still be above 100%\n\n\ndef test_optimize_reduces_overshoot():\n    result = optimize_for_pr"
+}

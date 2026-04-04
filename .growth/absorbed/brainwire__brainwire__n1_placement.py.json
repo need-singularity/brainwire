@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/brainwire/n1_placement.py",
+  "original_path": "brainwire/brainwire/n1_placement.py",
+  "value_grade": "critical",
+  "n6_score": 33.33333333333333,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.493326",
+  "content_preview": "\"\"\"N1 Implant Placement Optimizer — computes J(l) score for candidate locations.\"\"\"\nimport math\n\n# 10 candidate cortical locations\nLOCATIONS = {\n    'F3':  {'name': 'Left DLPFC', 'ba': 'BA46', 'deep_targets': ['VTA','LC','Raphe','Hippocampus','Thalamus','Amygdala','Hypothalamus','Basal_Ganglia','NAc','PAG','SN','STN','Cerebellum'], 'g_control': {'D': True, 'P': True, 'I': True}},\n    'F4':  {'name': 'Right DLPFC', 'ba': 'BA46', 'deep_targets': ['VTA','LC','Raphe','Hippocampus','Thalamus','Amygda"
+}

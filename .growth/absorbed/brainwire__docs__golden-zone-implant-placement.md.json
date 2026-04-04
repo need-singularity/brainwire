@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/docs/golden-zone-implant-placement.md",
+  "original_path": "brainwire/docs/golden-zone-implant-placement.md",
+  "value_grade": "critical",
+  "n6_score": 50.0,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.497915",
+  "content_preview": "# Golden Zone Implant Placement — Optimal N1 Position for G=D×P/I\n\n## 1. G=D×P/I Decomposition by Brain Region\n\nThe golden zone metric G decomposes into three independently controllable EEG-derived components:\n\n```\nG = D × P / I\n```\n\n| Component | Formula | Brain Region | Electrodes |\n|---|---|---|---|\n| **D** (Asymmetry) | \\|ln(α_right) - ln(α_left)\\| | Parietal / Occipital | P3/P4, O1/O2 |\n| **P** (Gamma ratio) | Gamma / (Alpha + Gamma) | Distributed cortical | C3/C4, Pz, Fz |\n| **I** (Inhibit"
+}

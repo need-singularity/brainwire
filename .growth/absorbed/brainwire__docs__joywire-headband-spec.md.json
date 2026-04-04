@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/docs/joywire-headband-spec.md",
+  "original_path": "brainwire/docs/joywire-headband-spec.md",
+  "value_grade": "high",
+  "n6_score": 16.666666666666664,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.498574",
+  "content_preview": "# Joywire Headband — Product Specification v1.0\n\n**Document:** SPEC-JW-001\n**Date:** 2026-03-28\n**Status:** Draft\n**Author:** BrainWire Engineering\n\n---\n\n## Product Vision\n\nA single wearable headband that reproduces the THC high state using electrical stimulation, photobiomodulation, and multi-modal sensory entrainment. No drugs, no chemicals — just hardware.\n\n- **Form factor:** Headband + ear clips\n- **Target retail price:** $2,475 (3x BOM markup)\n- **Session length:** 30 minutes (configurable "
+}

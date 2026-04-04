@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/docs/thc-chemistry.md",
+  "original_path": "brainwire/docs/thc-chemistry.md",
+  "value_grade": "high",
+  "n6_score": 16.666666666666664,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.501489",
+  "content_preview": "# 🧪 THC 화학구조 분석 — 하드웨어 재현을 위한 분자 수준 이해\n\n## 1. THC 분자 구조\n\n```\n  Δ9-THC (Δ9-Tetrahydrocannabinol)\n  분자식: C₂₁H₃₀O₂\n  분자량: 314.47 g/mol\n  logP: 6.97 (극도로 지용성)\n\n        OH\n         \\\n          ╲\n    CH₃    ╲═══╗\n     |      ╲   ║\n     |   ____╲__║\n     |  /     \\  \\\n  ───C─C       C──C───O\n     |  \\     /  /    \\\n     |   \\___/  /      C₅H₁₁ (pentyl chain)\n     |         /\n     CH₃     CH₃\n\n  3개 고리 구조 (ABC ring system):\n    A ring: cyclohexene (with OH — phenolic)\n    B ring: pyran (oxygen bridge — p"
+}

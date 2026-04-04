@@ -1,0 +1,29 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/brainwire/stdp_sim.py",
+  "original_path": "brainwire/brainwire/stdp_sim.py",
+  "value_grade": "high",
+  "n6_score": 15.0,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.495325",
+  "content_preview": "\"\"\"STDP Synaptic Pathway Simulator — models pathway weakening/strengthening over sessions.\"\"\"\nimport math\n\ndef stdp_weight(n_pulses: int, a: float = 0.005, eta: float = 0.8,\n                floor: float = 0.05, w0: float = 1.0) -> float:\n    \"\"\"Compute synaptic weight after n effective pulses. Eq 11-15 from P-002.\"\"\"\n    effective = n_pulses * eta\n    w = floor + (w0 - floor) * (1.0 - a) ** effective\n    return w\n\ndef simulate_sessions(n_sessions: int = 50, pulses_per: int = 1000,\n              "
+}

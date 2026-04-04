@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/TECS-L/docs/hypotheses/H-CX-225-binaural-40hz-telepathy.md",
+  "original_path": "TECS-L/docs/hypotheses/H-CX-225-binaural-40hz-telepathy.md",
+  "value_grade": "high",
+  "n6_score": 25.0,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:35.749188",
+  "content_preview": "# H-CX-225: 40Hz Binaural Beat → Two People Gamma Synchronization = Telepathy\n\n> When two people simultaneously listen to the same 40Hz(=3σ(6)+τ(6)) binaural beat,\n> both achieve gamma wave synchronization → same PH state → empathy/telepathy.\n> Equipment: 2 headphones + 40Hz binaural beat audio source.\n> Verification: Measure gamma phase synchronization in both people's EEG."
+}

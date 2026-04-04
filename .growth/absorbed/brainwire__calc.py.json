@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/calc.py",
+  "original_path": "brainwire/calc.py",
+  "value_grade": "high",
+  "n6_score": 16.666666666666664,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.496396",
+  "content_preview": "#!/usr/bin/env python3\n\"\"\"BrainWire 수치 계산기 — THC 12변수 장력 기반 하드웨어 최적화.\n\n사용법:\n  python calc.py                          # 전체 Tier 비교\n  python calc.py compute --vns 0.4 --tdcs 1.5 --tens 0.8  # 커스텀 계산\n  python calc.py optimize --budget 500    # 예산 내 최적 조합\n  python calc.py sensitivity              # 민감도 분석 (어떤 파라미터가 가장 효과적)\n  python calc.py inverse --var DA --target 2.5   # 역계산 (목표→필요 파라미터)\n  python calc.py sweep --param VNS --min 0 --max 0.5 --steps 20  # 파라미터 스윕\n  python calc.py gap               "
+}

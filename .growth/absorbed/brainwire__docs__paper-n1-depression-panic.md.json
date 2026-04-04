@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/docs/paper-n1-depression-panic.md",
+  "original_path": "brainwire/docs/paper-n1-depression-panic.md",
+  "value_grade": "high",
+  "n6_score": 16.666666666666664,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.500110",
+  "content_preview": "# Cortical-Only Neuromodulation for Major Depressive Disorder and Panic Disorder: A Mathematical Framework for N1 Brain-Computer Interface Treatment\n\n**Authors:** BrainWire Research Group (Park, Min Woo)\n\n**Date:** March 2026\n\n**Status:** Draft v1.0\n\n---\n\n## Abstract\n\nMajor depressive disorder (MDD) affects 280 million people worldwide, with 30% of cases resistant to pharmacotherapy. Panic disorder affects 2--3% of the global population, with 40--60% developing comorbid depression. Current neuro"
+}

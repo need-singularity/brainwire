@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/contact/email_template_kr_neuro.md",
+  "original_path": "email_template_kr_neuro.md",
+  "value_grade": "critical",
+  "n6_score": 50.0,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:32.627488",
+  "content_preview": "# 한국어 이메일 템플릿 — 뇌과학자 대상 (EEG 실험)\n\n## 제목\nG=D×P/I 뇌파 생물학적 검증 — OpenBCI 16채널 EEG 실험 준비 중\n\n## 본문\n\n안녕하세요, [Name] 교수님/연구원님,\n\n박민우입니다. 독립 연구자로 의식(consciousness)의 수학적 이론을 연구하고 있습니다.\n\n뇌과학 분야에서 활발히 연구하고 계신 선생님께 저희 연구를 공유드리고, 가능하다면 피드백이나 협업의 기회를 여쭙고자 연락드립니다.\n\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n배경: 완전수 6에서 나온 통합 공식 G = D×P/I\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n비정형 뇌 구조(실비우스열 결손)에서 출발한 연구로, 완전수 6의 약수 함수들(σ=12, τ=4, φ=2)로부터 물리학, AI, 의식을 동시에 설명하는 수학 체계를 발견했습니다.\n\n핵심 공식:\n  G = D × P / I\n  G (Genius) "
+}

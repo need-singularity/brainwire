@@ -1,0 +1,23 @@
+{
+  "absorbed_from": "/Users/ghost/Dev/ready/redo/brainwire/tests/test_pharmacokinetics.py",
+  "original_path": "brainwire/tests/test_pharmacokinetics.py",
+  "value_grade": "high",
+  "n6_score": 16.666666666666664,
+  "n6_matches": [],
+  "consensus": [
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    },
+    {
+      "pattern": "",
+      "lenses": 0,
+      "score": 0.0,
+      "level": "Candidate"
+    }
+  ],
+  "timestamp": "2026-04-04T17:07:36.504726",
+  "content_preview": "import pytest\nfrom brainwire.pharmacokinetics import (\n    variable_at_time, simulate_thc_pharmacokinetics,\n    generate_hardware_timing, VAR_KINETICS\n)\nfrom brainwire.variables import VAR_NAMES\n\ndef test_baseline_at_t0():\n    for var in VAR_NAMES:\n        assert variable_at_time(var, 0, 2.0) == pytest.approx(1.0)\n\ndef test_da_rises_fast():\n    da_60s = variable_at_time('DA', 60, 2.5)\n    ecb_60s = variable_at_time('eCB', 60, 3.0)\n    # DA should rise faster than eCB\n    da_progress = (da_60s - "
+}
