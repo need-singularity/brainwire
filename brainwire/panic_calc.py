@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Panic Disorder Treatment Calculator.
 
 Mathematical framework for N1-based panic disorder treatment via cortical stimulation.

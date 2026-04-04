@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """MDD ↔ Panic Disorder Crossover Analysis Calculator.
 
 Identifies mathematical intersections between depression and panic disorder models.

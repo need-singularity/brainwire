@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """Major Depressive Disorder (MDD) Treatment Calculator.
 
 Mathematical framework for N1-based depression treatment via cortical stimulation.

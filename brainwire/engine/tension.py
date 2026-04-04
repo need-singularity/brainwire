@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import math
 from brainwire.variables import VAR_NAMES, TENSION_WEIGHTS, CHEM_VARS, WAVE_VARS, STATE_VARS
 

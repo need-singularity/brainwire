@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """TECS-L Verification Framework for BrainWire hypotheses.
 
 Implements the full TECS-L verification pipeline:
