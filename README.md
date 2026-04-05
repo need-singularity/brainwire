@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 <!-- AUTO:BADGE:START -->
-[![Modalities](https://img.shields.io/badge/Modalities-12-blue.svg)]()
+[![Modalities](https://img.shields.io/badge/Modalities-?-blue.svg)]()
 <!-- AUTO:BADGE:END -->
 
 <!-- SHARED:PROJECTS:START -->
@@ -114,8 +114,8 @@ State (4):      PFC · Sensory · Body · Coherence
 
 <!-- AUTO:STATS:START -->
 ```
-  Modalities:       12
-  Test files:       21
+  Modalities:       ?
+  Test files:       22
   Hypothesis docs:  0
 ```
 <!-- AUTO:STATS:END -->
