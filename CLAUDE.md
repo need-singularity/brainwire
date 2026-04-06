@@ -222,6 +222,13 @@ BrainWire is a **neural interface hardware research company**. We design and bui
 - **Feedback:** Tension gradient control (superior to PID) on consciousness state variables
 - **Measurement:** G=D×P/I golden zone targeting, Φ(IIT) real-time
 
+## 필수 규칙
+
+### hexa-native 전용 (sh/py/rs 작성 금지)
+- **새 파일은 `.hexa`만 허용** — `.sh`, `.py`, `.rs` 등 다른 언어 파일 작성 금지
+- 모든 새 모듈은 `mk2_hexa/native/` 에 `.hexa` 파일로 생성
+- 기존 sh/py 스크립트는 참조만 허용, 신규 작성 불가
+
 ## Work Rules
 
 - All solutions must involve **hardware** (electrical, acoustic, photonic, thermal, magnetic)
