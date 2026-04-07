@@ -7,7 +7,7 @@ DOMAIN="neuroscience"
 MAX_CYCLES=${MAX_CYCLES:-${1:-999}}
 INTERVAL=${INTERVAL:-${2:-1800}}
 
-COMMON="$HOME/Dev/nexus6/scripts/lib/growth_common.sh"
+COMMON="$HOME/Dev/nexus/scripts/lib/growth_common.sh"
 source "$COMMON"
 
 domain_phases() {
@@ -35,7 +35,7 @@ domain_phases() {
         write_growth_bus "shared_link" "ok"
     else
         log_warn "Phase[shared_link] .shared symlink broken — auto-repair"
-        ln -sf "$HOME/Dev/nexus6/shared" "$shared_link"
+        ln -sf "$HOME/Dev/nexus/shared" "$shared_link"
         write_growth_bus "shared_link" "repaired" "symlink_recreated"
     fi
 
